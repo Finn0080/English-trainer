@@ -284,8 +284,8 @@ function fq(a){try{let t=a[0];
 let CH=[],busy=0;
 function tutor(){return`<div class="row"><button data-v="home">Home</button><span class="chip">Tutor · ${S.dl||"B1"}</span></div><div class="card">${CH.length?CH.map(m=>`<div class="msg ${m.role=="user"?"u":"a"}">${esc(m.content)}</div>`).join(""):'<p class="mu">Ask about grammar, vocabulary or pronunciation, or paste a sentence to correct.</p>'}${busy?'<p class="mu">Thinking…</p>':""}<div class="row"><input type="text" id="ti" style="flex:1;min-width:0;width:auto" aria-label="Your message" maxlength="1000" placeholder="Type your question"><button class="p" id="snd" ${busy?"disabled":""}>Send</button></div></div>`}
 async function tsend(){let i=$("#ti"),v=i&&i.value.trim();if(!v||busy)return;CH.push({role:"user",content:v.slice(0,1000)});busy=1;draw();
- try{let r=await fetch(PROXY_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({level:S.dl||"B1",messages:CH.slice(-8)})}),j=await r.json();CH.push({role:"assistant",content:j.reply||"Sorry, I could not answer. Please try again."})}
- catch(e){CH.push({role:"assistant",content:"The tutor is offline. Check your connection and try again."})}
+ try{let r=await fetch(PROXY_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({level:S.dl||"B1",messages:CH.slice(-8)})}),j=await r.json();CH.push({role:"assistant",content:j.reply||"The Worker answered with error "+r.status+" ("+(j.error||"unknown")+"). Check its settings."}
+ catch(e){CH.push({role:"assistant",content:"Could not reach the tutor. This page is "+location.origin+" and ALLOWED_ORIGIN in the Worker must be exactly that. Also check that the Worker has the latest code and is deployed."})}
  if(CH.length>40)CH.splice(0,CH.length-40);busy=0;draw()}
 /* ===== 6. UI RENDERING ===== */
 function draw(){let h="";
