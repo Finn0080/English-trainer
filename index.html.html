@@ -192,7 +192,7 @@ const LV=Object.keys(DATA),MD=["listening","speaking","reading","writing","vocab
    "extra" adds to the same pools as DATA (same formats). "daily" gives ready-made questions for that date and level. */
 const FEED_URL="";
 /* AI tutor (optional): address of your proxy (see worker.js). The API key lives only on the server. Leave "" to hide the tutor. */
-const PROXY_URL="https://english-tutor.tunglamisfinn.workers.dev/";
+const PROXY_URL="https://english-tutor.tunglamisfinn.workers.dev";
 let FEED={};
 /* ===== 2. STATE ===== */
 let S=load(),R=null,view="home";
@@ -341,10 +341,10 @@ function wire(){let A=$("#app"),it=R&&R.q&&R.q[R.i],pick=[];
  const draw2=()=>{pick=[];document.querySelectorAll("[data-w]").forEach(b=>b.disabled=false);$("#sel").textContent=""};
  let c=$("#pl");if(c)c.onchange=()=>{S.pl=c.checked?1:0;save();draw()};
  let r=$("#rt");if(r)r.oninput=()=>rate=+r.value;
- let ti=$("#ti");if(ti){ti.focus();ti.onkeydown=e=>e.key=="Enter"&&tsend()}
+ let ti=$("#ti");if(ti){ti.focus();ti.onkeydown=e=>{if(e.key=="Enter")tsend()}}
  let wr=$("#wr");if(wr){wr.focus();wr.oninput=()=>$("#cl").innerHTML=cl(wr.value,it)}
- let tx=$("#tx");if(tx){tx.focus();tx.onkeydown=e=>e.key=="Enter"&&$("#ck").click()}
- let fc=$("#fc");if(fc)fc.onkeydown=e=>(e.key=="Enter"||e.key==" ")&&(e.preventDefault(),fc.click());
+ let tx=$("#tx");if(tx){tx.focus();tx.onkeydown=e=>{if(e.key=="Enter")$("#ck").click()}}
+ let fc=$("#fc");if(fc)fc.onkeydown=e=>{if(e.key=="Enter"||e.key==" "){e.preventDefault();fc.click()}};
  if(it&&it.say&&it.t!="speak")setTimeout(()=>say(it.say),300)}
 /* Writing checklist (B2+): word count, linking words, sentences */
 const LINK=/\b(however|therefore|although|moreover|in addition|because|for example|on the other hand|on the one hand|while|firstly|finally|as a result|nevertheless|whereas|yet)\b/gi;
