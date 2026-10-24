@@ -4,7 +4,7 @@ Needs env var GEMINI_API_KEY (stays on the server / in GitHub Secrets, never in 
 import json, os, sys, time, datetime, urllib.request
 
 KEY = os.environ.get("GEMINI_API_KEY", "")
-MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.0-flash")
+MODEL = os.environ.get("GEMINI_MODEL", "gemini-3.8-flash")
 FEED, AHEAD = "feed.json", 7          # days generated in advance
 LEVELS = {"A1": "very basic words, simple present tense", "A2": "everyday topics, simple past, future with going to",
           "B1": "everyday topics, phrasal verbs, first and second conditional", "B2": "abstract topics, passive, reported speech, linking words",
