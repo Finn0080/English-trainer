@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>English Trainer</title>
+<style>
+:root{--bg:#f5f6fb;--fg:#171a2b;--mu:#6a6f87;--ln:#e3e6f2;--ac:#4f46e5;--ac2:#eef0ff;--ok:#16915a;--okb:#e6f6ee;--no:#d6453a;--nob:#fdecea;--cd:#fff;--sh:0 1px 2px rgba(23,26,43,.05),0 8px 24px rgba(23,26,43,.06)}
+@media(prefers-color-scheme:dark){:root{--bg:#0e1020;--fg:#eceefa;--mu:#9aa0bd;--ln:#262a45;--ac:#8b93ff;--ac2:#1c2040;--ok:#4cc990;--okb:#12301f;--no:#ff7b70;--nob:#3a1a1d;--cd:#171a30;--sh:0 8px 24px rgba(0,0,0,.35)}}
+*{box-sizing:border-box}body{margin:0;color:var(--fg);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:radial-gradient(900px 340px at 50% -80px,var(--ac2),transparent) var(--bg) no-repeat;min-height:100vh}
+main{max-width:680px;margin:0 auto;padding:36px 16px 72px}
+h1{font-size:2rem;font-weight:750;letter-spacing:-.03em;margin:0 0 4px}h2{font-size:1.3rem;font-weight:700;letter-spacing:-.02em;margin:0 0 12px}
+.mu{color:var(--mu);font-size:.92rem}.hd{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.chip{display:inline-block;background:var(--ac2);color:var(--ac);border-radius:99px;padding:4px 12px;font-size:.85rem;font-weight:600}
+.card{background:var(--cd);border:1px solid var(--ln);border-radius:18px;padding:26px;margin:18px 0;box-shadow:var(--sh)}
+button,input{font:inherit;color:inherit}
+button{background:var(--cd);border:1px solid var(--ln);border-radius:12px;padding:10px 16px;cursor:pointer;font-weight:500;transition:transform .15s,border-color .15s,background .15s,box-shadow .15s}
+button:hover:not(:disabled){border-color:var(--ac);transform:translateY(-1px);box-shadow:0 4px 12px rgba(79,70,229,.12)}button:active:not(:disabled){transform:none}
+button:disabled{opacity:.5;cursor:default}button.p{background:var(--ac);border-color:var(--ac);color:#fff;font-weight:600}
+:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
+textarea,input[type=text]{width:100%;padding:13px 14px;border:2px solid var(--ln);border-radius:12px;background:var(--bg);font-size:1.05rem}textarea:focus,input[type=text]:focus{border-color:var(--ac);outline:0}
+select{font:inherit;color:inherit;background:var(--cd);border:1px solid var(--ln);border-radius:12px;padding:10px 12px}textarea{min-height:150px;resize:vertical;font:inherit;color:inherit}input[type=checkbox],input[type=range]{accent-color:var(--ac)}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0;align-items:center}
+.opts{display:grid;gap:10px;margin:16px 0;counter-reset:o}.opts button{text-align:left;display:flex;gap:12px;align-items:center;padding:13px 14px;border-width:2px}
+.opts button:before{counter-increment:o;content:counter(o,upper-alpha);flex:none;width:26px;height:26px;border-radius:8px;background:var(--ac2);color:var(--ac);font-size:.8rem;font-weight:700;display:grid;place-items:center}
+.opts button.ok,.opts button.no{opacity:1}
+.ok{border-color:var(--ok)!important;background:var(--okb)!important}.no{border-color:var(--no)!important;background:var(--nob)!important}
+.bar{height:8px;background:var(--ln);border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;background:var(--ac);border-radius:99px;transition:width .28s}
+table{border-collapse:separate;border-spacing:5px;width:100%;font-size:.85rem}td,th{text-align:center;padding:0}th{font-weight:600;color:var(--mu);font-size:.78rem}tr>th:first-child{color:var(--fg);font-size:.9rem;text-align:left;padding-right:6px}
+td button{width:100%;padding:11px 0;border-radius:10px;font-weight:650;font-size:.88rem;border-color:transparent;background:color-mix(in srgb,var(--ac) calc(var(--p,0)*.42%),var(--ac2));color:var(--fg)}
+td button[disabled]{background:transparent;border:1px dashed var(--ln)}
+.fb{margin-top:16px;padding:14px 16px;border-radius:12px;background:var(--ac2)}.fb:empty{display:none}.miss{color:var(--no);font-weight:650;text-decoration:underline}
+.flip>div{min-height:160px;border:2px solid var(--ln);border-radius:16px;padding:28px;text-align:center;background:var(--bg);cursor:pointer;display:flex;flex-direction:column;justify-content:center;transition:border-color .2s}.flip>div:hover{border-color:var(--ac)}
+ul{padding-left:20px}.msg{padding:10px 14px;border-radius:12px;margin:8px 0;white-space:pre-wrap}.msg.u{background:var(--ac2);margin-left:15%}.msg.a{background:var(--bg);border:1px solid var(--ln);margin-right:15%}
+@media(max-width:480px){main{padding-top:24px}.card{padding:18px}h1{font-size:1.6rem}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body><main id="app"></main>
+<script>
+/* ===== 1. DATA — edit freely. Each level: P=passages [text,question,[options],answerIndex],
+   W=words [word,definition,example,IPA,stressed-syllable-in-CAPS (hyphenated),synonym],
+   M=minimal pairs [a,b], E=error corrections [wrong,right]. Empty levels are ready to be filled. ===== */
+const DATA={
+A1:{P:[["Tom has a dog. The dog is brown.","What colour is the dog?",["Black","Brown","White"],1],
+["I get up at seven. I eat bread and drink milk.","What does the speaker drink?",["Tea","Milk","Water"],1],
+["Anna lives in a small house. It has two rooms.","How many rooms are there?",["One","Two","Three"],1],
+["My sister is ten. She likes football.","What does she like?",["Tennis","Football","Music"],1],
+["The shop opens at nine. It closes at six.","When does it open?",["Nine","Six","Seven"],0],
+["We go to school by bus. The bus is red.","How do they go to school?",["By bus","By car","By train"],0]],
+W:[["teacher","a person who works in a school","My teacher is kind.","/ˈtiːtʃər/","TEA-cher","instructor"],
+["family","parents, children and relatives","I love my family.","/ˈfæməli/","FAM-i-ly","relatives"],
+["morning","the early part of the day","I run in the morning.","/ˈmɔːrnɪŋ/","MOR-ning","dawn"],
+["happy","feeling good","I am happy today.","/ˈhæpi/","HAP-py","glad"],
+["big","large in size","It is a big house.","/bɪɡ/","big","large"],
+["buy","to get something with money","I buy bread every day.","/baɪ/","buy","purchase"],
+["hotel","a place to stay when you travel","The hotel is near the beach.","/hoʊˈtel/","ho-TEL","inn"],
+["banana","a long yellow fruit","I eat a banana for breakfast.","/bəˈnænə/","ba-NA-na",""],
+["sister","your parent's daughter","My sister is ten.","/ˈsɪstər/","SIS-ter","sibling"],
+["window","an opening in a wall with glass","Please open the window.","/ˈwɪndoʊ/","WIN-dow",""]],
+M:[["ship","sheep"],["light","right"],["think","sink"]],
+E:[["She go to school.","She goes to school."],["I has a cat.","I have a cat."],["He are happy.","He is happy."]]},
+A2:{P:[["Last weekend I visited my aunt. We cooked pasta and watched a film.","What did they do?",["Played football","Cooked and watched a film","Went shopping"],1],
+["It was cold yesterday, so Ben wore a coat and stayed home.","Why did Ben stay home?",["It was cold","He was ill","He was tired"],0],
+["Maria is going to study English in London next year.","What will Maria do next year?",["Work in Paris","Study in London","Visit a friend"],1],
+["The train to the city leaves at ten past eight and takes forty minutes.","How long is the trip?",["Ten minutes","Forty minutes","Eight minutes"],1],
+["I usually walk to work, but today it is raining, so I am taking the bus.","How is the speaker travelling today?",["Walking","By bus","By bike"],1]],
+W:[["borrow","to take something and give it back later","Can I borrow your pen?","/ˈbɑːroʊ/","BOR-row","lend"],
+["invite","to ask someone to come to an event","I will invite my friends.","/ɪnˈvaɪt/","in-VITE","ask"],
+["tired","needing rest or sleep","I am tired after work.","/ˈtaɪərd/","TIRED","sleepy"],
+["ticket","a paper that lets you travel or enter","I bought a train ticket.","/ˈtɪkɪt/","TICK-et","pass"],
+["weather","rain, sun, wind and temperature","The weather is nice today.","/ˈweðər/","WEATH-er","climate"],
+["airport","a place where planes land","We arrived at the airport.","/ˈerpɔːrt/","AIR-port",""],
+["comfortable","pleasant to sit, wear or use","This chair is comfortable.","/ˈkʌmftərbəl/","COM-fort-a-ble","cosy"],
+["decide","to choose after thinking","I need to decide today.","/dɪˈsaɪd/","de-CIDE","choose"]],
+M:[["bad","bed"],["full","fool"],["very","berry"]],
+E:[["I am going to the school yesterday.","I went to school yesterday."],["She don't like coffee.","She doesn't like coffee."],["We was late.","We were late."]]},
+B1:{P:[["Although the hotel was cheap, the room was spotless and the staff were helpful, so we decided to stay another night.","Why did they stay longer?",["It was cheap and the room was good","The weather was bad","They missed their flight"],0],
+["Sam gave up smoking last year because his doctor warned him about his health.","Why did Sam stop smoking?",["His doctor warned him","He was bored","It was expensive"],0],
+["If the meeting runs late, I'll call you so you don't wait for me.","When will the speaker call?",["If the meeting is late","Before the meeting","After dinner"],0],
+["Remote work has made it easier to balance family life, though some people miss the office.","What do some people miss?",["The office","Their family","Travelling"],0],
+["She looked after her neighbour's cat while they were away on holiday.","What did she do?",["Took care of a cat","Bought a cat","Lost a cat"],0]],
+W:[["give up","to stop trying or doing something","Never give up on your dreams.","/ɡɪv ʌp/","give UP","quit"],
+["look after","to take care of","She looks after her brother.","/lʊk ˈæftər/","look AF-ter","care for"],
+["although","despite the fact that","Although it rained, we went out.","/ɔːlˈðoʊ/","al-THOUGH","though"],
+["achieve","to succeed in reaching a goal","He achieved his goal.","/əˈtʃiːv/","a-CHIEVE","accomplish"],
+["environment","the natural world around us","We must protect the environment.","/ɪnˈvaɪrənmənt/","en-VI-ron-ment","surroundings"],
+["improve","to get better or make better","I want to improve my English.","/ɪmˈpruːv/","im-PROVE","enhance"],
+["reliable","can be trusted","He is a reliable friend.","/rɪˈlaɪəbəl/","re-LI-a-ble","dependable"],
+["photograph","a picture taken with a camera","I took a photograph.","/ˈfoʊtəɡræf/","PHO-to-graph","picture"]],
+M:[["live","leave"],["pull","pool"],["wine","vine"]],
+E:[["If I will see him, I tell him.","If I see him, I will tell him."],["I have lived here since five years.","I have lived here for five years."],["He suggested to go home.","He suggested going home."]]},
+B2:{P:[["Despite the heavy traffic, Laura arrived early because she had left the house before sunrise.","Why did Laura arrive early?",["She left very early","The traffic was light","She took a shortcut"],0],
+["The company has introduced flexible hours, which has boosted morale, although productivity figures remain unchanged.","What has not changed?",["Productivity","Morale","Working hours"],0],
+["Had I known about the delay, I would have booked a different flight.","What does the speaker mean?",["They didn't know about the delay","They knew about the delay","They cancelled the trip"],0],
+["Critics argue the new bridge is a waste of money, whereas supporters claim it will reduce commuting time significantly.","What do supporters believe?",["It will shorten journeys","It is too costly","It is unsafe"],0],
+["She was reluctant to accept the offer, as it would mean relocating abroad.","Why was she reluctant?",["She would have to move abroad","The pay was low","She disliked the job"],0]],
+W:[["reluctant","unwilling and hesitant","He was reluctant to speak.","/rɪˈlʌktənt/","re-LUC-tant","unwilling"],
+["boost","to increase or improve","Exercise can boost your mood.","/buːst/","boost","raise"],
+["tackle","to deal with a problem","We must tackle climate change.","/ˈtækəl/","TACK-le","address"],
+["consequence","a result of an action","Think about the consequences.","/ˈkɑːnsəkwens/","CON-se-quence","outcome"],
+["deadline","the time by which work must be done","The deadline is Friday.","/ˈdedlaɪn/","DEAD-line",""],
+["figure out","to understand or solve","I can't figure out this puzzle.","/ˈfɪɡjər aʊt/","FIG-ure out","work out"],
+["particularly","especially","It was particularly cold.","/pərˈtɪkjələrli/","par-TIC-u-lar-ly","especially"],
+["come up with","to think of an idea","She came up with a plan.","/kʌm ʌp wɪð/","come UP with","devise"]],
+M:[["law","low"],["sheet","cheat"],["collar","caller"]],
+E:[["If I would have time, I would help.","If I had time, I would help."],["He asked me where was the station.","He asked me where the station was."],["I look forward to meet you.","I look forward to meeting you."]],
+T:[[1,"Productivity has improved.",1],[4,"She eventually accepted the offer.",2],[0,"Laura left home before dawn.",0]],
+C:[["___ a mistake","make","do","have"],["___ progress","make","do","take"],["___ a risk","take","make","do"]],
+F:[["decide","decision","decisive"],["employ","employment","employable"]],
+G:[["Write about the advantages of working from home. Use linking words (e.g. however, because).",60,"Working from home has several advantages. Firstly, employees save time and money because they do not commute. Moreover, many people feel more focused in a quiet environment. However, it can be lonely, so workers should keep in touch with colleagues."]]},
+C1:{P:[["The author contends that economic growth, though desirable, should not come at the expense of the environment.","What is the author's view?",["Growth must not damage nature","Growth is undesirable","The environment is unimportant"],0],
+["Her proposal was met with lukewarm enthusiasm, which left her wondering whether to press on.","How did people react?",["Without much enthusiasm","With great excitement","With anger"],0],
+["Not only did the experiment fail, but it also cost the lab a fortune.","What happened?",["It failed and was costly","It succeeded cheaply","It was cancelled"],0],
+["It goes without saying that the findings, however preliminary, warrant further investigation.","What do the findings need?",["More research","No more study","Immediate publication"],0],
+["By the time the negotiators reached an impasse, both sides had dug in their heels.","What does 'dug in their heels' mean?",["Refused to compromise","Left the room","Reached a deal"],0]],
+W:[["ambiguous","having more than one meaning","The reply was ambiguous.","/æmˈbɪɡjuəs/","am-BIG-u-ous","unclear"],
+["mitigate","to make less severe","Trees mitigate the heat.","/ˈmɪtɪɡeɪt/","MIT-i-gate","alleviate"],
+["scrutinise","to examine closely","Auditors scrutinise accounts.","/ˈskruːtənaɪz/","SCRU-ti-nise","inspect"],
+["a blessing in disguise","something good that seemed bad at first","Losing that job was a blessing in disguise.","/ə ˈblesɪŋ ɪn dɪsˈɡaɪz/","a BLESS ing in dis GUISE",""],
+["break the ice","to ease tension at a first meeting","A joke helped break the ice.","/breɪk ði aɪs/","break the ICE",""],
+["inevitable","impossible to avoid","Change is inevitable.","/ɪnˈevɪtəbəl/","in-EV-i-ta-ble","unavoidable"],
+["subtle","delicate and not obvious","There is a subtle difference.","/ˈsʌtəl/","SUB-tle","delicate"],
+["undermine","to weaken gradually","Rumours undermine trust.","/ˌʌndərˈmaɪn/","un-der-MINE","weaken"]],
+M:[["affect","effect"],["desert","dessert"],["thorough","through"]],
+E:[["Hardly he had arrived when it rained.","Hardly had he arrived when it rained."],["The data that was collected is flawed.","The data that were collected are flawed."],["Neither of the options are suitable.","Neither of the options is suitable."]],
+T:[[1,"Everyone loved her proposal.",1],[3,"The findings are final.",1],[2,"The lab has now closed.",2]],
+C:[["___ a stance","take","make","do"],["___ a conclusion","draw","make","do"],["___ light on","shed","make","put"]],
+F:[["ambiguous","ambiguity","ambiguously"],["persuade","persuasion","persuasive"]],
+G:[["Discuss whether social media does more harm than good. Plan an introduction, two points and a conclusion.",80,"Social media is often criticised, yet its effects are mixed. On the one hand, it can damage self-esteem and spread misinformation. On the other hand, it connects communities and gives a voice to people who are rarely heard. Therefore, the impact depends on how it is used, and education is essential."]]},
+C2:{P:[["The minister's statement, couched in studiously neutral language, did little to allay the public's misgivings.","Did the statement reassure people?",["No, doubts remained","Yes, fully","It angered everyone"],0],
+["Far from being a panacea, the policy has, if anything, exacerbated the very inequalities it sought to redress.","What has the policy done?",["Worsened inequality","Solved inequality","Ignored inequality"],0],
+["The novel's prose, at once sparse and lyrical, belies the complexity of its themes.","What does the prose hide?",["The complexity of the themes","A simple plot","Its length"],0],
+["Were it not for her tenacity, the project would have foundered long before completion.","What saved the project?",["Her tenacity","Extra funding","Luck"],0],
+["He professed ignorance of the affair, though few were inclined to take him at his word.","Did people believe him?",["Few did","Most did","Everybody did"],0]],
+W:[["panacea","a cure for all problems","There is no panacea for poverty.","/ˌpænəˈsiːə/","pan-a-CE-a","cure-all"],
+["exacerbate","to make worse","Stress can exacerbate pain.","/ɪɡˈzæsərbeɪt/","ex-AC-er-bate","aggravate"],
+["tenacity","determination to keep going","Her tenacity paid off.","/təˈnæsəti/","te-NAC-i-ty","persistence"],
+["allay","to reduce fear or doubt","The report allayed concerns.","/əˈleɪ/","al-LAY","ease"],
+["a double-edged sword","something with good and bad effects","Fame is a double-edged sword.","/ə ˈdʌbəl edʒd sɔːrd/","a DOUble edged SWORD",""],
+["tip of the iceberg","a small visible part of a bigger problem","The leak is just the tip of the iceberg.","/tɪp əv ði ˈaɪsbɜːrɡ/","tip of the ICE berg",""],
+["ubiquitous","found everywhere","Phones are ubiquitous.","/juːˈbɪkwɪtəs/","u-BIQ-ui-tous","omnipresent"],
+["nuance","a subtle difference","Translation loses nuance.","/ˈnuːɑːns/","NU-ance","subtlety"]],
+M:[["vary","very"],["bard","bored"],["hoarse","horse"]],
+E:[["Were I to be asked, I will refuse.","Were I to be asked, I would refuse."],["Not until he left did she realised.","Not until he left did she realise."],["The committee have made it's decision.","The committee has made its decision."]],
+T:[[1,"The policy has reduced inequality.",1],[3,"Her colleagues gave her a bonus.",2],[0,"The statement used neutral wording.",0]],
+C:[["___ a grudge","bear","make","do"],["___ the odds","beat","win","hit"],["___ common ground","find","make","do"]],
+F:[["tenacious","tenacity","tenaciously"],["ubiquitous","ubiquity","ubiquitously"]],
+G:[["Evaluate the claim that technology has made us less capable of deep thought. Use precise vocabulary and a balanced argument.",90,"The claim has some merit, yet it oversimplifies. Constant notifications fragment attention, and quick answers can discourage sustained reasoning. Nevertheless, technology also grants unprecedented access to knowledge, which can deepen inquiry for those who use it deliberately. Ultimately, the effect depends less on the tools than on habits of use."]]},
+IELTS:{P:[["Urbanisation has accelerated over the past century, with more than half of the global population now residing in cities, which places considerable strain on infrastructure.","What strain does urbanisation cause?",["On infrastructure","On farming","On tourism"],0],
+["Researchers found that students who slept eight hours scored significantly higher in memory tests than those who slept fewer than six hours.","Who scored higher?",["Those who slept eight hours","Those who slept six hours","Both equally"],0],
+["Although renewable energy investment has risen, fossil fuels still account for the majority of global energy consumption.","What supplies most energy?",["Fossil fuels","Renewables","Nuclear power"],0],
+["The graph shows that online shopping increased steadily between 2015 and 2020, before levelling off in 2021.","What happened in 2021?",["Growth levelled off","A sharp rise","A sharp fall"],0],
+["Governments should prioritise public transport, as it reduces congestion and lowers emissions simultaneously.","Which two benefits are given?",["Less congestion and lower emissions","Lower fares and more jobs","Faster cars and safer roads"],0]],
+W:[["significant","large or important enough to notice","There was a significant rise.","/sɪɡˈnɪfɪkənt/","sig-NIF-i-cant","considerable"],
+["fluctuate","to rise and fall irregularly","Prices fluctuate daily.","/ˈflʌktʃueɪt/","FLUC-tu-ate","vary"],
+["consume","to use up","Cities consume huge amounts of energy.","/kənˈsuːm/","con-SUME","use"],
+["demonstrate","to show clearly","The data demonstrate a trend.","/ˈdemənstreɪt/","DEM-on-strate","illustrate"],
+["analyse","to examine in detail","We analysed the results.","/ˈænəlaɪz/","AN-a-lyse","examine"],
+["on the whole","generally","On the whole, results improved.","/ɒn ðə hoʊl/","on the WHOLE",""],
+["substantial","large in amount","There was a substantial increase.","/səbˈstænʃəl/","sub-STAN-tial","considerable"],
+["contribute","to give or add to","Cars contribute to pollution.","/kənˈtrɪbjuːt/","con-TRIB-ute","add"]],
+M:[["accept","except"],["advice","advise"],["breath","breathe"]],
+E:[["The number of cars have increased.","The number of cars has increased."],["Many people agrees with this opinion.","Many people agree with this opinion."],["Despite of the rain, we went out.","Despite the rain, we went out."]],
+T:[[1,"The study involved teenagers.",2],[2,"Renewables now supply most energy.",1],[3,"Online shopping rose between 2015 and 2020.",0]],
+C:[["___ emphasis on","place","make","do"],["___ an impact on","have","do","give"],["___ a significant role","play","do","make"]],
+F:[["analyse","analysis","analytical"],["consume","consumption","consumable"]],
+G:[["Task 2: Some people think children should learn a foreign language from a very young age. To what extent do you agree? (In the exam, aim for 250 words; 80+ here.)",80,"I largely agree that children should start learning a foreign language early. Firstly, young learners absorb pronunciation and grammar more naturally. In addition, bilingualism can improve problem-solving skills. However, schools must provide skilled teachers, otherwise the benefits may be lost. In conclusion, early language education is valuable provided it is well supported."]]}};
+/* Extra question pools for A1–B1: T=true/false/not given [passageIndex,statement,0 true|1 false|2 not given], C=collocations [stem,right,wrong,wrong], F=word families [base,noun,other form] */
+Object.assign(DATA.A1,{T:[[0,"The dog is brown.",0],[2,"Anna's house is big.",1],[4,"The shop is open on Sundays.",2]],C:[["___ breakfast","have","do","make"],["___ a photo","take","do","put"],["___ homework","do","make","take"]],F:[["happy","happiness","happily"],["kind","kindness","kindly"]]});
+Object.assign(DATA.A2,{T:[[0,"They watched a film.",0],[1,"Ben went to school.",2],[3,"The trip takes an hour.",1]],C:[["___ a shower","take","do","make"],["___ a phone call","make","do","say"],["___ a question","ask","do","make"]],F:[["invite","invitation","invited"],["comfortable","comfort","comfortably"]]});
+Object.assign(DATA.B1,{T:[[0,"They left the same day.",1],[1,"Sam still smokes.",1],[3,"Everyone prefers the office.",2]],C:[["___ an appointment","make","do","take"],["___ attention","pay","make","do"],["___ a chance","take","do","make"]],F:[["achieve","achievement","achievable"],["improve","improvement","improved"]]});
+/* RP = long reading passages [text,[questions]] — m: [“m”,question,options,answerIndex,explanation], t: [“t”,statement,0 true|1 false|2 not given,explanation], g: [“g”,sentence with ____,answer,explanation]. Questions paraphrase the text. */
+DATA.IELTS.RP=[["The proliferation of green spaces in dense urban districts has been linked to measurable reductions in stress among residents. Planners, however, face a dilemma: land in city centres is scarce, and developers frequently lobby for commercial use. Some municipalities have responded by requiring rooftop gardens on new buildings, a measure that critics dismiss as cosmetic because such gardens are seldom accessible to the public. Proponents counter that even inaccessible vegetation lowers surrounding temperatures and absorbs rainwater, thereby easing pressure on drainage systems.",
+[["m","What makes it hard to create new parks in city centres?",["Little available land and pressure to build commercially","Residents do not want parks","Plants are too expensive"],0,"“Scarce land” and developers lobbying for commercial use."],
+["t","Rooftop gardens are generally open to the public.",1,"The text says they are “seldom accessible to the public”."],
+["g","Even gardens that nobody can enter help relieve the burden on ____ systems.","drainage","Vegetation absorbs rainwater, easing pressure on drainage systems."]]],
+["Antibiotic resistance, once regarded as a distant threat, is now among the most pressing challenges in medicine. Resistance arises when bacteria survive exposure to a drug and pass their adaptations to subsequent generations. Overprescription accelerates this process, as does the routine use of antibiotics in livestock farming. While researchers continue to seek novel compounds, the pace of discovery has slowed considerably, partly because the financial returns on such drugs are modest compared with treatments for chronic conditions.",
+[["m","Why has the search for new antibiotics lost momentum?",["They bring comparatively little profit","Bacteria no longer change","Governments have banned the research"],0,"Financial returns are modest compared with chronic-condition drugs."],
+["t","Antibiotic resistance has always been treated as an urgent problem.",1,"It was “once regarded as a distant threat”."],
+["t","Livestock farming is the main cause of antibiotic resistance.",2,"Farming is mentioned as one contributing factor; “main cause” is not stated."]]],
+["The pandemic-era shift towards remote working prompted predictions that cities would empty out. Yet recent data suggest a more nuanced picture. Although office occupancy remains below pre-2020 levels, urban populations have not fallen significantly; instead, many employees have adopted hybrid patterns, commuting only a few days a week. Economists caution against drawing firm conclusions, noting that housing costs and local labour markets also influence where people choose to live, and that the long-term effects may take a decade to become apparent.",
+[["m","What do the figures suggest about city populations?",["They have remained largely steady","They have collapsed","They have doubled"],0,"Populations “have not fallen significantly”."],
+["t","Most employees now work entirely from home.",1,"Many have adopted hybrid patterns."],
+["t","Economists expect the consequences to be clear within two years.",1,"Long-term effects may take a decade."],
+["g","Many workers now follow ____ patterns, going into the office only a few days a week.","hybrid","The text says “hybrid patterns”."]]]];
+/* Sound-focus sets for Pronunciation: [sound, practice words] */
+const SF=[["th","think three thank"],["r / l","right light read lead"],["v / w","very west vine wine"],["final consonants","bed bad cat cap"],["long vs short vowels","ship sheep full fool"]];
+
+const LV=Object.keys(DATA),MD=["listening","speaking","reading","writing","vocab","pron"],MN={listening:"Listen",speaking:"Speak",reading:"Read",writing:"Write",vocab:"Words",pron:"Sound",daily:"Daily"};
+
+/* ===== ONLINE FEED (optional) =====
+   Paste the address of a feed.json you host (e.g. GitHub Pages) to get new content automatically. Leave "" to stay fully offline.
+   Format: {"extra":{"B1":{"W":[...],"P":[...],"M":[...],"E":[...],"T":[...],"C":[...],"F":[...],"G":[...]}},
+            "daily":{"2026-10-25":{"B1":[["mc",question,[options],answerIndex,explanation],["order",sentence],
+                     ["type",prompt,answer,explanation,optionalAudioText],["tf",statement,0|1|2,explanation,passage],["speak",sentence]]}}}
+   "extra" adds to the same pools as DATA (same formats). "daily" gives ready-made questions for that date and level. */
+const FEED_URL="";
+/* AI tutor (optional): address of your proxy (see worker.js). The API key lives only on the server. Leave "" to hide the tutor. */
+const PROXY_URL="";
+let FEED={};
+/* ===== 2. STATE ===== */
+let S=load(),R=null,view="home";
+/* ===== 3. STORAGE (try/catch: works even if localStorage is blocked) ===== */
+function load(){try{return JSON.parse(localStorage.getItem("eng1"))||{p:{},v:{},pl:0,bs:0}}catch(e){return{p:{},v:{},pl:0,bs:0}}}
+function save(){try{localStorage.setItem("eng1",JSON.stringify(S))}catch(e){}}
+/* ===== helpers ===== */
+const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const sh=a=>{a=[...a];for(let i=a.length-1;i>0;i--){let j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const norm=s=>s.toLowerCase().replace(/[^a-z0-9' ]/g," ").split(/\s+/).filter(Boolean);
+const unlocked=l=>{let i=LV.indexOf(l);return i==0||S.pl||i<=(S.est||0)||MD.some(m=>(S.p[LV[i-1]+m]||0)>=70)};
+let rate=0.9;
+const say=t=>{if(!window.speechSynthesis)return;speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t);u.lang="en-US";u.rate=rate;speechSynthesis.speak(u)};
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+/* ===== 4. QUESTION BUILDERS — one per module. Item types: mc, type, order, speak ===== */
+const mc=(q,o,a,x,e={})=>{let c=o[a];o=sh(o);return{t:"mc",q,o,a:o.indexOf(c),x,...e}};
+const gap=(w,d)=>mc("Fill the gap: "+w[2].replace(new RegExp(w[0],"i"),"____"),[w[0],...sh(d.W.filter(v=>v!=w)).slice(0,2).map(v=>v[0])],0,w[0]+" means: "+w[1]);
+const ord=s=>({t:"order",q:"Put the words in order.",w:sh(s.replace(/[.?!]$/,"").split(" ")),a:s.replace(/[.?!]$/,""),x:s});
+const B={
+listening:d=>[...d.P.map(p=>mc(p[1],p[2],p[3],p[0],{say:p[0]})),...d.P.slice(0,4).map(p=>({t:"type",q:"Dictation: type what you hear.",say:p[0],a:p[0],x:p[0]}))],
+speaking:d=>[...d.P.map(p=>({t:"speak",q:p[0],a:p[0],x:"Try to match every word."})),...d.W.slice(0,3).map(w=>({t:"speak",q:w[2],a:w[2],x:"Try to match every word."}))],
+reading:d=>d.RP?d.RP.flatMap(p=>p[1].map(q=>q[0]=="m"?mc(q[1],q[2],q[3],q[4],{text:p[0]}):q[0]=="t"?{t:"mc",text:p[0],q:"True, False or Not given? "+q[1],o:["True","False","Not given"],a:q[2],x:q[3]}:{t:"type",text:p[0],q:"Complete with ONE word from the passage: "+q[1],a:q[2],x:q[3]})):[...d.P.map(p=>mc(p[1],p[2],p[3],"Answer found in the passage.",{text:p[0]})),...(d.T||[]).map(t=>({t:"mc",text:d.P[t[0]][0],q:"True, False or Not given? "+t[1],o:["True","False","Not given"],a:t[2],x:"Check the passage: “Not given” means it is not stated."})),...d.W.slice(0,4).map(w=>gap(w,d))],
+writing:d=>[...(d.G||[]).map(g=>({t:"write",q:g[0],min:g[1],a:g[2],x:"Compare your answer with the model."})),...d.P.map(p=>ord(p[0].split(/(?<=[.])\s/)[0])),...d.E.map(e=>({t:"type",q:"Correct the error: "+e[0],a:e[1],x:e[1]})),ord(d.W[0][2])],
+vocab:d=>[...vocabOrder(d).slice(0,6).map((w,i)=>{let o=sh(d.W.filter(v=>v!=w)).slice(0,2),k=i%3;
+ if(k==1)return mc('What does "'+w[0]+'" mean?',[w[1],...o.map(v=>v[1])],0,w[0]+": "+w[2],{w:w[0]});
+ if(k==2&&w[5])return mc('Closest synonym of "'+w[0]+'"?',[w[5],...o.map(v=>v[5]||v[0])],0,w[0]+" ≈ "+w[5],{w:w[0]});
+ return mc("Which word means: "+w[1]+"?",[w[0],...o.map(v=>v[0])],0,"Example: "+w[2],{w:w[0]})}),...(d.C||[]).slice(0,2).map(c=>mc("Choose the natural collocation: "+c[0],[c[1],c[2],c[3]],0,"“"+c[0].replace("___",c[1])+"” is the natural collocation.")),...(d.F||[]).slice(0,2).map(f=>mc("Noun from “"+f[0]+"”?",[f[1],f[2],f[0]],0,"Word family: "+f.join(" → ")))].slice(0,10),
+pron:d=>[...sh(d.M.flatMap(m=>m.map(x=>mc("Which word did you hear?",[...m],m.indexOf(x),"You heard “"+x+"”.",{say:x})))).slice(0,4),
+ ...d.W.slice(0,2).map(w=>({t:"speak",q:w[0],a:w[0],h:w[3]+"  "+w[4],x:"Stress: "+w[4]})),
+ ...d.W.filter(w=>w[4].includes("-")).slice(0,2).map(w=>{let s=w[4].split("-");return mc("Which syllable is stressed in "+w[0]+" "+w[3]+"?",s.map(v=>v.toLowerCase()),s.findIndex(v=>v==v.toUpperCase()),"Stress: "+w[4],{say:w[0]})}),...[0,1].map(k=>SF[(Object.values(DATA).indexOf(d)+k)%SF.length]).map(f=>({t:"speak",q:f[1],a:f[1],h:"Sound focus: "+f[0],x:"Practise "+f[0]+": "+f[1]}))]};
+/* spaced repetition: weakest words (lowest box) come first */
+const vb=w=>(S.v[w]||{b:0}).b;
+const vocabOrder=d=>sh(d.W).sort((a,b)=>vb(a[0])-vb(b[0])).slice(0,10);
+function vmark(w,ok){let v=S.v[w]||(S.v[w]={b:0,m:0});v.b=ok?Math.min(3,v.b+1):0;if(!ok)v.m++}
+/* ===== 5. ROUND ENGINE ===== */
+function start(l,m){if(m=="daily")return startDaily(l);let d=DATA[l];if(!d.P.length){return alert(l+" content is not added yet.")}
+ R={l,m,i:0,sc:0,st:0,ms:[],q:B[m](d).slice(0,10),done:0};view="round";draw()}
+function finish(){if(R.tst){R.res={sk:R.hit,o:Math.round(R.hit.reduce((a,b)=>a+b)/4)};view="end";return draw()}if(R.dly){dayDone();view="end";return draw()}let p=Math.round(100*R.sc/R.q.length),k=R.l+R.m;S.p[k]=Math.max(S.p[k]||0,p);S.bs=Math.max(S.bs,R.bs||0);save();view="end";draw()}
+function answer(ok,item,extra=""){if(R.done)return;R.done=1;ok?(R.sc++,R.st++):(R.st=0,R.ms.push(item.x||item.q));R.bs=Math.max(R.bs||0,R.st);if(R.tst){let k=item.k;if(ok)R.hit[k]=Math.max(R.hit[k],item.lv);R.p[k]=Math.max(0,Math.min(6,R.p[k]+(ok?1:-1)))}
+ if(item.w)vmark(item.w,ok);if(!ok&&item.w&&R.q.length<14)R.q.splice(R.i+3,0,{...item});save();
+ $("#fb").innerHTML=(ok?"<b style='color:var(--ok)'>Correct.</b> ":"<b style='color:var(--no)'>Not quite.</b> ")+esc(item.x||"")+extra;
+ $("#nx").hidden=false;$("#nx").focus();document.querySelectorAll(".opts button").forEach(b=>b.disabled=true)}
+/* Level test: 16 adaptive questions, 4 per skill. Each skill starts at B1, moves up after a correct answer and down after a miss. */
+const SK=["Listening","Speaking","Reading","Writing"],SM=["listening","speaking","reading","writing"];
+function startTest(){R={tst:1,l:"Test",m:"",i:0,sc:0,st:0,ms:[],q:Array(16).fill(null),done:0,p:[2,2,2,2],hit:[0,0,0,0],used:{}};view="round";draw()}
+function tnext(i){let k=i%4,lv=R.p[k],all=B[SM[k]](DATA[LV[lv]]),ok=x=>k==0||k==2?x.t=="mc":k==3?x.t=="order"||x.t=="type":1,
+ pool=all.filter(ok),it=sh(pool.filter(x=>!R.used[x.q+x.a]))[0]||sh(pool)[0];R.used[it.q+it.a]=1;return{...it,k,lv}}
+function tend(){let r=R.res;return`<h2>Estimated level: ${LV[r.o]}</h2><div class="card"><table>${SK.map((s,k)=>`<tr><th style="text-align:left">${s}</th><td><b>${LV[r.sk[k]]}</b></td></tr>`).join("")}</table><p class="mu">${R.sc} of ${R.q.length} correct. Self-rated speaking (no recognition) is less reliable.</p><div class="row"><button class="p" data-apply="1">Unlock up to ${LV[r.o]}</button><button data-test="1">Retake</button><button data-v="home">Home</button></div></div>`}
+/* ===== DAILY PRACTICE =====
+   Every day (and level) gets a fresh set of 10 exercises. They are generated from the word banks below plus your DATA pools,
+   using a random generator seeded with today's date, so the set changes at midnight, is the same all day, and needs no server.
+   To get more variety, add verbs/subjects here or more words, collocations (C) and word families (F) to DATA. */
+const today=()=>new Date().toLocaleDateString("en-CA"),ago=n=>new Date(Date.now()-n*864e5).toLocaleDateString("en-CA");
+function rng(str){let h=2166136261;for(const c of str)h=Math.imul(h^c.charCodeAt(0),16777619);let a=h>>>0;return()=>{a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const SUBJ=[["I",0],["You",0],["She",1],["He",1],["We",0],["They",0],["My sister",1],["The teachers",0],["Our manager",1],["The students",0],["My neighbour",1],["Her parents",0]];
+/* verbs: [base, 3rd person, past, past participle, object] — VB for A1–B1, VH for B2+ */
+const VB=[["play","plays","played","played","tennis"],["buy","buys","bought","bought","bread"],["write","writes","wrote","written","a letter"],["cook","cooks","cooked","cooked","dinner"],["visit","visits","visited","visited","a museum"],["watch","watches","watched","watched","a film"],["draw","draws","drew","drawn","a picture"],["clean","cleans","cleaned","cleaned","the kitchen"]];
+const VH=[["examine","examines","examined","examined","the data"],["publish","publishes","published","published","the report"],["review","reviews","reviewed","reviewed","the proposal"],["negotiate","negotiates","negotiated","negotiated","the contract"],["implement","implements","implemented","implemented","a new policy"],["analyse","analyses","analysed","analysed","the results"],["submit","submits","submitted","submitted","the application"],["overcome","overcomes","overcame","overcome","every obstacle"]];
+const TM=[["every day","every weekend","on Mondays","twice a week"],["yesterday","last week","last month","two days ago"]];
+function gen(r,ix){let P=a=>a[r()*a.length|0],s=P(SUBJ),v=P(ix>2?VH:VB),k=P(ix<1?[0]:ix<2?[0,1]:[0,1,2]),
+ f=k==0?v[s[1]?1:0]:k==1?v[2]:v[3],pre=k==2?s[0]+" "+(s[1]?"has":"have")+" already":s[0],end=k==2?"":P(TM[k]),
+ mk=w=>pre+" "+w+" "+v[4]+(end?" "+end:"")+".";
+ return{full:mk(f),gap:mk("____"),ans:f,opts:k==0?[v[1],v[0],v[2]]:k==1?[v[2],v[0],v[1]]:[v[3],v[0],v[1]]}}
+function startDaily(l){S.dl=l;let ix=LV.indexOf(l),r=rng(today()+l),q=[],pool=LV.slice(Math.max(0,ix-1),ix+1).flatMap(x=>DATA[x].W),
+ mix=a=>[...a].sort(()=>r()-.5);
+ for(let i=0;i<3;i++){let g=gen(r,ix);q.push(mc("Choose the correct form: "+g.gap,g.opts,g.opts.indexOf(g.ans),g.full))}
+ for(let i=0;i<2;i++)q.push(ord(gen(r,ix).full));
+ let g=gen(r,ix);q.push({t:"type",say:g.full,q:"Dictation: type what you hear.",a:g.full,x:g.full});
+ mix(pool).slice(0,2).forEach(w=>q.push(mc("Which word means: "+w[1]+"?",[w[0],...mix(pool.filter(v=>v!=w)).slice(0,2).map(v=>v[0])],0,"Example: "+w[2],{w:w[0]})));
+ let cs=LV.slice(0,ix+1).flatMap(x=>DATA[x].C||[]),fs=LV.slice(0,ix+1).flatMap(x=>DATA[x].F||[]);
+ mix(cs).slice(0,1).forEach(c=>q.push(mc("Choose the natural collocation: "+c[0],[c[1],c[2],c[3]],0,"“"+c[0].replace("___",c[1])+"” is the natural collocation.")));
+ mix(fs).slice(0,1).forEach(f=>q.push(mc("Noun from “"+f[0]+"”?",[f[1],f[2],f[0]],0,"Word family: "+f.join(" → "))));
+ let fd=((FEED[today()]||{})[l]||[]).map(fq).filter(Boolean),k=Math.min(fd.length,6);q=[...fd.slice(0,k),...q.slice(0,10-k)];
+ R={dly:1,l,m:"daily",i:0,sc:0,st:0,ms:[],q,done:0};view="round";draw()}
+function dayDone(){let t=today(),p=Math.round(100*R.sc/R.q.length),ds=S.ds||{n:0,t:""};S.d=S.d||{};S.d[R.l]={t,p};if(ds.t!=t)ds={n:ds.t==ago(1)?ds.n+1:1,t};S.ds=ds;save()}
+function dcard(){let ls=LV.filter(l=>DATA[l].P.length&&unlocked(l)),def=ls.includes(S.dl)?S.dl:ls[ls.length-1],d=(S.d||{})[def],ds=S.ds||{n:0,t:""},n=ds.t==today()||ds.t==ago(1)?ds.n:0;
+ return`<div class="card"><div class="hd"><div><h2>Today's practice</h2><p class="mu">10 fresh exercises every day: grammar, dictation, word order and vocabulary.${((FEED[today()]||{})[def]||[]).length?" Includes today’s feed.":""}</p></div><span class="chip">${n}-day streak</span></div><div class="row"><select id="dl" aria-label="Level">${ls.map(l=>`<option ${l==def?"selected":""}>${l}</option>`).join("")}</select><button class="p" data-daily="1">${d&&d.t==today()?"Practise again":"Start"}</button><span class="mu">${d&&d.t==today()?"Done today: "+d.p+"%":""}</span></div></div>`}
+/* Feed loading: fetch with a 6 s timeout, cache the last good copy, and fall back to the cache when offline */
+function applyFeed(f){FEED=f.daily||{};let x=f.extra||{};for(const l in x){if(!DATA[l])continue;for(const k in x[l])if(Array.isArray(x[l][k]))DATA[l][k]=(DATA[l][k]||[]).concat(x[l][k].filter(a=>Array.isArray(a)&&!(DATA[l][k]||[]).some(e=>JSON.stringify(e)==JSON.stringify(a))))}}
+async function loadFeed(){if(!FEED_URL)return;let f=null;try{let c=new AbortController();setTimeout(()=>c.abort(),6000);let r=await fetch(FEED_URL+(FEED_URL.includes("?")?"&":"?")+"d="+today(),{signal:c.signal,cache:"no-store"});f=await r.json();try{localStorage.setItem("eng1feed",JSON.stringify(f))}catch(e){}}catch(e){try{f=JSON.parse(localStorage.getItem("eng1feed"))}catch(e2){}}if(f&&typeof f=="object")applyFeed(f)}
+/* Turn one compact feed item into a question object (bad items are skipped) */
+function fq(a){try{let t=a[0];
+ if(t=="mc")return mc(a[1],a[2],a[3],a[4]||"");
+ if(t=="order")return ord(a[1]);
+ if(t=="type")return{t:"type",q:a[1],a:a[2],x:a[3]||a[2],say:a[4]};
+ if(t=="tf")return{t:"mc",text:a[4],q:"True, False or Not given? "+a[1],o:["True","False","Not given"],a:a[2],x:a[3]||""};
+ if(t=="speak")return{t:"speak",q:a[1],a:a[1],x:"Try to match every word."}}catch(e){}return null}
+/* ===== AI tutor chat: history lives in memory; only the last 8 messages are sent (the server trims again and adds the instructions) ===== */
+let CH=[],busy=0;
+function tutor(){return`<div class="row"><button data-v="home">Home</button><span class="chip">Tutor · ${S.dl||"B1"}</span></div><div class="card">${CH.length?CH.map(m=>`<div class="msg ${m.role=="user"?"u":"a"}">${esc(m.content)}</div>`).join(""):'<p class="mu">Ask about grammar, vocabulary or pronunciation, or paste a sentence to correct.</p>'}${busy?'<p class="mu">Thinking…</p>':""}<div class="row"><input type="text" id="ti" style="flex:1;min-width:0;width:auto" aria-label="Your message" maxlength="1000" placeholder="Type your question"><button class="p" id="snd" ${busy?"disabled":""}>Send</button></div></div>`}
+async function tsend(){let i=$("#ti"),v=i&&i.value.trim();if(!v||busy)return;CH.push({role:"user",content:v.slice(0,1000)});busy=1;draw();
+ try{let r=await fetch(PROXY_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({level:S.dl||"B1",messages:CH.slice(-8)})}),j=await r.json();CH.push({role:"assistant",content:j.reply||"Sorry, I could not answer. Please try again."})}
+ catch(e){CH.push({role:"assistant",content:"The tutor is offline. Check your connection and try again."})}
+ if(CH.length>40)CH.splice(0,CH.length-40);busy=0;draw()}
+/* ===== 6. UI RENDERING ===== */
+function draw(){let h="";
+ if(view=="home")h=home();else if(view=="round")h=round();else if(view=="end")h=end();else if(view=="flash")h=flash();else if(view=="tutor")h=tutor();else h=words();
+ $("#app").innerHTML=h;wire()}
+function home(){let cells=LV.map(l=>"<tr><th>"+l+"</th>"+MD.map(m=>{let p=S.p[l+m],ok=unlocked(l);return`<td><button style="--p:${p||0}" data-go="${l}|${m}" ${ok?"":"disabled"} title="${ok?"":"Locked: score 70% on the previous level"}">${p!=null?p+"%":ok?"–":"🔒"}</button></td>`}).join("")+"</tr>").join("");
+ return`<div class="hd"><div><h1>English Trainer</h1><p class="mu">Pick a level and a module. Score 70% to unlock the next.</p></div><span class="chip">Best streak ${S.bs}</span></div>
+${dcard()}<div class="card"><table><tr><th></th>${MD.map(m=>"<th>"+MN[m]+"</th>").join("")}</tr>${cells}</table>
+<div class="row"><label><input type="checkbox" id="pl" ${S.pl?"checked":""}> Placement: unlock all levels</label></div></div>
+<div class="row"><button class="p" data-test="1">Level test</button>${PROXY_URL?'<button data-v="tutor">Ask the tutor</button>':""}<button data-v="flash">Flashcards</button><button data-v="words">My words</button><button id="rs">Reset progress</button></div>
+<p class="mu">Speech features need a browser with speech synthesis/recognition (Chrome, Edge, Safari).</p>`}
+function round(){let it=R.q[R.i]||(R.q[R.i]=tnext(R.i)),pct=Math.round(100*R.i/R.q.length),b="";
+ if(it.say)b+=`<div class="row"><button data-say="${esc(it.say)}">▶ Play</button><button data-say="${esc(it.say)}" data-slow="1">Slow</button><label class="mu">Speed <input type="range" id="rt" min=".5" max="1.3" step=".1" value="${rate}"></label></div>`;
+ if(it.text)b+=`<p>${esc(it.text)}</p>`;
+ b+=`<p><b>${esc(it.q)}</b></p>`;
+ if(it.t=="write")b+=`<textarea id="wr" aria-label="Your answer"></textarea><p class="mu" id="cl">${cl("",it)}</p><div class="row"><button class="p" id="ck">Check</button></div>`;
+ if(it.h)b+=`<p class="mu">${esc(it.h)}</p>`;
+ if(it.t=="mc")b+=`<div class="opts">${it.o.map((o,i)=>`<button data-o="${i}">${esc(o)}</button>`).join("")}</div>`;
+ if(it.t=="type")b+=`<input type="text" id="tx" autocomplete="off" aria-label="Your answer"><div class="row"><button class="p" id="ck">Check</button></div>`;
+ if(it.t=="order")b+=`<div class="row" id="pool">${it.w.map((w,i)=>`<button data-w="${i}">${esc(w)}</button>`).join("")}</div><p id="sel" class="mu" style="min-height:1.5em"></p><div class="row"><button id="un">Undo</button><button class="p" id="ck">Check</button></div>`;
+ if(it.t=="speak")b+=`<div class="row"><button data-say="${esc(it.a)}">▶ Hear it</button><button data-say="${esc(it.a)}" data-slow="1">Slow</button>${SR?'<button class="p" id="rec">● Record</button>':""}</div>${SR?"":'<p class="mu">Speech recognition is not supported here. Say it aloud, then rate yourself.</p><div class="row"><button data-self="1">I said it well</button><button data-self="0">Needs work</button></div>'}`;
+ return`<div class="row"><button data-v="home">Home</button><span class="chip">${R.tst?"Level test · "+SK[it.k]:R.l+" · "+MN[R.m]}</span><span class="mu">${R.i+1}/${R.q.length} · score ${R.sc} · streak ${R.st}</span></div><div class="bar" role="progressbar" aria-valuenow="${pct}"><i style="width:${pct}%"></i></div>
+<div class="card">${b}<div class="fb" id="fb" aria-live="polite"></div><div class="row"><button class="p" id="nx" hidden>${R.i+1<R.q.length?"Next":"Finish"}</button></div></div>`}
+function end(){if(R.tst)return tend();let n=R.q.length,p=Math.round(100*R.sc/n),i=LV.indexOf(R.l),nx=i<LV.length-1&&p>=70;
+ return`<h2>${R.l} · ${MN[R.m]}: ${p}%</h2><div class="card"><p>${R.sc} of ${n} correct. Best streak ${R.bs||0}.</p>${R.ms.length?"<p class='mu'>Missed:</p><ul>"+R.ms.map(m=>"<li>"+esc(m)+"</li>").join("")+"</ul>":"<p>No mistakes.</p>"}
+<div class="row"><button class="p" data-go="${R.l}|${R.m}">Try again</button>${nx?`<button data-go="${LV[i+1]}|${R.m}">Next level</button>`:""}<button data-v="home">Home</button></div></div>`}
+function flash(){let ws=Object.values(DATA).flatMap(d=>d.W);R=R&&R.f?R:{f:1,i:0,fl:0};let w=ws[R.i%ws.length];
+ return`<div class="row"><button data-v="home">Home</button><span class="mu">Card ${R.i%ws.length+1}/${ws.length}</span></div><div class="card flip"><div id="fc" tabindex="0" role="button" style="transform:rotateY(${R.fl?0:0}deg)">${R.fl?`<p>${esc(w[1])}</p><p class="mu">${esc(w[2])}</p>`:`<h2>${esc(w[0])}</h2><p class="mu">${esc(w[3])}</p>`}<p class="mu">(tap to flip)</p></div>
+<div class="row"><button data-k="1">Know it</button><button data-k="0">Still learning</button><button data-say="${esc(w[0])}">▶</button></div></div>`}
+function words(){let all=Object.values(DATA).flatMap(d=>d.W.map(w=>w[0])),g=(f)=>all.filter(w=>S.v[w]&&f(S.v[w])).join(", ")||"—";
+ return`<div class="row"><button data-v="home">Home</button></div><div class="card"><h2>My words</h2><p><b>Mastered</b><br>${g(v=>v.b>=3)}</p><p><b>Learning</b><br>${g(v=>v.b>0&&v.b<3)}</p><p><b>Struggling</b><br>${g(v=>v.b==0&&v.m>0)}</p></div>`}
+/* ===== 7. EVENTS & MODULE INTERACTIONS ===== */
+function wire(){let A=$("#app"),it=R&&R.q&&R.q[R.i],pick=[];
+ A.onclick=e=>{let t=e.target.closest("button,#fc");if(!t)return;let D=t.dataset;
+  if(D.go){let[l,m]=D.go.split("|");start(l,m)}
+  else if(D.test)startTest();
+  else if(D.daily)startDaily($("#dl").value);
+  else if(D.apply){S.est=R.res.o;save();R=null;view="home";draw()}
+  else if(D.v){view=D.v;if(D.v!="flash")R=D.v=="home"?null:R;draw()}
+  else if(D.say!=null){let s=rate;if(D.slow)rate=.55;say(D.say);rate=s}
+  else if(t.id=="rs"){if(confirm("Reset all progress?")){S={p:{},v:{},pl:0,bs:0};save();draw()}}
+  else if(t.id=="fc"){R.fl^=1;draw()}
+  else if(D.k!=null){let ws=Object.values(DATA).flatMap(d=>d.W);vmark(ws[R.i%ws.length][0],D.k=="1");save();R.i++;R.fl=0;draw()}
+  else if(t.id=="nx"){R.i++;R.done=0;R.i<R.q.length?draw():finish()}
+  else if(D.o!=null){let k=+D.o==it.a;if(!R.done){t.classList.add(k?"ok":"no");if(!k)A.querySelectorAll("[data-o]")[it.a].classList.add("ok")}answer(k,it,"")}
+  else if(D.w!=null){pick.push(it.w[D.w]);t.disabled=true;$("#sel").textContent=pick.join(" ")}
+  else if(t.id=="un"){pick=[];draw2()}
+  else if(t.id=="ck"&&it.t=="write")wcheck(it);
+  else if(t.id=="ck"){let v=it.t=="type"?$("#tx").value:pick.join(" ");answer(norm(v).join(" ")==norm(it.a).join(" "),it,it.t=="type"?"":"")}
+  else if(t.id=="rec")listen(it);
+  else if(t.id=="snd")tsend();
+  else if(D.self!=null)answer(D.self=="1",{...it,x:"Compare with the audio and keep practising."});};
+ const draw2=()=>{pick=[];document.querySelectorAll("[data-w]").forEach(b=>b.disabled=false);$("#sel").textContent=""};
+ let c=$("#pl");if(c)c.onchange=()=>{S.pl=c.checked?1:0;save();draw()};
+ let r=$("#rt");if(r)r.oninput=()=>rate=+r.value;
+ let ti=$("#ti");if(ti){ti.focus();ti.onkeydown=e=>e.key=="Enter"&&tsend()}
+ let wr=$("#wr");if(wr){wr.focus();wr.oninput=()=>$("#cl").innerHTML=cl(wr.value,it)}
+ let tx=$("#tx");if(tx){tx.focus();tx.onkeydown=e=>e.key=="Enter"&&$("#ck").click()}
+ let fc=$("#fc");if(fc)fc.onkeydown=e=>(e.key=="Enter"||e.key==" ")&&(e.preventDefault(),fc.click());
+ if(it&&it.say&&it.t!="speak")setTimeout(()=>say(it.say),300)}
+/* Writing checklist (B2+): word count, linking words, sentences */
+const LINK=/\b(however|therefore|although|moreover|in addition|because|for example|on the other hand|on the one hand|while|firstly|finally|as a result|nevertheless|whereas|yet)\b/gi;
+function chk(v,it){let n=norm(v).length,l=(v.match(LINK)||[]).length,c=(v.match(/[.!?]/g)||[]).length;return[[n>=it.min,"At least "+it.min+" words ("+n+")"],[l>=2,"2+ linking words ("+l+")"],[c>=3,"3+ sentences ("+c+")"]]}
+const cl=(v,it)=>chk(v,it).map(c=>(c[0]?"✓ ":"○ ")+c[1]).join("<br>");
+function wcheck(it){let v=$("#wr").value;answer(chk(v,it).every(c=>c[0]),it,"<br>"+cl(v,it)+"<br><b>Model answer:</b> "+esc(it.a));$("#wr").readOnly=true}
+/* Speaking / Pronunciation: record, compare words, highlight misses */
+function listen(it){let rc=new SR();rc.lang="en-US";$("#rec").textContent="Listening…";
+ rc.onresult=e=>{let heard=norm(e.results[0][0].transcript),tg=norm(it.a),hit=tg.map(w=>heard.includes(w)),p=Math.round(100*hit.filter(Boolean).length/tg.length);
+  answer(p>=70,{...it,x:""},`Match ${p}%. `+tg.map((w,i)=>hit[i]?w:`<span class="miss">${w}</span>`).join(" ")+(p<70?"<br>Hear it again and retry.":""))};
+ rc.onerror=()=>{$("#rec").textContent="● Record";$("#fb").textContent="Could not hear you. Check the microphone permission and try again."};
+ rc.start()}
+draw();loadFeed().then(()=>{if(view=="home")draw()});
+/* Auto-update: re-check the feed whenever the tab becomes visible again (e.g. next morning) */
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState=="visible")loadFeed().then(()=>{if(view=="home")draw()})});
+</script></body></html>
