@@ -226,7 +226,7 @@ const LV=Object.keys(DATA),MD=["listening","speaking","reading","writing","vocab
             "daily":{"2026-10-25":{"B1":[["mc",question,[options],answerIndex,explanation],["order",sentence],
                      ["type",prompt,answer,explanation,optionalAudioText],["tf",statement,0|1|2,explanation,passage],["speak",sentence]]}}}
    "extra" adds to the same pools as DATA (same formats). "daily" gives ready-made questions for that date and level. */
-const FEED_URL="https://finn0080.github.io/English-trainer/feed.json";
+const FEED_URL="https://finn0080.github.io/English-trainer/";
 /* AI tutor (optional): address of your proxy (see worker.js). The API key lives only on the server. Leave "" to hide the tutor. */
 const PROXY_URL="https://english-tutor.tunglamisfinn.workers.dev";
 let FEED={};
@@ -366,7 +366,7 @@ function ecard(){let ls=tls(),el=ls.includes(S.el)?S.el:ls[ls.length-1],em=S.em|
    SKD rows:  mc skills:    skill|level 0-6|sentence with ____|correct|wrong|wrong
               typed skills: skill|level 0-6|prompt|accepted answers separated by /     (wordform, transform)
    A round takes the 10 rows closest to your chosen level. Add your own rows freely. */
-const SKN={wordform:"Word form",transform:"Transformation",prepositions:"Prepositions",tenses:"Tenses",conditionals:"Conditionals",phrasal:"Phrasal verbs",linking:"Linking words",articles:"Articles",presentSimple:"Present simple",presentCont:"Present continuous",pastSimple:"Past simple",pastCont:"Past continuous",futures:"Future forms",comparison:"Comparisons",quantifiers:"Quantifiers",modals:"Modal verbs",questions:"Questions",possessives:"Possessives",gerunds:"Verb + -ing / to",sentences:"Sentence types",reported:"Reported speech",perfect:"Past vs perfect",participles:"Participles",infinitives:"Infinitives",perfectClauses:"Perfect clauses",cleft:"Cleft sentences",compoundNouns:"Compound nouns",whToInf:"Wh- + to-infinitive"},TY={wordform:1,transform:1};
+const SKN={wordform:"Word form",transform:"Transformation",prepositions:"Prepositions",tenses:"Tenses",conditionals:"Conditionals",phrasal:"Phrasal verbs",linking:"Linking words",articles:"Articles"},TY={wordform:1,transform:1};
 for(const k in SKN)MN["sk_"+k]=SKN[k];
 const SKD=`wordform|0|She is a very ____ girl. (BEAUTY)|beautiful
 wordform|0|He sings very ____. (GOOD)|well
@@ -448,143 +448,7 @@ linking|4|Prices rose; ____, demand fell.|consequently|whereas|despite
 linking|4|He works hard, ____ his brother is lazy.|whereas|therefore|so
 linking|5|The plan is risky; ____, it could pay off.|nevertheless|therefore|besides
 linking|6|____ renewable energy has grown, fossil fuels dominate.|While|Despite|Due to
-linking|6|Cars are cheaper; ____, more people drive.|as a result|in contrast|on the whole
-presentSimple|0|My brother ____ football every Saturday.|plays|play|playing
-presentSimple|0|She ____ like spicy food.|doesn't|don't|isn't
-presentSimple|1|What time ____ your class start?|does|do|is
-presentSimple|1|The Earth ____ around the Sun.|goes|go|going
-presentSimple|1|They ____ to school by bus.|go|goes|are go
-presentSimple|2|Once a week, he ____ his grandparents.|visits|visit|visiting
-presentCont|0|Look! The children ____ in the yard.|are playing|play|plays
-presentCont|1|I ____ my homework now.|am doing|do|does
-presentCont|1|She ____ TV at the moment.|is not watching|doesn't watching|not watching
-presentCont|1|____ he cooking dinner?|Is|Does|Do
-presentCont|2|Right now, we ____ for the exam.|are studying|study|studies
-presentCont|2|The engineers ____ a new panel this week.|are testing|test|tests
-pastSimple|0|We ____ to the zoo yesterday.|went|go|goes
-pastSimple|1|She ____ her grandparents last weekend.|visited|visit|visits
-pastSimple|1|They ____ not play football last Sunday.|did|do|were
-pastSimple|1|____ you finish your homework last night?|Did|Do|Were
-pastSimple|2|The Wright brothers ____ the aeroplane in 1903.|invented|invent|have invented
-pastSimple|2|He opened the door, ____ in and sat down.|walked|walks|walking
-pastCont|1|We ____ dinner when the lights went out.|were having|had|are having
-pastCont|1|It ____ at eight o'clock yesterday evening.|was raining|rained|is raining
-pastCont|2|While I ____ TV, my brother was cooking.|was watching|watched|watch
-pastCont|2|She ____ when the phone rang.|was sleeping|slept|sleeps
-pastCont|2|At 9 p.m. last night, the students ____ in the library.|were studying|studied|study
-pastCont|3|The storm hit while we ____ across the bridge.|were walking|walked|walk
-futures|1|I think it ____ rain tomorrow.|will|is|did
-futures|1|He ____ not go to the party next week.|will|is|does
-futures|1|____ she study abroad next year?|Will|Does|Is
-futures|2|If it rains, we ____ at home.|will stay|stay|stayed
-futures|2|The train ____ at 8 a.m. tomorrow.|leaves|leave|is leave
-futures|3|Robots ____ do the housework in 2050.|will|did|are
-comparison|1|She is ____ tall as her brother.|as|than|more
-comparison|1|This car is ____ than that one.|faster|more fast|fastest
-comparison|1|He is the ____ student in the class.|most talented|more talented|talentedest
-comparison|1|My house is different ____ yours.|from|than|with
-comparison|2|She speaks ____ carefully than before.|more|most|as
-comparison|2|This book is not as interesting ____ that one.|as|than|like
-quantifiers|1|I have ____ books on the shelf.|some|any|a little
-quantifiers|1|There are ____ students in the classroom.|a lot of|much|a little
-quantifiers|1|She has ____ money.|lots of|many|few
-quantifiers|2|We don't have ____ milk.|any|some|many
-quantifiers|2|How ____ water do you drink every day?|much|many|few
-quantifiers|2|Would you like ____ coffee?|some|any|many
-modals|0|You ____ respect your parents.|should|can't|mustn't
-modals|1|Students ____ run in the corridor.|mustn't|should|can
-modals|1|You ____ talk loudly in the library.|shouldn't|can|may
-modals|2|I ____ swim well, but I need more practice.|can|must|should
-modals|2|Drivers ____ stop at a red light.|must|can|may
-modals|3|You ____ wear a uniform, but you can choose the colour.|don't have to|mustn't|can't
-questions|0|____ is your teacher?|Who|Where|How many
-questions|1|____ do you live? In Hue.|Where|Who|What
-questions|1|____ you like coffee? Yes, I do.|Do|Are|Does
-questions|2|How ____ students are in your class?|many|much|often
-questions|2|How ____ does this bike cost?|much|many|long
-questions|2|____ did they visit the museum? Because it was free.|Why|When|Who
-possessives|1|This is my book. It is ____.|mine|my|me
-possessives|1|That car belongs to her. It is ____.|hers|her|she
-possessives|1|These are our seats. They are ____.|ours|our|us
-possessives|2|Is this phone yours or ____?|his|he|him
-possessives|2|I forgot my umbrella, so I used ____.|theirs|their|them
-possessives|2|That bag is not mine. It is ____.|hers|she|her's
-gerunds|1|My sister enjoys ____ stamps.|collecting|to collect|collect
-gerunds|1|I love ____ to music in my free time.|listening|listen|listens
-gerunds|1|He doesn't like ____ in the evening.|going out|go out|goes out
-gerunds|2|She hates ____ up early.|getting|get|gets
-gerunds|2|I'd like ____ a new hobby.|to start|starting|start
-gerunds|2|They are keen on ____ DIY.|doing|do|to do
-sentences|1|She studies hard, ____ she wants a good job.|because|but|or
-sentences|1|He wanted to go out, ____ it started raining.|but|so|and
-sentences|1|You can walk to school ____ take the bus.|or|but|so
-sentences|2|____ I arrive, I will text you.|As soon as|Unless|Despite
-sentences|2|We won't start ____ everyone is here.|until|while|since
-sentences|2|She listened to music ____ she was studying.|while|until|before
-sentences|3|____ it was cold, we went swimming.|Although|Because|Therefore
-reported|2|She said, "I am tired." She said that she ____ tired.|was|is|will be
-reported|2|He said, "I like pizza." He said he ____ pizza.|liked|likes|will like
-reported|2|"Where are you going?" She asked where I ____.|was going|am going|were going
-reported|2|"Are you coming?" He asked ____ I was coming.|if|that|what
-reported|3|"I will call you." She said she ____ call me.|would|will|can
-reported|3|"I did my homework yesterday." He said he ____ his homework the day before.|had done|did|has done
-perfect|2|I ____ never been to Hue.|have|did|was
-perfect|2|She ____ lived here since 2018.|has|have|is
-perfect|2|We ____ already finished our homework.|have|did|were
-perfect|3|I ____ my keys yesterday.|lost|have lost|has lost
-perfect|3|He ____ football for five years.|has played|played|plays
-perfect|3|Last year, they ____ to Da Nang.|travelled|have travelled|has travelled
-presentSimple|0|I ____ play football, but not every week.|sometimes|never|always
-presentSimple|1|We ____ have lunch at school from Monday to Friday.|always|never|rarely
-presentSimple|1|He ____ goes to bed late; he sleeps at nine every night.|never|always|often
-comparison|3|The harder you study, ____ your marks will be.|the better|better|the best
-comparison|3|The more you practise, ____ you feel.|the more confident|more confident|most confident
-comparison|3|The ____ the weather gets, the more people stay indoors.|colder|cold|coldest
-modals|2|If Anna wakes up early, she ____ go for a run.|can|did|is
-modals|3|If you feel stressed, you ____ talk to someone.|should|did|are
-modals|3|If it rains, we ____ have to stay indoors.|may|did|were
-presentCont|2|Look! It ____ now, so take an umbrella.|is raining|rains|rain
-presentCont|3|My sister usually ____ tea, but today she is having coffee.|drinks|is drinking|drank
-presentCont|3|Listen! The students ____ in the hall.|are singing|sing|sings
-gerunds|3|____ honest is important in any friendship.|Being|Be|To being
-gerunds|3|They are interested in ____ a solution.|finding|find|to find
-gerunds|3|I don't mind ____ you every night.|calling|to call|call
-participles|3|The children ____ in the park were laughing.|playing|played|play
-participles|3|The window ____ by the storm needs fixing.|broken|breaking|break
-participles|3|He saw his friend ____ for the bus.|waiting|waited|wait
-participles|3|The film was ____, so I fell asleep.|boring|bored|bore
-participles|4|____ tired, she went to bed early.|Being|Been|Be
-participles|4|The book ____ by a famous author became a bestseller.|written|writing|wrote
-infinitives|2|You must ____ on time.|arrive|to arrive|arriving
-infinitives|2|My mother let me ____ out with friends.|go|to go|going
-infinitives|3|I studied hard ____ the exam.|to pass|passing|pass
-infinitives|3|She saved money ____ a new phone.|to buy|buying|buy
-infinitives|3|He is the first student ____ the answer.|to find|finding|find
-infinitives|3|The teacher made us ____ the text again.|read|to read|reading
-perfectClauses|4|____ finished the work, he went home.|Having|Have|Had
-perfectClauses|4|____ the book before, she knew the ending.|Having read|Reading|Read
-perfectClauses|4|She denied ____ the money.|having taken|to take|have taken
-perfectClauses|4|He regretted ____ the chance.|having missed|to miss|miss
-perfectClauses|5|____ won the match, the team celebrated.|Having|Having been|Be having
-perfectClauses|5|I don't remember ____ him before.|having met|to meet|meet
-cleft|4|It was Tom ____ won the competition.|who|which|what
-cleft|4|It was at the coffee shop ____ I left my bag.|that|who|what
-cleft|4|It is her kindness ____ people admire.|that|what|whose
-cleft|5|It was last year ____ they moved to Hue.|that|who|what
-cleft|5|It was my teacher ____ encouraged me.|who|whom|whose
-cleft|5|It is ____ that matters most.|honesty|honest|honestly
-compoundNouns|2|I need to buy some ____ for the beach.|sunscreen|screen sun|sunny screen
-compoundNouns|3|A ____ is a person who walks past.|passer-by|by-passer|passing-by
-compoundNouns|3|Her ____ is my brother's wife.|sister-in-law|sister in law's|law-sister
-compoundNouns|4|We watched the ____ at the zoo.|elephant show|show elephant|elephants showing
-compoundNouns|4|She wore a lovely ____ at the party.|necklace|neck lace of|lace neck
-compoundNouns|4|He had a ____ yesterday and looks neat.|haircut|cuthair|hairing cut
-whToInf|2|She didn't know what ____ next.|to do|doing|do
-whToInf|2|Can you tell me how ____ to the station?|to get|getting|get
-whToInf|2|I wonder where ____ the tickets.|to buy|buying|buy
-whToInf|2|He asked me when ____ the form.|to submit|submitting|submit
-whToInf|3|They haven't decided who ____ to the party.|to invite|inviting|invite
-whToInf|3|We are not sure which road ____.|to take|taking|take`.split("\n").map(r=>{let p=r.split("|");p[1]=+p[1];return p});
+linking|6|Cars are cheaper; ____, more people drive.|as a result|in contrast|on the whole`.split("\n").map(r=>{let p=r.split("|");p[1]=+p[1];return p});
 function skillItems(l,k,r){let ix=LV.indexOf(l),all=(r?[...SKD.filter(x=>x[0]==k)].sort(()=>r()-.5):sh(SKD.filter(x=>x[0]==k))).sort((a,b)=>Math.abs(a[1]-ix)-Math.abs(b[1]-ix)),near=all.filter(x=>Math.abs(x[1]-ix)<=1);
  return(near.length>=6?near:all.slice(0,6)).slice(0,10).map(x=>TY[k]?{t:"type",q:(k=="wordform"?"Word form: complete with the correct form. ":"Complete so the meaning stays the same. ")+x[2],a:x[3],x:x[3].split("/")[0]}:mc("Choose the best option: "+x[2],[x[3],x[4],x[5]],0,x[2].replace("____",x[3])))}
 function startSkill(l,k){S.dl=l;R={l,m:"sk_"+k,i:0,sc:0,st:0,ms:[],q:skillItems(l,k),done:0,timed:RT[LV.indexOf(l)]>0};view="round";draw()}
@@ -628,35 +492,35 @@ GS6.forEach((u,i)=>MN["gs"+(i+1)]="Unit "+(i+1)+": "+u.t);
 const GL={6:0,7:1,8:1,9:2,10:2,11:3,12:3};   /* CEFR level each grade is practised at (0=A1 ... 3=B2) */
 const gp=s=>s.trim().split("\n").map(r=>{let[t,k,w]=r.split("|");return{t,k,w:w.split(";").map(x=>x.split(":"))}});
 const GSU={6:GS6,
-7:gp(`Hobbies|presentSimple|keen:very interested;collect:gather things as a hobby;craft:skilled handwork;enjoy:like doing
-Healthy Living|sentences|vitamin:a nutrient for health;snack:a small meal;exercise:physical activity;pimple:a small red spot on skin
-Community Service|pastSimple|volunteer:a person who helps for free;litter:rubbish on the ground;donate:give to help;charity:a group that helps people
-Music and Arts|comparison|perform:show to an audience;talented:having natural skill;instrument:something to play music;exhibition:a public show of art
-Food and Drink|quantifiers|ingredient:one item in a recipe;recipe:instructions to cook;fry:cook in hot oil;delicious:very tasty
-A Visit to a School|prepositions|laboratory:a room for experiments;exchange:a swap between schools;assembly:a meeting of all students;canteen:a place to eat at school
-Traffic|modals|pavement:a path for walkers;junction:where roads meet;seat belt:a strap in a car;obey:follow a rule
+7:gp(`Hobbies|tenses|keen:very interested;collect:gather things as a hobby;craft:skilled handwork;enjoy:like doing
+Healthy Living|articles|vitamin:a nutrient for health;snack:a small meal;exercise:physical activity;pimple:a small red spot on skin
+Community Service|prepositions|volunteer:a person who helps for free;litter:rubbish on the ground;donate:give to help;charity:a group that helps people
+Music and Arts|wordform|perform:show to an audience;talented:having natural skill;instrument:something to play music;exhibition:a public show of art
+Food and Drink|articles|ingredient:one item in a recipe;recipe:instructions to cook;fry:cook in hot oil;delicious:very tasty
+A Visit to a School|tenses|laboratory:a room for experiments;exchange:a swap between schools;assembly:a meeting of all students;canteen:a place to eat at school
+Traffic|prepositions|pavement:a path for walkers;junction:where roads meet;seat belt:a strap in a car;obey:follow a rule
 Films|linking|plot:the story of a film;director:the person who makes a film;scene:a part of a film;audience:people who watch
-Festivals Around the World|questions|parade:a public march;costume:clothes for a role;lantern:a light in a case;harvest:the gathering of crops
-Energy Sources|presentCont|renewable:able to be used again;fossil fuel:coal, oil or gas;solar:from the sun;electricity:power for machines
-Travelling in the Future|futures|hyperloop:a very fast tube train;autopilot:automatic control;driverless:without a driver;convenient:easy and useful
+Festivals Around the World|phrasal|parade:a public march;costume:clothes for a role;lantern:a light in a case;harvest:the gathering of crops
+Energy Sources|wordform|renewable:able to be used again;fossil fuel:coal, oil or gas;solar:from the sun;electricity:power for machines
+Travelling in the Future|conditionals|hyperloop:a very fast tube train;autopilot:automatic control;driverless:without a driver;convenient:easy and useful
 English-speaking Countries|articles|capital:the main city;landmark:a famous place;accent:a way of pronouncing;nationality:belonging to a country`),
-8:gp(`Leisure Time|gerunds|keen:very interested;hobby:something you do for fun;DIY:making things yourself;addicted:unable to stop doing
-Life in the Countryside|comparison|harvest:gather crops;herd:a group of animals;plough:turn over soil;hospitable:friendly to guests
-Teenagers|sentences|independent:not needing help;pressure:strong demand to act;confident:sure of yourself;adolescent:a young person growing up
-Ethnic Groups of Viet Nam|questions|ethnic:of a cultural group;stilt house:a house on poles;terraced field:farmland in steps;minority:a smaller group in a country
-Our Customs and Traditions|articles|custom:a traditional habit;ancestor:a family member long ago;generation:people of about the same age;respect:a feeling of admiration
-Lifestyles|futures|lifestyle:the way you live;balance:a steady mix;routine:a regular set of actions;habit:something done often
-Environmental Protection|sentences|pollution:harmful dirt in nature;recycle:make new things from old;conserve:protect from loss;habitat:the natural home of animals
-Shopping|presentSimple|bargain:a good price;receipt:a paper proof of paying;discount:a lower price;customer:a person who buys
-Natural Disasters|pastCont|earthquake:a shaking of the ground;flood:too much water on land;shelter:a safe place;rescue:save from danger
-Communication in the Future|possessives|hologram:a 3D picture of light;virtual:made by computer;translate:change into another language;telepathy:sending thoughts without words
-Science and Technology|reported|invent:create something new;experiment:a test in science;device:a small machine;breakthrough:an important discovery
-Life on Other Planets|reported|alien:a creature from space;planet:a large body orbiting a star;spacecraft:a vehicle for space;galaxy:a huge group of stars`),
-9:gp(`Local Community|whToInf|artisan:a skilled craft worker;craft village:a village known for crafts;suburb:an area outside a city centre;community:people living in one place
-City Life|comparison|bustling:full of busy activity;public transport:buses and trains;skyscraper:a very tall building;metro:an underground railway
-Healthy Living for Teens|modals|stress:mental pressure;balanced diet:a healthy mix of food;sleep:rest at night;fitness:being strong and healthy
+8:gp(`Leisure Time|tenses|keen:very interested;hobby:something you do for fun;DIY:making things yourself;addicted:unable to stop doing
+Life in the Countryside|prepositions|harvest:gather crops;herd:a group of animals;plough:turn over soil;hospitable:friendly to guests
+Teenagers|wordform|independent:not needing help;pressure:strong demand to act;confident:sure of yourself;adolescent:a young person growing up
+Ethnic Groups of Viet Nam|articles|ethnic:of a cultural group;stilt house:a house on poles;terraced field:farmland in steps;minority:a smaller group in a country
+Our Customs and Traditions|phrasal|custom:a traditional habit;ancestor:a family member long ago;generation:people of about the same age;respect:a feeling of admiration
+Lifestyles|linking|lifestyle:the way you live;balance:a steady mix;routine:a regular set of actions;habit:something done often
+Environmental Protection|conditionals|pollution:harmful dirt in nature;recycle:make new things from old;conserve:protect from loss;habitat:the natural home of animals
+Shopping|prepositions|bargain:a good price;receipt:a paper proof of paying;discount:a lower price;customer:a person who buys
+Natural Disasters|tenses|earthquake:a shaking of the ground;flood:too much water on land;shelter:a safe place;rescue:save from danger
+Communication in the Future|conditionals|hologram:a 3D picture of light;virtual:made by computer;translate:change into another language;telepathy:sending thoughts without words
+Science and Technology|wordform|invent:create something new;experiment:a test in science;device:a small machine;breakthrough:an important discovery
+Life on Other Planets|transform|alien:a creature from space;planet:a large body orbiting a star;spacecraft:a vehicle for space;galaxy:a huge group of stars`),
+9:gp(`Local Community|phrasal|artisan:a skilled craft worker;craft village:a village known for crafts;suburb:an area outside a city centre;community:people living in one place
+City Life|prepositions|bustling:full of busy activity;public transport:buses and trains;skyscraper:a very tall building;metro:an underground railway
+Healthy Living for Teens|tenses|stress:mental pressure;balanced diet:a healthy mix of food;sleep:rest at night;fitness:being strong and healthy
 Remembering the Past|tenses|recall:remember;memory:something you remember;ancient:very old;monument:a structure to remember
-Our Experiences|perfect|experience:something that happened to you;adventure:an exciting trip;achievement:something done with effort;memorable:easy to remember
+Our Experiences|tenses|experience:something that happened to you;adventure:an exciting trip;achievement:something done with effort;memorable:easy to remember
 Vietnamese Lifestyle: Then and Now|transform|modernise:make up to date;tradition:a custom passed down;urban:of a city;rural:of the countryside
 Natural Wonders of the World|articles|wonder:something amazing;canyon:a deep valley;glacier:a large mass of ice;volcano:a mountain that erupts
 Tourism|articles|resort:a holiday place;itinerary:a plan of a journey;sightseeing:visiting famous places;accommodation:a place to stay
@@ -664,9 +528,9 @@ World Englishes|linking|accent:a way of pronouncing;dialect:a form of a language
 Planet Earth|conditionals|climate:the usual weather;endangered:at risk of dying out;ecosystem:living things and their environment;global warming:rising Earth temperatures
 Electronic Devices|wordform|gadget:a small useful machine;battery:stores electric power;wireless:without wires;upgrade:improve to a newer version
 Career Choices|transform|career:a long-term job path;vocational:related to job skills;apprentice:a learner of a trade;qualification:proof of training`),
-10:gp(`Family Life|presentCont|breadwinner:the person who earns money;chore:a small household job;bond:a close connection;responsibility:a duty
+10:gp(`Family Life|tenses|breadwinner:the person who earns money;chore:a small household job;bond:a close connection;responsibility:a duty
 Humans and the Environment|conditionals|awareness:knowing about something;habitat:the natural home of animals;sustainable:able to continue;appliance:a home machine
-Music|sentences|genre:a type of music;lyrics:the words of a song;composer:a person who writes music;melody:a tune
+Music|wordform|genre:a type of music;lyrics:the words of a song;composer:a person who writes music;melody:a tune
 For a Better Community|phrasal|volunteer:a person who helps for free;donate:give to help;charity:a group that helps people;neighbourhood:the area where you live
 Inventions|tenses|invention:a new thing created;prototype:a first model;patent:a legal right to an invention;breakthrough:an important discovery
 Gender Equality|linking|equality:equal rights for all;discrimination:unfair treatment;stereotype:a fixed idea about a group;opportunity:a chance
@@ -674,21 +538,21 @@ Viet Nam and International Organisations|prepositions|organisation:a group with 
 New Ways to Learn|wordform|platform:an online system;interactive:involving two-way action;tutor:a private teacher;self-study:learning by yourself
 Protecting the Environment|conditionals|conserve:protect from loss;renewable:able to be used again;emission:gas released into air;deforestation:cutting down forests
 Ecotourism|articles|ecotourism:travel that protects nature;wildlife:animals in the wild;preserve:keep safe;eco-friendly:not harming nature`),
-11:gp(`A Long and Healthy Life|perfect|longevity:a long life;nutritious:good for health;lifespan:how long a life lasts;workout:a session of exercise
-The Generation Gap|modals|generation:people of similar age;conflict:a serious disagreement;curfew:a time to be home;value:a belief about what matters
-Cities of the Future|linking|smart city:a city using technology;sustainable:able to continue;infrastructure:basic city systems;pollution:harmful dirt in nature
-ASEAN and Viet Nam|gerunds|member state:a country in a group;cooperation:working together;regional:of an area;charter:a founding document
-Global Warming|participles|greenhouse gas:a gas that traps heat;emission:gas released into air;melt:change from ice to water;drought:a long dry period
-Preserving Our Heritage|infinitives|heritage:valued things from the past;restore:repair to the original state;artefact:an object from history;landmark:a famous place
-Education Options for School-leavers|perfectClauses|vocational:related to job skills;scholarship:money for study;degree:a university qualification;apply:ask formally for
-Becoming Independent|cleft|independent:not needing help;budget:a plan for money;mature:fully grown in mind;responsible:able to be trusted
+11:gp(`A Long and Healthy Life|tenses|longevity:a long life;nutritious:good for health;lifespan:how long a life lasts;workout:a session of exercise
+The Generation Gap|linking|generation:people of similar age;conflict:a serious disagreement;curfew:a time to be home;value:a belief about what matters
+Cities of the Future|conditionals|smart city:a city using technology;sustainable:able to continue;infrastructure:basic city systems;pollution:harmful dirt in nature
+ASEAN and Viet Nam|prepositions|member state:a country in a group;cooperation:working together;regional:of an area;charter:a founding document
+Global Warming|conditionals|greenhouse gas:a gas that traps heat;emission:gas released into air;melt:change from ice to water;drought:a long dry period
+Preserving Our Heritage|transform|heritage:valued things from the past;restore:repair to the original state;artefact:an object from history;landmark:a famous place
+Education Options for School-leavers|wordform|vocational:related to job skills;scholarship:money for study;degree:a university qualification;apply:ask formally for
+Becoming Independent|phrasal|independent:not needing help;budget:a plan for money;mature:fully grown in mind;responsible:able to be trusted
 Social Issues|linking|poverty:having very little money;homelessness:having no home;bullying:hurting others repeatedly;campaign:an organised effort for change
-The Ecosystem|compoundNouns|ecosystem:living things and their environment;biodiversity:variety of life;species:a type of living thing;predator:an animal that hunts`),
-12:gp(`Life Stories We Admire|pastCont|inspire:make someone want to act;achievement:something done with effort;determination:firm purpose;biography:the story of a life
-A Multicultural World|articles|diversity:a variety of people;tolerance:accepting differences;heritage:valued things from the past;stereotype:a fixed idea about a group
+The Ecosystem|articles|ecosystem:living things and their environment;biodiversity:variety of life;species:a type of living thing;predator:an animal that hunts`),
+12:gp(`Life Stories We Admire|tenses|inspire:make someone want to act;achievement:something done with effort;determination:firm purpose;biography:the story of a life
+A Multicultural World|prepositions|diversity:a variety of people;tolerance:accepting differences;heritage:valued things from the past;stereotype:a fixed idea about a group
 Green Living|conditionals|carbon footprint:your effect on climate;sustainable:able to continue;eco-friendly:not harming nature;reduce:make smaller
 Urbanisation|wordform|urbanisation:growth of cities;overcrowded:too full of people;migrate:move to live elsewhere;infrastructure:basic city systems
-The World of Work|sentences|workforce:all the workers;employer:a person who hires;qualification:proof of training;internship:short work experience
+The World of Work|phrasal|workforce:all the workers;employer:a person who hires;qualification:proof of training;internship:short work experience
 Artificial Intelligence|transform|algorithm:a set of rules for a computer;automation:machines doing tasks;ethical:morally right;data:facts and figures
 The World of Mass Media|linking|broadcast:send out on TV or radio;journalist:a person who reports news;fake news:false information;headline:the title of a news story
 Wildlife Conservation|conditionals|endangered:at risk of dying out;poaching:illegal hunting;habitat:the natural home of animals;extinction:when a species dies out
@@ -763,83 +627,10 @@ Third and mixed conditionals show consequences: if + had + past participle, woul
 Rewrite with the passive, gerunds and so...that.|He worked so hard that he was promoted quickly.
 Form words: learn, learner; skill, skilled; curious, curiosity.|Curiosity keeps learners skilled and motivated.`};
 for(const g in LSN)LSN[g]=LSN[g].split("\n");
-/* Lessons aligned with published unit summaries for Grade 7, Grade 8 and Grade 11 units 1-3 */
-Object.assign(LSN,{7:`Use the present simple for habits and facts. Add -s or -es for he, she and it, and use do or does for questions and negatives.|My sister collects stamps, but she doesn't collect coins.
-A simple sentence has one subject and one or more verbs. It can also have an object and an adverb of time.|I read science books every weekend and sleep at ten.
-Use the past simple for finished actions. Regular verbs add -ed, and many common verbs are irregular (go, went).|We cleaned the beach last Sunday and collected a lot of rubbish.
-Compare with like, different from and (not) as...as. Use -er or more for comparatives and -est or most for superlatives.|Her voice is not as strong as his, and it is different from other singers.
-Use some in positive sentences and offers. Use a lot of or lots of with plural and uncountable nouns.|We need some rice and a lot of vegetables for the soup.
-Use at for times and points, on for days and surfaces, in for months, years and spaces.|The visit starts at 8 a.m. on Friday, and we meet in the hall.
-Use should and shouldn't for advice. For distance, say: It is + distance + from A to B.|You should wear a helmet. It is two kilometres from my house to school.
-Show contrast with although and though (before a clause) and however (starts a new sentence, followed by a comma).|Although the film was long, I enjoyed it. However, the ending was sad.
-Make yes/no questions with be, a modal or do, does or did before the subject. Answer with Yes or No + subject + auxiliary.|Do people wear costumes at this festival? Yes, they do.
-Use am, is or are + verb-ing for actions happening now or around now.|The engineers are testing a new solar panel at the moment.
-Use will + verb for predictions. Possessive pronouns (mine, yours, his, hers, ours, theirs) replace a possessive adjective + noun.|Flying cars will be common. This seat is mine, and that one is yours.
-Use a or an for one of many, the for known or unique things, and no article for general plurals and uncountable nouns.|I read a book about the UK. The book was interesting.`.split("\n"),
-8:`After like, love, enjoy, hate and dislike, use verb-ing for general feelings. Use to + verb for a particular occasion.|I enjoy swimming, but today I would like to go cycling.
-Form comparative adverbs with -er (short) or more (long): faster, more carefully. Well becomes better.|Villagers work harder and live more slowly than city people.
-A compound sentence joins two clauses with and, but, or or so. A simple sentence has only one clause.|Teenagers want independence, but they still need advice.
-Yes/no questions start with an auxiliary. Wh- questions start with what, where, why, who or how. Use many with countable and much with uncountable nouns.|How many festivals do you have? How much rice do you need?
-Use a or an for the first mention, the for the second mention, and no article for general plurals and meals.|We visited a village. The village has an old temple.
-Use will for future results. First conditional: if + present simple, will + verb.|If you eat more vegetables, you will feel healthier.
-Link time with when, before, after, while, until and as soon as. Use the present simple after them for the future.|I will recycle the bottles as soon as I finish the drink.
-Adverbs of frequency (always, usually, often, sometimes, never) go before the main verb. The present simple can also show a timetable.|The market usually opens at six. The sale starts next Monday.
-Use was or were + verb-ing for an action in progress in the past, often interrupted by a past simple action.|We were sleeping when the storm hit the village.
-Use in for months and years, on for days, at for times. Possessive pronouns: mine, yours, his, hers, ours, theirs.|The meeting is on Friday at nine. That phone is yours, and this one is mine.
-In reported statements the verb usually moves one tense back, and pronouns and time words change.|"I am testing the robot," she said. = She said that she was testing the robot.
-In reported yes/no questions use if or whether. In wh- questions keep the question word. The word order is that of a statement.|"Are you coming?" = He asked if I was coming.`.split("\n")});
-LSN[11][0]="Use the past simple for finished time and the present perfect (have + past participle) for experiences and results connected to now.|I have exercised since 2020, and I started jogging last year.";
-LSN[11][1]="Modal verbs (can, may, must, have to, need) show ability, permission, obligation and necessity.|You must follow the rules, but you don't have to agree with every one.";
-LSN[11][2]="Stative verbs (know, like, believe, want) are not normally used in continuous forms. Linking words join ideas: and, but, so, because, however.|I know the city well, but I don't like the traffic.";
-/* Units whose grammar point comes from published unit summaries: grade -> "all" or list of unit numbers */
-const GSV={6:[1],7:"all",8:"all",9:[1,2,3,5],10:[1,3],11:"all",12:[1,2,5]};
-/* Lessons for units whose grammar was checked against published unit summaries in the second pass */
-LSN[9][0]="Use a question word + to-infinitive after ask, wonder, decide, tell and know. Phrasal verbs combine a verb and a particle (look around, turn down).|She wondered where to go. I turned down the offer.";
-LSN[9][1]="Double comparatives show that two changes happen together: the + comparative, the + comparative.|The more we walk, the healthier we feel. The city is getting busier and busier.";
-LSN[9][2]="Modal verbs can appear in the main clause of a conditional: can, could, may, might, should, must.|If Anna wakes up early, she can go for a run. If you feel stressed, you should talk to someone.";
-LSN[9][4]="Use the present perfect (have or has + past participle) for experiences and results connected to now, with ever, never, already, yet, since and for.|I have never tried rock climbing. She has already finished her project.";
-LSN[10][0]="Use the present simple for habits and facts, and the present continuous for actions now or around now.|My dad usually cooks, but this week he is working late.";
-LSN[10][2]="A compound sentence joins two clauses with and, but, or, so. After modal verbs and after let or make, use the bare infinitive; use the to-infinitive for purpose.|I like jazz, but my sister prefers rock. We came to listen to the concert.";
-LSN[11][3]="A gerund (verb-ing) works like a noun: as a subject, after prepositions, and after verbs such as enjoy, mind and avoid.|Being honest is important. They are interested in finding a solution.";
-LSN[11][4]="Present participles (-ing) and past participles (-ed or -en) can work as adjectives or shorten clauses.|The children playing outside are my cousins. The window broken by the storm is repaired.";
-LSN[11][5]="A to-infinitive clause can show purpose or follow nouns such as the first, the last and the best.|I studied hard to pass the exam. She is the first student to finish.";
-LSN[11][6]="Perfect gerunds and perfect participle clauses (having + past participle) show an action that happened earlier.|Having finished the work, he went home. She denied having taken the money.";
-LSN[11][7]="Cleft sentences emphasise one part: It + be + the emphasised part + that or who + clause.|It was Tom who won. It was at the shop that I left my bag.";
-LSN[11][8]="Linking words connect ideas: because, since, although, despite, in order to, moreover, therefore, as a result.|Despite the rain, they finished the marathon. He studied hard; therefore, he passed.";
-LSN[11][9]="A compound noun joins two words into one meaning: noun + noun (sunscreen), adjective + noun (hot dog), or hyphenated forms (passer-by).|I need sunscreen, and we will watch the elephant show at the zoo.";
-LSN[12][0]="Use the past simple for completed events and the past continuous for an action in progress when another event happened.|She was studying when the news arrived. He won the prize in 2015.";
-LSN[12][1]="Review the articles: a or an for a first mention, the for known or unique things, and no article for general plurals and uncountable nouns.|A festival was held in the city. The festival celebrated cultural diversity.";
-LSN[12][4]="A simple sentence has one clause, a compound sentence joins clauses with and, but, or, so, and a complex sentence has a main and a dependent clause.|I applied, and I got an interview. Although the job was demanding, she accepted it.";
-Object.assign(GS6[0],{f:"Present simple and adverbs of frequency",l:"Use the present simple for habits and routines. Adverbs of frequency (always, usually, often, sometimes, never) go before the main verb but after be."});
-GS6[0].g[1]=["I ____ play football, but not every week.","sometimes","never","always"];
-/* Lessons for the grammar sub-skills */
-LES.push(["Present simple","Habits, routines and facts: I walk to school. The Earth goes round the Sun.|Add -s or -es for he, she, it. Questions and negatives use do or does + the base verb.|Frequency adverbs (always, usually, often, sometimes, never) go before the main verb but after be.|Time words: every day, on Mondays, once a week.","s:presentSimple"],
-["Present continuous","Use am, is or are + verb-ing for actions happening now or around now.|Negative: is not working. Question: Are they playing?|Contrast: She usually walks, but today she is taking the bus.|Stative verbs (know, like, want) are not normally used in the continuous.","s:presentCont"],
-["Past simple","Finished actions at a known time: We visited Hue last year.|Regular verbs add -ed; irregular verbs change (go, went; see, saw).|Questions and negatives use did or didn't + the base verb.|Time words: yesterday, last week, in 2019, two days ago.","s:pastSimple"],
-["Past continuous","Use was or were + verb-ing for an action in progress at a past moment.|It is often interrupted by a past simple action: We were eating when the lights went out.|While links two actions in progress; when often introduces the interruption.|Compare: I read a book (finished) and I was reading a book (in progress).","s:pastCont"],
-["Future forms","Will + verb: predictions and quick decisions (It will rain).|Be going to: plans and evidence (Look at the clouds, it is going to rain).|The present simple for timetables: The train leaves at eight.|After if, when and as soon as, use the present simple, not will.","s:futures"],
-["Comparisons","Short adjectives: taller, the tallest. Long adjectives: more interesting, the most interesting.|Equality: as + adjective + as. Difference: different from, not as ... as.|Irregular forms: good, better, best; bad, worse, worst.|Double comparatives: The more you practise, the better you become.","s:comparison"],
-["Quantifiers","Countable nouns: many, a few, several. Uncountable nouns: much, a little.|Both kinds: some, any, a lot of, lots of, plenty of.|Use some in positive sentences and offers, and any in negatives and questions.|How many goes with countable nouns; how much goes with uncountable nouns.","s:quantifiers"],
-["Modal verbs","Can and could: ability and permission. Must and have to: obligation. Should: advice.|Mustn't means not allowed; don't have to means not necessary.|May, might and could show possibility. A modal is followed by the base verb.|Modals also appear in conditionals: If you feel ill, you should rest.","s:modals"],
-["Question forms","Yes/no questions put an auxiliary or modal before the subject: Do you like tea?|Wh- questions use what, where, when, why, who or how + auxiliary + subject.|How many goes with countable nouns, how much with uncountable nouns, how often with frequency.|Short answers repeat the auxiliary: Yes, I do. No, she isn't.","s:questions"],
-["Possessives","Possessive adjectives come before a noun: my, your, his, her, its, our, their.|Possessive pronouns stand alone: mine, yours, his, hers, ours, theirs.|Compare: This is my book. This book is mine.|Use 's for one owner (Mai's bag) and s' for plural owners (the students' room).","s:possessives"],
-["Verb + -ing / to","Enjoy, mind, avoid, finish and keep take verb-ing.|Want, hope, decide, learn and plan take to + the base verb.|Like, love, hate and prefer can take either; would like takes the to-infinitive.|A gerund can be a subject or follow a preposition: Being honest matters. He is good at drawing.","s:gerunds"],
-["Sentence types","A simple sentence has one clause. A compound sentence joins clauses with and, but, or, so.|A complex sentence has a main clause and a dependent clause (because, although, when, until).|Time clauses use the present simple for the future: I will call you when I arrive.|Contrast: although or though + a clause; however starts a new sentence.","s:sentences"],
-["Reported speech","Reporting verbs (said, told, asked) usually move the tense back: am becomes was, will becomes would.|Pronouns and time words change: I becomes he or she, tomorrow becomes the next day.|Yes/no questions use asked if or whether + statement order. Wh- questions keep the question word.|Example: 'Where do you live?' becomes She asked where I lived.","s:reported"],
-["Past vs perfect","Past simple: a finished time (I lost my keys yesterday).|Present perfect: a connection to now, with just, already, yet, ever, never, for and since.|Form it with have or has + the past participle: I have lived here for five years.|Do not use the present perfect with a finished time word such as yesterday or in 2019.","s:perfect"],
-["Participles","The present participle (-ing) is active: the girl standing there; an exciting film.|The past participle (-ed or -en) is passive or finished: the broken window; a tired student.|Participle clauses shorten sentences: Being tired, she went to bed.|Compare -ing and -ed adjectives: boring (causes the feeling) and bored (has the feeling).","s:participles"],
-["Infinitives","After modals and after let or make, use the bare infinitive: She made me laugh.|Use the to-infinitive for purpose: I went there to study.|Use it after adjectives and ordinals: easy to use, the first to arrive.|Many verbs take the to-infinitive: want, decide, hope, plan, promise.","s:infinitives"],
-["Perfect gerund and participle clauses","Having + the past participle shows an action finished before the main action.|Having finished the report, she went home.|The perfect gerund follows admit, deny, regret and remember: He denied having taken it.|Use these clauses to join sentences that share the same subject.","s:perfectClauses"],
-["Cleft sentences","A cleft sentence emphasises one part of a sentence.|Pattern: It + be + the emphasised part + that or who + a clause.|Emphasise the subject: It was Tom who won. Emphasise a place: It was at the shop that I left it.|Use who for people and that for things, places and times.","s:cleft"],
-["Compound nouns","A compound noun joins two words into one idea: sunscreen, haircut, bus stop.|Types: closed (snowfall), open (town square) and hyphenated (passer-by, sister-in-law).|The first word usually describes the second, and the stress is usually on the first part.|The plural goes on the main noun: sisters-in-law, passers-by.","s:compoundNouns"],
-["Question word + to-infinitive","After ask, wonder, know, decide and tell, use a question word + to + the base verb.|She didn't know what to do. Tell me how to get there.|It shortens a clause: Tell me where I should go becomes Tell me where to go.|Use where, what, which, when, how and who; why is rare.","s:whToInf"]);
-const gv=(g,i)=>GSV[g]=="all"||(GSV[g]||[]).includes(i+1);
-const gks=g=>{let a=[...new Set(GSU[g].map(u=>u.k).filter(k=>SKN[k]))];return a.length?a:["wordform","transform","prepositions","tenses","conditionals","phrasal","linking","articles"]};
-
 const lsn=(g,i)=>{let t=(LSN[g]||[])[i];if(!t)return"";let[a,b]=t.split("|");return"<p><b>Lesson</b></p><p>"+esc(a)+"</p><p><i>Example:</i> "+esc(b)+"</p><p class=\"mu\">Try it: write two sentences about this topic using the key words below.</p>"};
 function startGS(gr,n){let u=GSU[gr][n-1],ws=u.w,vq=sh(ws).map(([w,d])=>mc("Which word means: "+d+"?",[w,...sh(ws.filter(x=>x[0]!=w)).slice(0,2).map(x=>x[0])],0,w+": "+d)),q;MN["gs"+n]="Unit "+n+": "+u.t;
  if(u.g)q=[...vq,...u.g.map(([s,a,x,y])=>mc("Choose the best option: "+s,[a,x,y],0,s.replace("____",a)))];
- else{let lv=LV[GL[gr]],ok=gv(gr,n-1);q=[...vq,...skillItems(lv,u.k).slice(0,ok?6:4),...(ok?[]:skillItems(lv,u.k=="wordform"?"tenses":"wordform").slice(0,2))]}
+ else{let lv=LV[GL[gr]];q=[...vq,...skillItems(lv,u.k).slice(0,4),...skillItems(lv,u.k=="wordform"?"tenses":"wordform").slice(0,2)]}
  R={l:"Grade "+gr,m:"gs"+n,i:0,sc:0,st:0,ms:[],q:q.slice(0,10),done:0};view="round";draw()}
 /* Tabs: Basic (A1-B1), Advanced (B2-IELTS), Global Success */
 const TABS=[["basic","Basic (A1–B1)"],["advanced","Advanced (B2–IELTS)"],["school","Global Success"]];
@@ -848,7 +639,7 @@ const tl=()=>LV.filter((l,i)=>S.tab=="advanced"?i>=3:i<3);
 const tls=()=>{let a=tl().filter(l=>DATA[l].P.length&&unlocked(l));return a.length?a:LV.filter(l=>DATA[l].P.length&&unlocked(l))};
 /* ===== GLOBAL SUCCESS grade tabs: Units | Grammar | Vocabulary | Review ===== */
 const GT=[["units","Units"],["grammar","Grammar"],["vocab","Vocabulary"],["review","Review"]];
-const GNOTE="Unit titles follow the textbook. Grammar points marked ✓ come from published summaries of the textbook units; the other units are topic-matched. Word lists, lessons and exercises are my own, not the textbook's text, and the book's exact word lists may differ.";
+const GNOTE="Unit titles follow the textbook. The grammar focus, word lists, lessons and exercises are my own, written to match each unit's topic. They are not the textbook's text, and the book's exact grammar points and word lists may differ.";
 const gwords=g=>GSU[g].flatMap((u,i)=>u.w.map(([w,d])=>[w,d,"Unit "+(i+1)+": "+u.t,""]));
 const lsp=(g,i)=>{let[a,b]=((LSN[g]||[])[i]||"|").split("|");return a?"<p>"+esc(a)+"</p><p><i>Example:</i> "+esc(b)+"</p>":""};
 const gbest=(g,c)=>{let b=S.p["Grade "+g+"gs"+c];return b!=null?" · "+b+"%":""};
@@ -860,8 +651,8 @@ function gsx(gr,code){let lv=LV[GL[gr]],U=GSU[gr],kind=code=="rev"?"rev":code[0]
  q=kind=="v"?V():kind=="g"?G():[...V(),...G()];
  MN["gs"+code]=kind=="rev"?"Review test":(kind=="v"?"Vocabulary":"Grammar")+(n?" · Unit "+n+": "+U[n-1].t:" review");
  R={l:"Grade "+gr,m:"gs"+code,i:0,sc:0,st:0,ms:[],q,done:0};view="round";draw()}
-const uTab=g=>`<div class="card"><h2>Units · Grade ${g}</h2>${GSU[g].map((u,i)=>{let ls=!u.f&&LES.find(x=>x[2]=="s:"+(u.k=="articles"?"prepositions":u.k));return`<details><summary>Unit ${i+1}: ${esc(u.t)}${gbest(g,i+1)}</summary>${u.f?`<p><b>Practice focus:</b> ${esc(u.f)} <span class="chip">${gv(g,i)?"from published unit summary":"topic-matched, not yet verified"}</span></p><p>${esc(u.l)}</p>`:`<p><b>Practice focus:</b> ${esc(SKN[u.k])} <span class="chip">${gv(g,i)?"from published unit summary":"topic-matched, not yet verified"}</span></p>${lsn(g,i)}${ls?"<p><b>Skill notes</b></p><ul>"+ls[1].split("|").map(t=>"<li>"+esc(t)+"</li>").join("")+"</ul>":""}`}<p><b>Key words</b></p><ul>${u.w.map(w=>"<li><b>"+esc(w[0])+"</b>: "+esc(w[1])+"</li>").join("")}</ul><div class="row"><button class="p" data-gs="${i+1}">Practise (10 questions)</button></div></details>`}).join("")}</div><div class="card"><h2>Grade ${g} sub-skills</h2><p class="mu">Practice on the grammar points of this grade's units (${LV[GL[g]]} level).</p><div class="row">${gks(g).map(k=>`<button data-gsk="${k}">${SKN[k]}</button>`).join("")}</div></div>`;
-const gTab=g=>`<div class="card"><h2>Grammar · Grade ${g}</h2><p class="mu">One grammar focus per unit, with a short rule, an example and practice. A ✓ means the grammar point comes from published summaries of the textbook unit; the rest are topic-matched and not yet verified.</p><div class="row"><button class="p" data-gx="gall">Mixed grammar review (10)${gbest(g,"gall")}</button></div>${GSU[g].map((u,i)=>`<details><summary>Unit ${i+1}: ${esc(u.t)} · ${esc(u.f||SKN[u.k])}${gv(g,i)?" ✓":""}${gbest(g,"g"+(i+1))}</summary>${u.f?`<p>${esc(u.l)}</p>`:lsp(g,i)}<div class="row"><button class="p" data-gx="g${i+1}">Practise this grammar</button></div></details>`).join("")}</div>`;
+const uTab=g=>`<div class="card"><h2>Units · Grade ${g}</h2>${GSU[g].map((u,i)=>{let ls=!u.f&&LES.find(x=>x[2]=="s:"+(u.k=="articles"?"prepositions":u.k));return`<details><summary>Unit ${i+1}: ${esc(u.t)}${gbest(g,i+1)}</summary>${u.f?`<p><b>Practice focus:</b> ${esc(u.f)}</p><p>${esc(u.l)}</p>`:`<p><b>Practice focus:</b> ${esc(SKN[u.k])}</p>${lsn(g,i)}${ls?"<p><b>Skill notes</b></p><ul>"+ls[1].split("|").map(t=>"<li>"+esc(t)+"</li>").join("")+"</ul>":""}`}<p><b>Key words</b></p><ul>${u.w.map(w=>"<li><b>"+esc(w[0])+"</b>: "+esc(w[1])+"</li>").join("")}</ul><div class="row"><button class="p" data-gs="${i+1}">Practise (10 questions)</button></div></details>`}).join("")}</div><div class="card"><h2>Grade ${g} sub-skills</h2><p class="mu">Targeted practice at the level this grade works toward (${LV[GL[g]]}).</p><div class="row">${Object.entries(SKN).map(([k,v])=>`<button data-gsk="${k}">${v}</button>`).join("")}</div></div>`;
+const gTab=g=>`<div class="card"><h2>Grammar · Grade ${g}</h2><p class="mu">One grammar focus per unit, with a short rule, an example and practice.</p><div class="row"><button class="p" data-gx="gall">Mixed grammar review (10)${gbest(g,"gall")}</button></div>${GSU[g].map((u,i)=>`<details><summary>Unit ${i+1}: ${esc(u.t)} · ${esc(u.f||SKN[u.k])}${gbest(g,"g"+(i+1))}</summary>${u.f?`<p>${esc(u.l)}</p>`:lsp(g,i)}<div class="row"><button class="p" data-gx="g${i+1}">Practise this grammar</button></div></details>`).join("")}</div>`;
 const vTab=g=>`<div class="card"><h2>Vocabulary · Grade ${g}</h2><p class="mu">${gwords(g).length} key words from ${GSU[g].length} units.</p><div class="row"><button class="p" data-gx="vall">Mixed vocabulary quiz (10)${gbest(g,"vall")}</button><button data-gfl="1">Flashcards</button></div>${GSU[g].map((u,i)=>`<details><summary>Unit ${i+1}: ${esc(u.t)}${gbest(g,"v"+(i+1))}</summary><ul>${u.w.map(w=>"<li><b>"+esc(w[0])+"</b>: "+esc(w[1])+"</li>").join("")}</ul><div class="row"><button class="p" data-gx="v${i+1}">Practise these words</button></div></details>`).join("")}</div>`;
 const rTab=g=>`<div class="card"><h2>Review · Grade ${g}</h2><p class="mu">20 questions mixing the vocabulary and grammar of all ${GSU[g].length} units.${gbest(g,"rev")?" Best"+gbest(g,"rev").slice(2)+".":""}</p><div class="row"><button class="p" data-gx="rev">Start review test</button></div></div>`;
 function schoolHome(){let g=S.gr||6,t=S.gt||"units",body=t=="grammar"?gTab(g):t=="vocab"?vTab(g):t=="review"?rTab(g):uTab(g);
