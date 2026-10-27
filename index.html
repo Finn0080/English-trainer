@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>English Trainer</title>
+<title>English Trainer</title><meta name="theme-color" content="#f5efe3"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E%F0%9F%93%9A%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#f5efe3;--fg:#3a3127;--mu:#74675a;--ln:#e4d9c4;--ac:#8a5a2f;--ac2:#efe4d1;--onac:#fff;--ok:#3f6e3d;--okb:#e8efdc;--no:#a1402f;--nob:#f6e3dc;--cd:#fbf7ee;--sh:0 1px 2px rgba(90,70,40,.06),0 8px 24px rgba(90,70,40,.08)}
 @media(prefers-color-scheme:dark){:root{--bg:#1f1a14;--fg:#efe6d6;--mu:#b8a98f;--ln:#3a3226;--ac:#d9a56c;--ac2:#2f271c;--onac:#2a1d0e;--ok:#9fcf8f;--okb:#25301f;--no:#e9907f;--nob:#3a2420;--cd:#2a231a;--sh:0 8px 24px rgba(0,0,0,.35)}}
@@ -66,6 +67,250 @@ textarea,input[type=text]{border-radius:16px;background:var(--cd)}
 .msg.u{background:color-mix(in srgb,var(--ac) 16%,var(--cd))}.msg{border-radius:18px}
 @media(max-width:480px){h1{font-size:1.9rem}#app>.hd:first-child{padding:22px 18px}.card{padding:20px;border-radius:20px}}
 @media(prefers-reduced-motion:reduce){#app>*,details[open]{animation:none}}
+/* ===== Modern layer: gradients, glass, motion ===== */
+:root{--ac:#b4632c;--ac2:#f3e6d0;--g1:#c9743a;--g2:#e0a24f;--glow:rgba(201,116,58,.28)}
+@media(prefers-color-scheme:dark){:root{--ac:#e8a86a;--g1:#e8a86a;--g2:#f2c98a;--glow:rgba(232,168,106,.22)}}
+body{background:radial-gradient(900px 480px at 10% -140px,color-mix(in srgb,var(--g1) 22%,transparent),transparent),radial-gradient(760px 420px at 100% 105%,color-mix(in srgb,var(--g2) 16%,transparent),transparent),var(--bg);background-attachment:fixed}
+h1{background:linear-gradient(120deg,var(--fg) 30%,var(--g1));-webkit-background-clip:text;background-clip:text;color:transparent}
+#app>.hd:first-child{position:relative;overflow:hidden;backdrop-filter:blur(10px);border-radius:28px}
+#app>.hd:first-child::after{content:"";position:absolute;right:-60px;top:-70px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,var(--glow),transparent 70%);pointer-events:none}
+.card{position:relative;border:1px solid color-mix(in srgb,var(--ac) 14%,var(--ln));backdrop-filter:blur(8px);transition:transform .2s,box-shadow .2s}
+.card:hover{box-shadow:0 14px 36px color-mix(in srgb,var(--ac) 14%,transparent),var(--sh)}
+button{border-radius:14px;letter-spacing:.01em}
+button.p{background:linear-gradient(135deg,var(--g1),var(--g2));border:0;color:#fff;text-shadow:0 1px 1px rgba(0,0,0,.18);box-shadow:0 8px 20px var(--glow),inset 0 1px 0 rgba(255,255,255,.3)}
+button.p:hover:not(:disabled){transform:translateY(-2px);filter:saturate(1.1) brightness(1.04)}
+button:active:not(:disabled){transform:scale(.97)}
+.chip{background:linear-gradient(135deg,color-mix(in srgb,var(--g1) 18%,var(--cd)),color-mix(in srgb,var(--g2) 22%,var(--cd)));box-shadow:0 2px 10px var(--glow)}
+.opts button{position:relative;overflow:hidden;transition:transform .15s,border-color .2s,box-shadow .2s,background .2s}
+.opts button:hover:not(:disabled){transform:translateX(4px);box-shadow:0 6px 18px var(--glow)}
+.opts button:before{background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;box-shadow:0 3px 8px var(--glow)}
+.opts button.ok{animation:pop .4s ease}.opts button.no{animation:shk .4s ease}
+@keyframes pop{40%{transform:scale(1.03)}}@keyframes shk{20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+.bar{height:12px;box-shadow:inset 0 1px 3px rgba(0,0,0,.12)}
+.bar i{background:linear-gradient(90deg,var(--g1),var(--g2),var(--g1));background-size:200% 100%;animation:sh 2.4s linear infinite;box-shadow:0 0 12px var(--glow)}
+@keyframes sh{to{background-position:-200% 0}}
+.fb{box-shadow:0 6px 18px color-mix(in srgb,var(--ac) 10%,transparent);animation:up .25s ease both}
+.seg{box-shadow:inset 0 1px 3px rgba(0,0,0,.08)}
+.seg button.p{background:var(--cd);color:var(--ac);text-shadow:none;box-shadow:0 3px 12px var(--glow)}
+summary{transition:background .2s}summary::after{background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff}
+::selection{background:color-mix(in srgb,var(--g1) 35%,transparent)}
+@media(prefers-reduced-motion:reduce){.bar i,.opts button.ok,.opts button.no{animation:none}}
+/* ===== Extra flair layer ===== */
+body::before,body::after{content:"";position:fixed;z-index:-1;border-radius:50%;filter:blur(70px);opacity:.5;pointer-events:none;animation:fl 18s ease-in-out infinite alternate}
+body::before{width:340px;height:340px;left:-90px;top:20%;background:color-mix(in srgb,var(--g1) 32%,transparent)}
+body::after{width:300px;height:300px;right:-80px;bottom:8%;background:color-mix(in srgb,var(--g2) 30%,transparent);animation-delay:-9s}
+@keyframes fl{to{transform:translate(40px,-50px) scale(1.15)}}
+main{position:relative}
+#app>*:nth-child(2){animation-delay:.04s}#app>*:nth-child(3){animation-delay:.08s}#app>*:nth-child(4){animation-delay:.12s}#app>*:nth-child(n+5){animation-delay:.16s}
+.card::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(135deg,color-mix(in srgb,var(--g1) 45%,transparent),transparent 40%,transparent 60%,color-mix(in srgb,var(--g2) 40%,transparent));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+button.p{position:relative;overflow:hidden}
+button.p::after{content:"";position:absolute;top:0;left:-70%;width:50%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.4),transparent);transform:skewX(-20deg);transition:left .6s}
+button.p:hover:not(:disabled)::after{left:130%}
+button:not(.p):hover:not(:disabled){background:color-mix(in srgb,var(--g1) 9%,var(--cd))}
+textarea:focus,input[type=text]:focus,select:focus{border-color:var(--g1);box-shadow:0 0 0 4px var(--glow)}
+.chip{animation:pl 3s ease-in-out infinite}
+@keyframes pl{50%{box-shadow:0 2px 16px var(--glow),0 0 0 4px color-mix(in srgb,var(--g1) 10%,transparent)}}
+.flip>div{box-shadow:0 14px 34px var(--glow);transition:transform .25s,box-shadow .25s,border-color .2s}
+.flip>div:hover{transform:translateY(-3px) rotate(-.3deg)}
+td button:hover:not(:disabled){box-shadow:0 8px 18px var(--glow)}
+.msg{box-shadow:0 2px 10px rgba(90,70,40,.06);animation:up .25s ease both}
+.msg.u{background:linear-gradient(135deg,color-mix(in srgb,var(--g1) 22%,var(--cd)),color-mix(in srgb,var(--g2) 20%,var(--cd)))}
+h2{background:linear-gradient(120deg,var(--fg) 55%,var(--g1));-webkit-background-clip:text;background-clip:text;color:transparent}
+.card>h2:first-child::before,.card>.hd:first-child h2::before{background:linear-gradient(var(--g1),var(--g2));box-shadow:0 0 10px var(--glow);border-radius:4px}
+.miss{text-decoration-color:var(--g1);text-underline-offset:3px}
+html{scroll-behavior:smooth}
+::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-thumb{background:color-mix(in srgb,var(--g1) 40%,var(--ln));border-radius:99px;border:2px solid var(--bg)}
+@media(prefers-reduced-motion:reduce){body::before,body::after,.chip{animation:none}html{scroll-behavior:auto}}
+/* ===== Colour themes (switch with the floating palette button) ===== */
+html[data-theme=ocean]{--ac:#2563a8;--ac2:#e0edfa;--bg:#eef4fb;--cd:#fafcff;--ln:#d3e1f1;--fg:#1b2a3b;--mu:#5a6f87;--g1:#3b82d6;--g2:#3cc4d9;--glow:rgba(59,130,214,.28)}
+html[data-theme=forest]{--ac:#2f7a4f;--ac2:#e0efe3;--bg:#f0f6f0;--cd:#fafdfa;--ln:#d4e4d6;--fg:#1f2e24;--mu:#5d7464;--g1:#3f9a63;--g2:#a3c94f;--glow:rgba(63,154,99,.28)}
+html[data-theme=violet]{--ac:#6d3fc0;--ac2:#ece4fa;--bg:#f4f0fb;--cd:#fcfaff;--ln:#e0d6f1;--fg:#261c3a;--mu:#6c5f87;--g1:#7c4dde;--g2:#d36be0;--glow:rgba(124,77,222,.28)}
+html[data-theme=rose]{--ac:#c0365a;--ac2:#fbe4ea;--bg:#fcf0f3;--cd:#fffafb;--ln:#f1d6dd;--fg:#3a1c26;--mu:#87606b;--g1:#e0527a;--g2:#f5a45d;--glow:rgba(224,82,122,.28)}
+@media(prefers-color-scheme:dark){
+html[data-theme=ocean]{--ac:#7fb4f0;--ac2:#1b2a3d;--bg:#101821;--cd:#16212d;--ln:#243447;--fg:#e4eef9;--mu:#98adc4;--g1:#6aa8ee;--g2:#5fd6e6;--glow:rgba(106,168,238,.22)}
+html[data-theme=forest]{--ac:#8fd0a5;--ac2:#1d2e23;--bg:#111a14;--cd:#17231b;--ln:#27382c;--fg:#e4f1e7;--mu:#9ab5a1;--g1:#6fc08d;--g2:#c4e07a;--glow:rgba(111,192,141,.22)}
+html[data-theme=violet]{--ac:#b99af0;--ac2:#271d3b;--bg:#15101f;--cd:#1c1629;--ln:#31264a;--fg:#ece4fb;--mu:#a99bc4;--g1:#a07cf0;--g2:#e68ff0;--glow:rgba(160,124,240,.22)}
+html[data-theme=rose]{--ac:#f08aa6;--ac2:#3a1e29;--bg:#1d1015;--cd:#26161d;--ln:#432531;--fg:#fbe6ec;--mu:#c79aa8;--g1:#f0708f;--g2:#f7b36e;--glow:rgba(240,112,143,.22)}}
+#thm{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:50;width:48px;height:48px;padding:0;border-radius:50%;border:0;font-size:1.3rem;display:grid;place-items:center;background:linear-gradient(135deg,var(--g1),var(--g2));box-shadow:0 8px 22px var(--glow);color:#fff}
+#thm:hover:not(:disabled){transform:rotate(18deg) scale(1.08)}
+/* ===== Final polish ===== */
+html{-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
+body{font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+main{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right));padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+h1,h2{text-wrap:balance}p{text-wrap:pretty}
+.mu{line-height:1.5}
+:focus-visible{outline:3px solid var(--g1);outline-offset:3px;border-radius:12px;box-shadow:0 0 0 6px var(--glow)}
+button:disabled{cursor:not-allowed}
+.opts button:disabled:not(.ok):not(.no){opacity:.55}
+.opts button{min-height:52px;line-height:1.35}
+.row{row-gap:10px}
+.row>button,.row>select{min-height:44px}
+.fb b{letter-spacing:.01em}
+.fb:not(:empty){animation:up .25s ease both}
+@media(hover:none){.card:hover{box-shadow:var(--sh)}.opts button:hover:not(:disabled){transform:none;box-shadow:none}.flip>div:hover{transform:none}}
+@media(max-width:480px){main{padding-top:20px}.opts button{padding:14px}.row>button{flex:1 1 auto}.msg.u{margin-left:8%}.msg.a{margin-right:8%}#thm{width:44px;height:44px;right:12px}}
+#toast{position:fixed;left:50%;bottom:calc(76px + env(safe-area-inset-bottom,0px));transform:translate(-50%,12px);opacity:0;pointer-events:none;z-index:60;padding:10px 18px;border-radius:99px;background:var(--fg);color:var(--bg);font-weight:600;font-size:.92rem;box-shadow:0 10px 30px rgba(0,0,0,.25);transition:opacity .25s,transform .25s}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+@media print{body::before,body::after,#thm,#toast{display:none}.card{box-shadow:none;break-inside:avoid}}
+/* ===== Finishing touches: icons, table headers, readability ===== */
+h2{background:linear-gradient(120deg,var(--fg) 82%,color-mix(in srgb,var(--g1) 65%,var(--fg)))}
+table th{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;padding-bottom:4px}
+table th:nth-child(n+2)::before{display:block;font-size:1.3rem;margin-bottom:2px;letter-spacing:0;text-transform:none}
+table th:nth-child(2)::before{content:"👂"}table th:nth-child(3)::before{content:"🗣️"}table th:nth-child(4)::before{content:"📖"}
+table th:nth-child(5)::before{content:"✍️"}table th:nth-child(6)::before{content:"🔤"}table th:nth-child(7)::before{content:"🔊"}
+tr>th:first-child{font-size:1.05rem}
+td button{box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--g1) calc(var(--p,0)*.5%),transparent)}
+td button[disabled]{opacity:.7}
+[data-daily]::before{content:"▶ "}[data-endless]::before{content:"⚡ "}[data-test]::before{content:"🎯 "}
+[data-v=tutor]::before{content:"💬 "}[data-v=lessons]::before{content:"📘 "}[data-v=flash]::before{content:"🃏 "}[data-v=words]::before{content:"⭐ "}[data-v=home]::before{content:"← "}#rs::before{content:"↺ "}
+#rs{color:var(--no)}
+label{cursor:pointer;display:inline-flex;gap:8px;align-items:center}
+input[type=checkbox]{width:18px;height:18px}
+input[type=range]{height:6px;border-radius:99px}
+.card h2+.mu{margin-top:-6px}
+.card .row:last-child{margin-bottom:0}
+details>summary{font-family:Georgia,serif;font-size:1.05rem}
+details ul{margin:4px 0 10px}details li{line-height:1.55}
+.msg{line-height:1.55}
+.fb:not(:empty){font-size:1.02rem;line-height:1.6}
+.hd h1+.mu{font-size:.98rem}
+/* ===== Global Success: grade and section selectors always fully visible ===== */
+.seg:has([data-gr]),.seg:has([data-gt]){display:grid;grid-template-columns:repeat(4,minmax(0,1fr));overflow:visible}
+.seg:has([data-gr]) button,.seg:has([data-gt]) button{padding:11px 4px;font-size:.92rem;min-width:0;width:100%;overflow:hidden;text-overflow:ellipsis}
+@media(min-width:560px){.seg:has([data-gr]){grid-template-columns:repeat(7,minmax(0,1fr))}}
+.seg:has([data-gr])+.seg{margin-top:-4px}
+@media(max-width:420px){.seg:has([data-gt]) button{font-size:.82rem;padding:11px 2px}}
+/* Top tabs: always show all three, wrap text on narrow screens */
+.seg:has([data-tab]){display:grid;grid-template-columns:repeat(3,minmax(0,1fr));overflow:visible}
+.seg:has([data-tab]) button{min-width:0;width:100%;white-space:normal;line-height:1.25;padding:10px 6px}
+/* Card headings: keep gradient text visible (background shorthand reset the clip) */
+h2{-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* ===== Polish v2 ===== */
+main{max-width:720px}
+#app>.hd:first-child{position:relative;overflow:hidden}
+#app>.hd:first-child::after{content:"";position:absolute;right:-60px;top:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--ac) 22%,transparent),transparent 70%);pointer-events:none}
+.seg{border:1px solid color-mix(in srgb,var(--ac) 12%,var(--ln));backdrop-filter:blur(6px)}
+.seg button{transition:background .2s,color .2s,box-shadow .2s;font-weight:550;letter-spacing:.005em}
+.seg button.p{box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 4px 14px color-mix(in srgb,var(--ac) 22%,transparent)}
+.seg button.p::after{display:none}
+.card{border-color:color-mix(in srgb,var(--ac) 14%,var(--ln));transition:box-shadow .25s,transform .25s}
+.card:hover{box-shadow:0 2px 4px rgba(90,70,40,.06),0 16px 40px rgba(90,70,40,.12)}
+details{border-radius:14px;transition:background .2s}
+details+details{border-top:1px solid color-mix(in srgb,var(--ln) 70%,transparent)}
+summary{padding:14px 10px;transition:background .2s,color .2s}
+summary:hover{background:color-mix(in srgb,var(--ac) 7%,transparent);color:var(--ac)}
+details[open]{background:color-mix(in srgb,var(--ac) 5%,transparent)}
+details[open]>summary{color:var(--ac)}
+summary::after{transition:transform .25s}
+details>ul,details[open]>ul{padding-left:32px}
+details>*:not(summary){padding:0 10px}
+details[open]>*:not(summary){animation:up .22s ease both}
+p.mu{line-height:1.6}
+#app>p.mu{padding:12px 16px;border-radius:14px;background:color-mix(in srgb,var(--ac) 6%,transparent);border:1px dashed color-mix(in srgb,var(--ac) 22%,var(--ln));font-size:.86rem}
+.row:has(>[data-v=lessons]){justify-content:center;gap:12px}
+.row:has(>[data-v=lessons]) button{flex:1;min-width:140px}
+@media(max-width:480px){.card{border-radius:20px}#app>.hd:first-child{padding:22px 20px}}
+
+/* ===== Polish v3 ===== */
+body{background:radial-gradient(1100px 520px at 10% -160px,color-mix(in srgb,var(--ac) 18%,transparent),transparent),radial-gradient(800px 460px at 110% 110%,color-mix(in srgb,var(--ac) 12%,transparent),transparent),linear-gradient(180deg,var(--bg),color-mix(in srgb,var(--bg) 92%,var(--ac2)));background-attachment:fixed}
+#app>.hd:first-child{padding:34px 30px;border-radius:30px;background:linear-gradient(135deg,color-mix(in srgb,var(--ac) 20%,var(--cd)) 0%,var(--cd) 55%,color-mix(in srgb,var(--ac) 8%,var(--cd)) 100%);box-shadow:0 1px 0 rgba(255,255,255,.7) inset,0 2px 6px rgba(90,70,40,.06),0 20px 50px -10px rgba(90,70,40,.18)}
+#app>.hd:first-child h1{font-size:2.6rem;background:linear-gradient(100deg,var(--fg) 40%,var(--ac));-webkit-background-clip:text;background-clip:text;color:transparent}
+#app>.hd:first-child .chip{padding:6px 14px;box-shadow:0 4px 14px color-mix(in srgb,var(--ac) 18%,transparent)}
+.seg{padding:6px;border-radius:20px;background:color-mix(in srgb,var(--ac2) 85%,var(--cd));box-shadow:inset 0 1px 2px rgba(90,70,40,.08),0 1px 0 rgba(255,255,255,.6)}
+.seg button{border-radius:14px}
+.seg button.p{background:linear-gradient(180deg,var(--cd),color-mix(in srgb,var(--cd) 92%,var(--ac2)));color:var(--ac);font-weight:700}
+.card{border-radius:28px;padding:30px;box-shadow:0 1px 0 rgba(255,255,255,.7) inset,0 2px 6px rgba(90,70,40,.05),0 18px 44px -12px rgba(90,70,40,.16)}
+.card>h2:first-child,.card>.hd:first-child h2{font-size:1.45rem;padding-bottom:14px;margin-bottom:10px;border-bottom:1px solid color-mix(in srgb,var(--ln) 70%,transparent)}
+details{margin:4px 0;border:1px solid transparent}
+details+details{border-top:1px solid color-mix(in srgb,var(--ln) 60%,transparent)}
+details[open]{border-color:color-mix(in srgb,var(--ac) 18%,var(--ln));background:color-mix(in srgb,var(--ac) 4%,var(--cd));box-shadow:0 8px 24px -10px rgba(90,70,40,.18)}
+details[open]+details{border-top-color:transparent}
+summary{border-radius:14px}
+summary::after{width:28px;height:28px;background:color-mix(in srgb,var(--ac) 14%,var(--cd));color:var(--ac);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--ac) 25%,transparent);transition:background .2s,color .2s,transform .25s}
+summary:hover::after,details[open]>summary::after{background:var(--ac);color:var(--onac)}
+details li::marker{color:var(--ac)}
+details li b,details li strong{color:var(--ac)}
+#app>p.mu{display:flex;gap:10px;align-items:flex-start}
+#app>p.mu::before{content:"ℹ";flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb,var(--ac) 16%,transparent);color:var(--ac);font-weight:700;font-size:.8rem}
+.row:has(>[data-v=lessons]) button{padding:14px 18px;border-radius:16px;background:var(--cd);box-shadow:0 1px 0 rgba(255,255,255,.7) inset,0 6px 18px -6px rgba(90,70,40,.18);font-weight:600}
+.row:has(>[data-v=lessons]) button:hover{transform:translateY(-2px);border-color:var(--ac)}
+::selection{background:color-mix(in srgb,var(--ac) 30%,transparent)}
+@media(max-width:480px){#app>.hd:first-child h1{font-size:2.1rem}.card{padding:22px;border-radius:24px}}
+
+/* ===== Polish v4: premium ===== */
+body{font-family:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,summary,details>summary,tr>th:first-child{font-family:"Fraunces",Georgia,serif;font-optical-sizing:auto}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.35;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .35 0 0 0 0 .22 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+main{position:relative;z-index:1}
+#app>.hd:first-child{padding:40px 34px;isolation:isolate}
+#app>.hd:first-child::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;background:radial-gradient(420px 200px at 100% 0%,color-mix(in srgb,var(--ac) 22%,transparent),transparent 70%),radial-gradient(300px 160px at 0% 100%,color-mix(in srgb,#e3b27c 18%,transparent),transparent 70%)}
+#app>.hd:first-child::after{animation:float 9s ease-in-out infinite}
+@keyframes float{50%{transform:translate(-18px,14px) scale(1.08)}}
+#app>.hd:first-child h1{font-size:2.9rem;font-weight:700;letter-spacing:-.025em;background:linear-gradient(100deg,var(--fg) 35%,var(--ac) 75%,#d69a5a);-webkit-background-clip:text;background-clip:text}
+#app>.hd:first-child .mu{font-size:1.02rem}
+#app>.hd:first-child .chip{background:linear-gradient(180deg,var(--cd),color-mix(in srgb,var(--ac) 12%,var(--cd)));font-weight:700}
+#app>.hd:first-child .chip::before{content:"🔥 "}
+.seg button{font-weight:600;font-size:.94rem}
+.seg button:not(.p):hover{background:color-mix(in srgb,var(--cd) 55%,transparent)}
+.seg button.p{box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 0 0 1px color-mix(in srgb,var(--ac) 16%,transparent),0 6px 16px -4px color-mix(in srgb,var(--ac) 35%,transparent)}
+.card{counter-reset:unit;position:relative;background:linear-gradient(180deg,color-mix(in srgb,var(--cd) 98%,#fff),var(--cd))}
+.card::before{content:"";position:absolute;inset:0 30px auto;height:1px;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--ac) 45%,transparent),transparent)}
+.card>h2:first-child,.card>.hd:first-child h2{font-size:1.6rem;font-weight:600}
+details>summary{font-weight:600;font-size:1.06rem;justify-content:flex-start}
+details>summary::after{margin-left:auto}
+.card>details{counter-increment:unit}
+.card>details>summary::before{content:counter(unit,decimal-leading-zero);flex:none;font-family:"Plus Jakarta Sans",sans-serif;font-size:.74rem;font-weight:700;letter-spacing:.04em;color:var(--ac);width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:color-mix(in srgb,var(--ac) 10%,var(--cd));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--ac) 20%,transparent);transition:all .25s}
+.card>details[open]>summary::before,.card>details>summary:hover::before{background:linear-gradient(135deg,color-mix(in srgb,var(--ac) 80%,#fff),var(--ac));color:var(--onac);box-shadow:0 6px 14px -4px color-mix(in srgb,var(--ac) 55%,transparent)}
+details[open]{border-radius:18px}
+details[open]>*:not(summary){padding-left:56px;padding-right:14px}
+details[open]>ul{padding-left:74px}
+details>:last-child:not(summary){padding-bottom:16px}
+button.p{font-weight:700;letter-spacing:.01em;border-radius:14px}
+.chip{font-weight:650}
+#app>p.mu{background:linear-gradient(135deg,color-mix(in srgb,var(--ac) 7%,var(--cd)),color-mix(in srgb,var(--cd) 70%,transparent));border-style:solid;border-color:color-mix(in srgb,var(--ac) 16%,var(--ln))}
+@media(max-width:480px){#app>.hd:first-child{padding:28px 22px}#app>.hd:first-child h1{font-size:2.2rem}details[open]>*:not(summary){padding-left:14px}details[open]>ul{padding-left:32px}}
+@media(prefers-reduced-motion:reduce){#app>.hd:first-child::after{animation:none}}
+
+/* ===== Reset dialog ===== */
+.dlg{border:1px solid var(--ln);border-radius:22px;background:var(--cd);color:var(--fg);box-shadow:0 28px 64px -18px rgba(70,46,22,.34);padding:24px;max-width:min(420px,calc(100vw - 32px))}.dlg::backdrop{background:rgba(70,46,22,.45);backdrop-filter:blur(3px)}.dlg h2{margin:0 0 6px}.dlg .row{margin-top:18px;justify-content:flex-end}.dlg .no{background:var(--no)!important;color:#fff!important;border-color:var(--no)!important}
+/* ===== WORD STUDIO (AI vocabulary practice) ===== */
+.ws-hero{position:relative;overflow:hidden;border-radius:22px;padding:22px 22px 18px;background:radial-gradient(120% 140% at 100% 0%,var(--glow,rgba(201,116,58,.25)),transparent 55%),var(--cd);border:1px solid var(--ln);box-shadow:var(--sh);margin:12px 0}
+.ws-hero h2{margin:0 0 4px;font-size:1.6rem}
+.ws-kick{display:inline-block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ac);font-weight:700;margin-bottom:6px}
+.ws-hero textarea{width:100%;box-sizing:border-box;min-height:96px;resize:vertical;border-radius:14px;border:1px solid var(--ln);background:var(--bg);color:var(--fg);padding:12px 14px;font:inherit;line-height:1.5}
+.ws-hero textarea:focus{outline:none;border-color:var(--ac);box-shadow:0 0 0 4px var(--glow,rgba(201,116,58,.2))}
+.ws-ideas{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.ws-ideas button{font-size:.8rem;padding:6px 11px;border-radius:999px;border:1px dashed var(--ln);background:transparent}
+.ws-ideas button:hover{border-color:var(--ac);color:var(--ac)}
+.ws-lv{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:6px 0 12px}
+.ws-go{width:100%;padding:13px!important;font-size:1rem!important;border-radius:14px!important}
+.ws-err{background:var(--nob);color:var(--no);border-radius:12px;padding:10px 12px;margin-top:10px}
+.ws-load{display:flex;align-items:center;gap:10px;color:var(--mu);margin-top:12px}
+.ws-sp{width:18px;height:18px;border-radius:50%;border:2px solid var(--ln);border-top-color:var(--ac);animation:wsr .8s linear infinite}
+@keyframes wsr{to{transform:rotate(360deg)}}
+.ws-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin:12px 0}
+.ws-card{perspective:1000px;min-height:210px;cursor:pointer}
+.ws-in{position:relative;width:100%;height:100%;min-height:210px;transition:transform .55s cubic-bezier(.2,.8,.2,1);transform-style:preserve-3d}
+.ws-card.f .ws-in{transform:rotateY(180deg)}
+.ws-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:18px;border:1px solid var(--ln);background:var(--cd);box-shadow:var(--sh);padding:16px;display:flex;flex-direction:column;box-sizing:border-box}
+.ws-back{transform:rotateY(180deg);background:linear-gradient(160deg,var(--ac2),var(--cd));font-size:.88rem;line-height:1.45;overflow:auto}
+.ws-w{font-family:Fraunces,Georgia,serif;font-size:1.55rem;margin:auto 0 2px;color:var(--fg)}
+.ws-ipa{color:var(--mu);font-size:.85rem}
+.ws-pos{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ac);font-weight:700}
+.ws-hint{font-size:.72rem;color:var(--mu);margin-top:auto}
+.ws-acts{display:flex;gap:6px;margin-top:8px}
+.ws-acts button{padding:5px 10px;font-size:.78rem;border-radius:999px}
+.ws-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.ws-q{border:1px solid var(--ln);border-radius:16px;padding:14px;margin:10px 0;background:var(--cd)}
+.ws-opts{display:grid;gap:6px;margin-top:8px}
+.ws-opts button{text-align:left}
+.ws-opts .ok{background:var(--okb)!important;color:var(--ok)!important;border-color:var(--ok)!important}
+.ws-opts .no{background:var(--nob)!important;color:var(--no)!important;border-color:var(--no)!important}
+.ws-ex{font-size:.85rem;color:var(--mu);margin-top:8px}
+.ws-fi input{border-radius:10px;border:1px solid var(--ln);background:var(--bg);color:var(--fg);padding:8px 10px;font:inherit;width:100%;box-sizing:border-box;margin-top:8px}
+.ws-fi input.ok{border-color:var(--ok);background:var(--okb)}.ws-fi input.no{border-color:var(--no);background:var(--nob)}
+.ws-score{font-family:Fraunces,Georgia,serif;font-size:1.25rem;color:var(--ac)}
 </style></head><body><main id="app"></main>
 <script>
 /* ===== 1. DATA — edit freely. Each level: P=passages [text,question,[options],answerIndex],
@@ -226,7 +471,7 @@ const LV=Object.keys(DATA),MD=["listening","speaking","reading","writing","vocab
             "daily":{"2026-10-25":{"B1":[["mc",question,[options],answerIndex,explanation],["order",sentence],
                      ["type",prompt,answer,explanation,optionalAudioText],["tf",statement,0|1|2,explanation,passage],["speak",sentence]]}}}
    "extra" adds to the same pools as DATA (same formats). "daily" gives ready-made questions for that date and level. */
-const FEED_URL="https://finn0080.github.io/English-trainer/";
+const FEED_URL="";
 /* AI tutor (optional): address of your proxy (see worker.js). The API key lives only on the server. Leave "" to hide the tutor. */
 const PROXY_URL="https://english-tutor.tunglamisfinn.workers.dev";
 let FEED={};
@@ -270,9 +515,70 @@ function vmark(w,ok){let v=S.v[w]||(S.v[w]={b:0,m:0});v.b=ok?Math.min(3,v.b+1):0
 function start(l,m){if(m=="daily")return startDaily(l);if(m.startsWith("sk_"))return startSkill(l,m.slice(3));if(m.startsWith("gs")){let x=m.slice(2);return/^\d+$/.test(x)?startGS(+l.slice(6),+x):gsx(+l.slice(6),x)}let d=DATA[l];if(!d.P.length){return alert(l+" content is not added yet.")}
  R={l,m,i:0,sc:0,st:0,ms:[],q:B[m](d).slice(0,10),done:0,timed:RT[LV.indexOf(l)]>0};view="round";draw()}
 function finish(){if(R.endless){let k=R.l+"|"+R.m,b=(S.hs=S.hs||{})[k]||{s:0};R.prev=b.s;R.nw=R.pts>b.s;if(R.nw)S.hs[k]={s:R.pts,st:R.bs||0,n:R.n};S.bs=Math.max(S.bs,R.bs||0);save();view="end";return draw()}if(R.tst){R.res={sk:R.hit,o:Math.round(R.hit.reduce((a,b)=>a+b)/4)};view="end";return draw()}if(R.dly){dayDone();view="end";return draw()}let p=Math.round(100*R.sc/R.q.length),k=R.l+R.m;S.p[k]=Math.max(S.p[k]||0,p);S.bs=Math.max(S.bs,R.bs||0);save();view="end";draw()}
+/* ===== EXPLANATIONS: rule + evidence from the text + why the other options are wrong ===== */
+const LK={although:"shows contrast and is followed by a full clause",however:"shows contrast between two sentences and takes a comma",despite:"shows contrast and is followed by a noun or -ing form",because:"gives a reason",so:"introduces a result",but:"shows contrast between two clauses",therefore:"introduces a result (more formal)",consequently:"introduces a result (formal)",whereas:"contrasts two facts in one sentence",nevertheless:"means 'despite that' and shows contrast",moreover:"adds another point","as a result":"introduces a result",while:"shows contrast (or two things happening at once)","in contrast":"introduces an opposite fact",albeit:"means 'although' and is followed by an adjective or short phrase",or:"offers a choice",and:"adds information"};
+const TM2=/\b(yesterday|last (night|week|weekend|month|year|summer|sunday|saturday)|ago|in (19|20)\d\d)\b/i,T=(c,s)=>c?s:0;
+const RL=[
+(a,q)=>T(/\b(had i|were it|were he|should you)\b/i.test(q),"Inversion replaces if in formal English: Had I known = If I had known; Were it not for = If it were not for; Should you need = If you should need."),
+(a,q)=>T(/\b(not only|rarely|hardly|no sooner|not until|never|seldom|only (after|when)|under no circumstances)\b|^little\b/i.test(q),"After a negative or limiting adverb at the start (not only, rarely, hardly, little), the auxiliary comes before the subject: Rarely have I seen such dedication."),
+(a,q)=>/\b(if|unless)\b/i.test(q)?(/would have/.test(a)?"Third conditional: if + past perfect, would have + past participle (an unreal past situation).":/^would /.test(a)||a=="were"?"Second conditional: if + past simple, would + base verb (an unreal or unlikely situation).":/^will /.test(a)?"First conditional: if + present simple, will + base verb (a real possibility).":/\bwill\b|'ll/.test(q)?"After if/unless use the present simple, not will (If it rains, we will stay).":0):0,
+(a,q)=>T(/\bwish\b/i.test(q)&&/^had\b/.test(a),"Wish + past perfect expresses regret about the past (I wish I had had more time); wish + past simple is for the present."),
+(a,q)=>T(/high time|would rather|i'd rather/i.test(q),"After it's high time and would rather + subject, use the past simple (It's high time we made a decision); it refers to now or the future."),
+(a,q)=>T(/\b(essential|vital|important|recommended?) that\b/i.test(q),"After essential/important + that, use the base form of the verb (that every applicant submit): the subjunctive."),
+(a,q)=>T(/\b(said|told|asked) (that|me|him|her)\b/i.test(q),"Reported speech: the verb usually moves one step back (is → was, will → would, can → could)."),
+(a,q)=>T(/\bby the\b/i.test(q)&&/^(was|were|is|are) \w+/.test(a),"Passive: be + past participle (was written) when the action matters more than who did it."),
+(a,q)=>T(/^to \w+/.test(a)&&/\b(who|which|what|where|how)\b[^.]*____/i.test(q),"After a question word (who, which, what, where, how) use to + base verb: who to invite, which road to take."),
+(a,q)=>T((/^\w+ing\b/.test(a)||/^to \w+/.test(a))&&/\b(enjoys?|love|likes?|hates?|keen|suggested|denied|forward|decided)\b/i.test(q),"Verb patterns: enjoy, love, hate, suggest, deny, be keen on and look forward to + -ing; would like, want, decide, hope + to + base verb."),
+(a,q)=>T(/^(was|were|is|are|will be|had been|has been|have been) \w+$/.test(a)&&!/ing$/.test(a),"Passive: be + past participle; the tense is shown by be (was built, will be introduced, had been signed)."),
+(a,q)=>T(/^to (have|be) \w+/.test(a)&&/\b(believed|said|thought|expected|known|reported)\b/i.test(q),"Passive reporting: is said/believed to + base verb (now), to have + past participle (earlier action), to be + past participle (passive)."),
+(a,q)=>T(/^will have \w+/.test(a),"Future perfect: will have + past participle for an action finished before a future time (by next year)."),
+(a,q)=>T(/^had been \w+ing/.test(a),"Past perfect continuous: had been + -ing for an action in progress before another past event."),
+(a,q)=>T(/^had \w+/.test(a)&&/\b(when|by the time|before|already)\b/i.test(q),"Past perfect: had + past participle for the earlier of two past events."),
+(a,q)=>T(/^will be \w+ing/.test(a),"Future continuous: will be + -ing for an action in progress at a future time (this time tomorrow)."),
+(a,q)=>T(/^(have|has)\b/.test(a)&&/\b(since|for|already|yet|ever|just)\b/i.test(q),"Present perfect: have/has + past participle links the past to now; use since + a point in time and for + a length of time."),
+(a,q)=>T(/\b(has|have) already ____/i.test(q),"Present perfect: have/has + past participle (has already written); already shows the action is finished before now."),
+(a,q)=>T(/^(was|were) \w+ing$/.test(a),"Past continuous: was/were + -ing for an action in progress at a past time, often interrupted by a past simple action (We were having dinner when the lights went out)."),
+(a,q)=>T(/^(am|is|are) (not )?\w+ing$/.test(a),"Present continuous: am/is/are + -ing for actions happening now or around now (now, at the moment, Look!)."),
+(a,q)=>T(/^(is|are)$/.test(a)&&/\bthere\b/i.test(q),"There is + singular or uncountable noun; there are + plural noun."),
+(a,q)=>T(/^(is|are|was|were)$/.test(a)&&/____ \w+ \w+ing\b/.test(q),"Questions in the continuous: Is/Are/Was/Were + subject + -ing."),
+(a,q)=>T(/^(did|didn't)$/.test(a),"Past simple negatives and questions use did/didn't + base verb (She didn't go; Did you finish?)."),
+(a,q)=>T(/^(do|does|don't|doesn't)$/.test(a),"Present simple questions and negatives use do/does + base verb; does/doesn't goes with he/she/it."),
+(a,q)=>T(TM2.test(q)&&!/ing$|^(have|has|had)\b/.test(a),"Past simple: a finished time (yesterday, last week, in 1903, two days ago) needs the past form (went, bought, invented)."),
+(a,q)=>T(/\b(train|bus|flight|timetable|schedule)\b/i.test(q)&&/^\w+s$/.test(a),"Use the present simple for timetables and fixed schedules, even about the future (The train leaves at 8 a.m.)."),
+(a,q)=>T(/^will( not)?$|^won't$/.test(a),"Will + base verb talks about predictions and decisions made now (I think it will rain; Robots will do the housework)."),
+(a,q)=>T(/\b(every|always|usually|often|once a week|on mondays|twice a week|earth|sun)\b/i.test(q)&&/^\w+$/.test(a)&&!TM2.test(q),"Present simple for routines and facts: I/you/we/they + base verb; he/she/it (and singular nouns) + verb + -s/-es."),
+(a,q)=>T(/,\s*____ /.test(q)&&/^(which|who|whose)$/.test(a),"After a comma, which refers to things and who to people (The proposal, which was criticised, ...); what cannot start this kind of clause."),
+(a,q)=>T(/^(should|shouldn't|must|mustn't|can|can't|couldn't|may|don't have to)$/.test(a),"Modals: should/shouldn't = advice; must = strong rule; mustn't = not allowed; don't have to = not necessary; can/can't = ability or permission; could/couldn't = past ability."),
+(a,q)=>T(/^(who|what|where|when|why|which|whose)$/.test(a),"Wh-words: who = person, what = thing, where = place, when = time, why = reason, which = choice from a group, whose = owner."),
+(a,q)=>T(/^(much|many|few|a little|any|some|a lot of|lots of)$/.test(a),"Quantifiers: many/few + countable nouns (books); much/a little + uncountable nouns (water, money); some in positive sentences and offers, any in negatives and questions; a lot of/lots of fit both."),
+(a,q)=>T(/^(mine|yours|hers|ours|theirs|his)$/.test(a),"Possessive pronouns (mine, yours, his, hers, ours, theirs) stand alone and replace 'possessive adjective + noun' (my book = mine)."),
+(a,q)=>T(/^(my|your|her|our|their|his)$/.test(a),"Possessive adjectives (my, your, his, her, our, their) come before a noun."),
+(a,q)=>T(/^(\w+er|\w+est|more( \w+)?|most( \w+)?|as)$/.test(a)&&/\bthan\b|\bas\b|\bthe ____/.test(q),"Comparatives and superlatives: short adjectives add -er/-est (taller, the tallest); long ones use more/most (more crowded, the most talented); as + adjective + as shows equality; than follows a comparative."),
+(a,q)=>T(/^an?$/.test(a),"Use an before a vowel sound (an apple, an umbrella) and a before a consonant sound (a new bike)."),
+(a,q)=>T(a=="the","Use the for something specific or already known (the information you gave me, the most talented player)."),
+(a,q)=>T(a=="since"||(a=="for"&&/____ (a|an|two|three|several|ten|\d+)\b/.test(q)),"Since + a point in time (since 2018); for + a length of time (for three years)."),
+(a,q)=>T(a=="between","Between is used for two things (or two limits); among is for more than two."),
+(a,q)=>T(LK[a]!=null,"“"+a+"” "+LK[a]+". Match the linker to how the two ideas relate (reason, result, contrast, addition)."),
+(a,q)=>T(/^(at|on|in)$/.test(a)&&/(o'clock|monday|tuesday|saturday|sunday|july|morning|evening|afternoon|night|\d{4}|london|station|table|sofa|room|house|school|city|country)/i.test(q),"At = a point or exact time (at seven, at the station); on = days, dates and surfaces (on Monday, on the table); in = months, years, parts of the day and enclosed places (in July, in the morning, in London)."),
+(a,q)=>T(/^(at|on|in|of|for|to|with|about|from|by|after|over|through|out|off|up|down|away|under|near|into)$/.test(a),"This preposition or particle belongs to a fixed phrase (afraid of, depends on, look for, take after, run out of). Learn the verb or adjective together with its preposition; phrasal verbs change meaning with the particle (turn down = refuse, put off = postpone).")];
+const sents=t=>t.split(/(?<=[.!?])\s+/),stem=w=>w.slice(0,5),tk=s=>new Set(norm(s).filter(w=>w.length>3).map(stem));
+function ev(it){let q=tk(it.q.replace(/^True, False or Not given\? /,"")+" "+(!/^True, False/.test(it.q)&&it.o?it.o[it.a]:"")),b="",bs=0;sents(it.text).forEach(s=>{let n=[...tk(s)].filter(w=>q.has(w)).length;if(n>bs){bs=n;b=s}});return bs>=1?b:""}
+function explain(it){let Q=it.q||"",tf=/^True, False/.test(Q);
+ if(it.text&&/^(Answer found|Check the passage)/.test(it.x||"")){let s=ev(it);if(!s)return tf&&it.a==2?"No sentence in the text states this, so the answer is Not given.":"";
+  return tf?(it.a==0?"<b>Evidence:</b> “"+esc(s)+"” The statement matches the text.":it.a==1?"<b>The text says:</b> “"+esc(s)+"” This contradicts the statement.":"The closest sentence is “"+esc(s)+"”, but it does not say this, so the answer is Not given."):"<b>Evidence in the text:</b> “"+esc(s)+"”"}
+ if(!/^(Choose the best option|Choose the correct form|Word form|Complete so|Correct the error)/.test(Q))return"";
+ let a=it.t=="type"?String(it.a).split("/")[0]:(it.o||[])[it.a],al=String(a||"").toLowerCase(),q=Q.replace(/^[^:]*: /,"");
+ if(/^Word form/.test(Q)){let k=(/\(([A-Z]+)\)/.exec(Q)||[])[1],p=/(tion|sion|ment|ness|ity|ance|ence|ship)$/.test(al)?"a noun":/ly$/.test(al)?"an adverb":/(ful|ous|able|ible|ive|ic|al|ed|ing|ent|ant|y)$/.test(al)?"an adjective":"",
+  neg=k&&/^(un|in|im|il|ir|dis)/.test(al)&&al.includes(k.toLowerCase().slice(0,4))&&!al.startsWith(k.toLowerCase().slice(0,2));
+  return"<b>Rule:</b> the gap needs "+(p||"a different form of the word")+": “"+esc(a)+"”. Decide the part of speech first (noun after a/the/a possessive; adjective before a noun or after be; adverb after a verb)."+(neg?" The prefix gives the word a negative meaning.":"")}
+ if(/^Complete so/.test(Q))return"<b>Rule:</b> rewrite so the meaning stays the same: “"+esc(a)+"” fits the gap. Check the tense and the structure the key word needs (passive, reported speech, conditional, wish, inversion).";
+ if(/^Correct the error/.test(Q)){let w=norm(q),r=norm(String(it.a)),x=w.filter(z=>!r.includes(z)),y=r.filter(z=>!w.includes(z));return x.length||y.length?"<b>Change:</b> “"+esc(x.join(" ")||"…")+"” → “"+esc(y.join(" ")||"…")+"”. Check subject–verb agreement (he/she/it + -s, I am, you/we/they are), tense and word order.":""}
+ let h=""; for(const f of RL){h=f(al,q);if(h)break}
+ if(!h)return"";let wr=(it.o||[]).filter((_,i)=>i!=it.a);
+ return"<b>Rule:</b> "+esc(h)+(wr.length?"<br><b>Not:</b> "+wr.map(w=>"“"+esc(w)+"”").join(", ")+" do not fit here.":"")}
 function answer(ok,item,extra=""){if(R.done)return;R.done=1;ok?(R.sc++,R.st++):(R.st=0,R.ms.push(item.x||item.q));R.bs=Math.max(R.bs||0,R.st);clearTimeout(R.tm);let tb=$("#tb");if(tb){tb.style.width=getComputedStyle(tb).width;tb.style.transition="none"}if(R.endless){if(ok){R.n++;let p=Math.round(10*MULT[LV.indexOf(R.l)]*(1+Math.min(R.st-1,10)/10)),ex=R.n%10==0&&R.lives<5;R.pts+=p;extra+=" +"+p+" pts"+(ex?" · extra life!":"");if(ex)R.lives++}else{R.lives--;extra+=" −1 life"}$("#es").textContent=estat()}if(R.tst){let k=item.k;if(ok)R.hit[k]=Math.max(R.hit[k],item.lv);R.p[k]=Math.max(0,Math.min(6,R.p[k]+(ok?1:-1)))}
  if(item.w)vmark(item.w,ok);if(!ok&&item.w&&R.q.length<14)R.q.splice(R.i+3,0,{...item});save();
- $("#fb").innerHTML=(ok?"<b style='color:var(--ok)'>Correct.</b> ":"<b style='color:var(--no)'>Not quite.</b> ")+esc(item.x||"")+extra;
+ $("#fb").innerHTML=(ok?"<b style='color:var(--ok)'>Correct.</b> ":"<b style='color:var(--no)'>Not quite.</b> ")+esc(item.x||"")+(()=>{let w="";try{w=explain(item)}catch(e){}return w?"<br><br>"+w:""})()+extra;
  $("#nx").hidden=false;$("#nx").focus();document.querySelectorAll(".opts button").forEach(b=>b.disabled=true);if(R.endless&&R.lives<=0)$("#nx").textContent="See results"}
 /* Level test: 16 adaptive questions, 4 per skill. Each skill starts at B1, moves up after a correct answer and down after a miss. */
 const SK=["Listening","Speaking","Reading","Writing"],SM=["listening","speaking","reading","writing"];
@@ -366,7 +672,7 @@ function ecard(){let ls=tls(),el=ls.includes(S.el)?S.el:ls[ls.length-1],em=S.em|
    SKD rows:  mc skills:    skill|level 0-6|sentence with ____|correct|wrong|wrong
               typed skills: skill|level 0-6|prompt|accepted answers separated by /     (wordform, transform)
    A round takes the 10 rows closest to your chosen level. Add your own rows freely. */
-const SKN={wordform:"Word form",transform:"Transformation",prepositions:"Prepositions",tenses:"Tenses",conditionals:"Conditionals",phrasal:"Phrasal verbs",linking:"Linking words",articles:"Articles"},TY={wordform:1,transform:1};
+const SKN={wordform:"Word form",transform:"Transformation",prepositions:"Prepositions",tenses:"Tenses",conditionals:"Conditionals",phrasal:"Phrasal verbs",linking:"Linking words",articles:"Articles",presentSimple:"Present simple",presentCont:"Present continuous",pastSimple:"Past simple",pastCont:"Past continuous",futures:"Future forms",comparison:"Comparisons",quantifiers:"Quantifiers",modals:"Modal verbs",questions:"Questions",possessives:"Possessives",gerunds:"Verb + -ing / to",sentences:"Sentence types",reported:"Reported speech",perfect:"Past vs perfect",participles:"Participles",infinitives:"Infinitives",perfectClauses:"Perfect clauses",cleft:"Cleft sentences",compoundNouns:"Compound nouns",whToInf:"Wh- + to-infinitive",inversion:"Inversion",passive:"Passive voice"},TY={wordform:1,transform:1};
 for(const k in SKN)MN["sk_"+k]=SKN[k];
 const SKD=`wordform|0|She is a very ____ girl. (BEAUTY)|beautiful
 wordform|0|He sings very ____. (GOOD)|well
@@ -448,13 +754,181 @@ linking|4|Prices rose; ____, demand fell.|consequently|whereas|despite
 linking|4|He works hard, ____ his brother is lazy.|whereas|therefore|so
 linking|5|The plan is risky; ____, it could pay off.|nevertheless|therefore|besides
 linking|6|____ renewable energy has grown, fossil fuels dominate.|While|Despite|Due to
-linking|6|Cars are cheaper; ____, more people drive.|as a result|in contrast|on the whole`.split("\n").map(r=>{let p=r.split("|");p[1]=+p[1];return p});
-function skillItems(l,k,r){let ix=LV.indexOf(l),all=(r?[...SKD.filter(x=>x[0]==k)].sort(()=>r()-.5):sh(SKD.filter(x=>x[0]==k))).sort((a,b)=>Math.abs(a[1]-ix)-Math.abs(b[1]-ix)),near=all.filter(x=>Math.abs(x[1]-ix)<=1);
+linking|6|Cars are cheaper; ____, more people drive.|as a result|in contrast|on the whole
+presentSimple|0|My brother ____ football every Saturday.|plays|play|playing
+presentSimple|0|She ____ like spicy food.|doesn't|don't|isn't
+presentSimple|1|What time ____ your class start?|does|do|is
+presentSimple|1|The Earth ____ around the Sun.|goes|go|going
+presentSimple|1|They ____ to school by bus.|go|goes|are go
+presentSimple|2|Once a week, he ____ his grandparents.|visits|visit|visiting
+presentCont|0|Look! The children ____ in the yard.|are playing|play|plays
+presentCont|1|I ____ my homework now.|am doing|do|does
+presentCont|1|She ____ TV at the moment.|is not watching|doesn't watching|not watching
+presentCont|1|____ he cooking dinner?|Is|Does|Do
+presentCont|2|Right now, we ____ for the exam.|are studying|study|studies
+presentCont|2|The engineers ____ a new panel this week.|are testing|test|tests
+pastSimple|0|We ____ to the zoo yesterday.|went|go|goes
+pastSimple|1|She ____ her grandparents last weekend.|visited|visit|visits
+pastSimple|1|They ____ not play football last Sunday.|did|do|were
+pastSimple|1|____ you finish your homework last night?|Did|Do|Were
+pastSimple|2|The Wright brothers ____ the aeroplane in 1903.|invented|invent|have invented
+pastSimple|2|He opened the door, ____ in and sat down.|walked|walks|walking
+pastCont|1|We ____ dinner when the lights went out.|were having|had|are having
+pastCont|1|It ____ at eight o'clock yesterday evening.|was raining|rained|is raining
+pastCont|2|While I ____ TV, my brother was cooking.|was watching|watched|watch
+pastCont|2|She ____ when the phone rang.|was sleeping|slept|sleeps
+pastCont|2|At 9 p.m. last night, the students ____ in the library.|were studying|studied|study
+pastCont|3|The storm hit while we ____ across the bridge.|were walking|walked|walk
+futures|1|I think it ____ rain tomorrow.|will|is|did
+futures|1|He ____ not go to the party next week.|will|is|does
+futures|1|____ she study abroad next year?|Will|Does|Is
+futures|2|If it rains, we ____ at home.|will stay|stay|stayed
+futures|2|The train ____ at 8 a.m. tomorrow.|leaves|leave|is leave
+futures|3|Robots ____ do the housework in 2050.|will|did|are
+comparison|1|She is ____ tall as her brother.|as|than|more
+comparison|1|This car is ____ than that one.|faster|more fast|fastest
+comparison|1|He is the ____ student in the class.|most talented|more talented|talentedest
+comparison|1|My house is different ____ yours.|from|than|with
+comparison|2|She speaks ____ carefully than before.|more|most|as
+comparison|2|This book is not as interesting ____ that one.|as|than|like
+quantifiers|1|I have ____ books on the shelf.|some|any|a little
+quantifiers|1|There are ____ students in the classroom.|a lot of|much|a little
+quantifiers|1|She has ____ money.|lots of|many|few
+quantifiers|2|We don't have ____ milk.|any|some|many
+quantifiers|2|How ____ water do you drink every day?|much|many|few
+quantifiers|2|Would you like ____ coffee?|some|any|many
+modals|0|You ____ respect your parents.|should|can't|mustn't
+modals|1|Students ____ run in the corridor.|mustn't|should|can
+modals|1|You ____ talk loudly in the library.|shouldn't|can|may
+modals|2|I ____ swim well, but I need more practice.|can|must|should
+modals|2|Drivers ____ stop at a red light.|must|can|may
+modals|3|You ____ wear a uniform, but you can choose the colour.|don't have to|mustn't|can't
+questions|0|____ is your teacher?|Who|Where|How many
+questions|1|____ do you live? In Hue.|Where|Who|What
+questions|1|____ you like coffee? Yes, I do.|Do|Are|Does
+questions|2|How ____ students are in your class?|many|much|often
+questions|2|How ____ does this bike cost?|much|many|long
+questions|2|____ did they visit the museum? Because it was free.|Why|When|Who
+possessives|1|This is my book. It is ____.|mine|my|me
+possessives|1|That car belongs to her. It is ____.|hers|her|she
+possessives|1|These are our seats. They are ____.|ours|our|us
+possessives|2|Is this phone yours or ____?|his|he|him
+possessives|2|I forgot my umbrella, so I used ____.|theirs|their|them
+possessives|2|That bag is not mine. It is ____.|hers|she|her's
+gerunds|1|My sister enjoys ____ stamps.|collecting|to collect|collect
+gerunds|1|I love ____ to music in my free time.|listening|listen|listens
+gerunds|1|He doesn't like ____ in the evening.|going out|go out|goes out
+gerunds|2|She hates ____ up early.|getting|get|gets
+gerunds|2|I'd like ____ a new hobby.|to start|starting|start
+gerunds|2|They are keen on ____ DIY.|doing|do|to do
+sentences|1|She studies hard, ____ she wants a good job.|because|but|or
+sentences|1|He wanted to go out, ____ it started raining.|but|so|and
+sentences|1|You can walk to school ____ take the bus.|or|but|so
+sentences|2|____ I arrive, I will text you.|As soon as|Unless|Despite
+sentences|2|We won't start ____ everyone is here.|until|while|since
+sentences|2|She listened to music ____ she was studying.|while|until|before
+sentences|3|____ it was cold, we went swimming.|Although|Because|Therefore
+reported|2|She said, "I am tired." She said that she ____ tired.|was|is|will be
+reported|2|He said, "I like pizza." He said he ____ pizza.|liked|likes|will like
+reported|2|"Where are you going?" She asked where I ____.|was going|am going|were going
+reported|2|"Are you coming?" He asked ____ I was coming.|if|that|what
+reported|3|"I will call you." She said she ____ call me.|would|will|can
+reported|3|"I did my homework yesterday." He said he ____ his homework the day before.|had done|did|has done
+perfect|2|I ____ never been to Hue.|have|did|was
+perfect|2|She ____ lived here since 2018.|has|have|is
+perfect|2|We ____ already finished our homework.|have|did|were
+perfect|3|I ____ my keys yesterday.|lost|have lost|has lost
+perfect|3|He ____ football for five years.|has played|played|plays
+perfect|3|Last year, they ____ to Da Nang.|travelled|have travelled|has travelled
+presentSimple|0|I ____ play football, but not every week.|sometimes|never|always
+presentSimple|1|We ____ have lunch at school from Monday to Friday.|always|never|rarely
+presentSimple|1|He ____ goes to bed late; he sleeps at nine every night.|never|always|often
+comparison|3|The harder you study, ____ your marks will be.|the better|better|the best
+comparison|3|The more you practise, ____ you feel.|the more confident|more confident|most confident
+comparison|3|The ____ the weather gets, the more people stay indoors.|colder|cold|coldest
+modals|2|If Anna wakes up early, she ____ go for a run.|can|did|is
+modals|3|If you feel stressed, you ____ talk to someone.|should|did|are
+modals|3|If it rains, we ____ have to stay indoors.|may|did|were
+presentCont|2|Look! It ____ now, so take an umbrella.|is raining|rains|rain
+presentCont|3|My sister usually ____ tea, but today she is having coffee.|drinks|is drinking|drank
+presentCont|3|Listen! The students ____ in the hall.|are singing|sing|sings
+gerunds|3|____ honest is important in any friendship.|Being|Be|To being
+gerunds|3|They are interested in ____ a solution.|finding|find|to find
+gerunds|3|I don't mind ____ you every night.|calling|to call|call
+participles|3|The children ____ in the park were laughing.|playing|played|play
+participles|3|The window ____ by the storm needs fixing.|broken|breaking|break
+participles|3|He saw his friend ____ for the bus.|waiting|waited|wait
+participles|3|The film was ____, so I fell asleep.|boring|bored|bore
+participles|4|____ tired, she went to bed early.|Being|Been|Be
+participles|4|The book ____ by a famous author became a bestseller.|written|writing|wrote
+infinitives|2|You must ____ on time.|arrive|to arrive|arriving
+infinitives|2|My mother let me ____ out with friends.|go|to go|going
+infinitives|3|I studied hard ____ the exam.|to pass|passing|pass
+infinitives|3|She saved money ____ a new phone.|to buy|buying|buy
+infinitives|3|He is the first student ____ the answer.|to find|finding|find
+infinitives|3|The teacher made us ____ the text again.|read|to read|reading
+perfectClauses|4|____ finished the work, he went home.|Having|Have|Had
+perfectClauses|4|____ the book before, she knew the ending.|Having read|Reading|Read
+perfectClauses|4|She denied ____ the money.|having taken|to take|have taken
+perfectClauses|4|He regretted ____ the chance.|having missed|to miss|miss
+perfectClauses|5|____ won the match, the team celebrated.|Having|Having been|Be having
+perfectClauses|5|I don't remember ____ him before.|having met|to meet|meet
+cleft|4|It was Tom ____ won the competition.|who|which|what
+cleft|4|It was at the coffee shop ____ I left my bag.|that|who|what
+cleft|4|It is her kindness ____ people admire.|that|what|whose
+cleft|5|It was last year ____ they moved to Hue.|that|who|what
+cleft|5|It was my teacher ____ encouraged me.|who|whom|whose
+cleft|5|It is ____ that matters most.|honesty|honest|honestly
+compoundNouns|2|I need to buy some ____ for the beach.|sunscreen|screen sun|sunny screen
+compoundNouns|3|A ____ is a person who walks past.|passer-by|by-passer|passing-by
+compoundNouns|3|Her ____ is my brother's wife.|sister-in-law|sister in law's|law-sister
+compoundNouns|4|We watched the ____ at the zoo.|elephant show|show elephant|elephants showing
+compoundNouns|4|She wore a lovely ____ at the party.|necklace|neck lace of|lace neck
+compoundNouns|4|He had a ____ yesterday and looks neat.|haircut|cuthair|hairing cut
+whToInf|2|She didn't know what ____ next.|to do|doing|do
+whToInf|2|Can you tell me how ____ to the station?|to get|getting|get
+whToInf|2|I wonder where ____ the tickets.|to buy|buying|buy
+whToInf|2|He asked me when ____ the form.|to submit|submitting|submit
+whToInf|3|They haven't decided who ____ to the party.|to invite|inviting|invite
+whToInf|3|We are not sure which road ____.|to take|taking|take
+inversion|4|Never ____ such a beautiful sunset.|have I seen|I have seen|I saw
+inversion|4|Seldom ____ so generous.|is he|he is|does he be
+inversion|5|Not until the lights went out ____ the danger.|did we realise|we realised|we did realise
+inversion|5|No sooner ____ the house than it began to rain.|had we left|we had left|did we leave
+inversion|5|Only after the results came in ____ the decision.|did they announce|they announced|they did announce
+inversion|6|Under no circumstances ____ the door be left open.|should|it should|does
+inversion|6|Little ____ they realise the scale of the problem.|did|had|were
+inversion|6|Only when she spoke ____ that she was a stranger.|did I realise|I realised|I did realise
+passive|3|The bridge ____ in 1998.|was built|built|has built
+passive|3|English ____ all over the world.|is spoken|speaks|is speaking
+passive|4|The new policy ____ next month.|will be introduced|will introduce|is introduce
+passive|4|The documents ____ by the time we arrived.|had been signed|had signed|were signing
+passive|5|He is believed ____ the country last year.|to have left|to leave|having left
+passive|5|The suspect is said ____ by police at the moment.|to be questioned|to question|being questioned
+passive|6|It is widely accepted ____ the plan was flawed.|that|what|which
+passive|6|The patient insisted on ____ the results immediately.|being told|telling|to tell
+tenses|5|By the time she retires, she ____ here for thirty years.|will have been working|will work|has worked
+tenses|6|Prices ____ since the policy took effect, with no sign of slowing.|have been climbing|are climbing|climbed
+conditionals|5|If it ____ for his support, the project would have collapsed.|hadn't been|wasn't|weren't
+conditionals|6|Had the board acted sooner, the crisis ____ avoided.|might have been|might be|would avoid
+articles|5|____ unemployed often struggle to find work.|The|A|Some
+articles|6|It was ____ unprecedented decision.|an|a|some
+linking|5|____ the evidence, the committee refused to act.|In spite of|Despite of|Although
+linking|6|The results were promising; ____, further trials are required.|nevertheless|moreover|similarly
+prepositions|5|The study draws a distinction ____ correlation and causation.|between|among|from
+prepositions|6|The firm was held liable ____ the damage.|for|of|to
+phrasal|5|The government has ruled ____ tax cuts.|out|off|away
+phrasal|6|The report sets ____ the main risks clearly.|out|off|up`.split("\n").map(r=>{let p=r.split("|");p[1]=+p[1];return p});
+const SKB=["wordform","transform","prepositions","tenses","conditionals","phrasal","linking","articles","presentSimple","presentCont","pastSimple","pastCont","futures","comparison","quantifiers","modals","questions","possessives","gerunds","sentences","reported","perfect","infinitives","whToInf"],SKA=["wordform","transform","prepositions","tenses","conditionals","phrasal","linking","articles","passive","inversion","participles","perfectClauses","cleft","compoundNouns","reported","perfect","infinitives"];
+/* Basic (A1-B1) uses level 0-2 rows; Advanced (B2-IELTS) uses only level 3-6 rows, so the two tabs never share easy items */
+const SP2=(k,ix)=>{let a=SKD.filter(x=>x[0]==k),b=a.filter(x=>ix>=3?x[1]>=3:x[1]<=2);return b.length>=4?b:a};
+function skillItems(l,k,r){let ix=LV.indexOf(l),all=(r?[...SP2(k,ix)].sort(()=>r()-.5):sh(SP2(k,ix))).sort((a,b)=>Math.abs(a[1]-ix)-Math.abs(b[1]-ix)),near=all.filter(x=>Math.abs(x[1]-ix)<=1);
  return(near.length>=6?near:all.slice(0,6)).slice(0,10).map(x=>TY[k]?{t:"type",q:(k=="wordform"?"Word form: complete with the correct form. ":"Complete so the meaning stays the same. ")+x[2],a:x[3],x:x[3].split("/")[0]}:mc("Choose the best option: "+x[2],[x[3],x[4],x[5]],0,x[2].replace("____",x[3])))}
 function startSkill(l,k){S.dl=l;R={l,m:"sk_"+k,i:0,sc:0,st:0,ms:[],q:skillItems(l,k),done:0,timed:RT[LV.indexOf(l)]>0};view="round";draw()}
 const fw=()=>S.fwg?gwords(S.fwg):DATA[curLv()].W;
 const curLv=()=>{let ls=LV.filter(x=>DATA[x].P.length&&unlocked(x));return ls.includes(S.dl)?S.dl:ls[ls.length-1]};
-function scard(){let ls=tls(),cl=curLv();return`<div class="card"><h2>Sub-skills</h2><p class="mu">Targeted practice: word forms, transformations and key grammar. Questions closest to your level come first.</p><div class="row"><select id="sl" aria-label="Level">${ls.map(l=>`<option ${l==cl?"selected":""}>${l}</option>`).join("")}</select></div><div class="row">${Object.entries(SKN).map(([k,v])=>`<button data-sk="${k}">${v}${S.p[cl+"sk_"+k]!=null?" · "+S.p[cl+"sk_"+k]+"%":""}</button>`).join("")}</div></div>`}
+const skl=()=>{let ls=tls();return ls.includes(S.dl)?S.dl:ls[ls.length-1]};
+function scard(){let cl=skl();return`<div class="card"><h2>Sub-skills</h2><p class="mu">${S.tab=="advanced"?"Advanced practice: B2–IELTS structures only (inversion, passive reporting, participle and cleft clauses, formal linking). Harder items and tighter timers.":"Basic practice: A1–B1 grammar (tenses, modals, comparisons, questions, everyday patterns)."}</p><div class="row">${Object.entries(SKN).filter(([k])=>(S.tab=="advanced"?SKA:SKB).includes(k)).map(([k,v])=>`<button data-sk="${k}">${v}${S.p[cl+"sk_"+k]!=null?" · "+S.p[cl+"sk_"+k]+"%":""}</button>`).join("")}</div></div>`}
 /* Lessons: [title, lines separated by |, practice target  m:module or s:sub-skill] */
 const LES=[["Listening: how to catch more","Read the question before you listen and predict the type of answer (number, place, reason).|Listen for stressed content words, not every word.|Dictation: replay in chunks of 3-4 words, then check small words (a, the, -s, -ed).|Slow the speed first, then raise it as you improve.","m:listening"],
 ["Speaking & recognition","Say the whole sentence naturally; the score counts matching words.|Missed words are underlined: replay slowly, then repeat them alone.|Speak clearly at normal volume; background noise lowers the match.|Pass marks rise with level (60% at A1 to 90% at IELTS).","m:speaking"],
@@ -465,12 +939,26 @@ const LES=[["Listening: how to catch more","Read the question before you listen 
 ["Word form","Decide the part of speech first: noun, verb, adjective or adverb.|Noun endings: -tion, -ment, -ness, -ity. Adjective endings: -ful, -ous, -able, -ive. Adverbs: -ly.|Negative prefixes: un-, in-, im-, il-, ir-, dis- (impossible, unpredictable).|Check singular or plural, and whether a negative is needed.","s:wordform"],
 ["Key word transformation","Keep the meaning the same using the key word without changing it.|Common targets: passive, reported speech, conditionals, wish, so/such, too/enough.|Count the words in the gap and check tense and the grammar after the key word.|Example: It's a pity I didn't go. (WISH) = I wish I had gone.","s:transform"],
 ["Tenses","Present simple: habits and facts. Present continuous: now or temporary.|Past simple: finished time. Present perfect: connects past and now (since, for, already).|Past perfect: the earlier of two past events. Future perfect: finished by a future time.|Time words guide you: yesterday, since 2019, by next year.","s:tenses"],
+["Present simple","Form: I/you/we/they + base verb; he/she/it + verb-s. Negative: don't/doesn't + base verb. Question: Do/Does + subject + base verb.|Use: habits, routines, facts and timetables.|Signals: always, usually, often, every day, on Mondays.|Example: She works in a bank. The train leaves at 8.","s:presentSimple"],
+["Present continuous","Form: am/is/are + verb-ing.|Use: actions happening now, temporary situations and fixed future plans.|Signals: now, at the moment, today, this week, Look!|Example: They are studying. We are meeting Tom tomorrow.","s:presentCont"],
+["Present perfect","Form: have/has + past participle.|Use: past actions with a result now, life experience, and unfinished time up to now.|Signals: already, yet, just, ever, never, since, for, so far.|Example: I have lost my keys. She has lived here since 2019.","s:perfect"],
+["Present perfect continuous","Form: have/has been + verb-ing.|Use: an action that started in the past and continues, or has just stopped with a visible result; stresses the duration.|Signals: for, since, all day, lately, recently, how long.|Example: I have been waiting for an hour. It has been raining, so the ground is wet.","s:tenses"],
+["Past simple","Form: verb-ed or an irregular form (go-went). Negative: didn't + base verb. Question: Did + subject + base verb.|Use: finished actions at a finished time, and series of past events.|Signals: yesterday, last week, ago, in 2010, when.|Example: We visited Hue last summer. He opened the door and walked in.","s:pastSimple"],
+["Past continuous","Form: was/were + verb-ing.|Use: an action in progress at a past moment, or interrupted by a past simple action; two actions happening at the same time.|Signals: while, when, at 8 p.m. yesterday, all evening.|Example: I was cooking when the phone rang. While she was reading, he was playing.","s:pastCont"],
+["Past perfect","Form: had + past participle.|Use: the earlier of two past events, or something already finished before a past time.|Signals: before, after, by the time, already, when, until.|Example: When we arrived, the film had started.","s:perfect"],
+["Past perfect continuous","Form: had been + verb-ing.|Use: an action in progress up to a point in the past, often giving a reason or stressing duration.|Signals: for, since, all morning, before, by the time.|Example: She was tired because she had been working all night.","s:tenses"],
+["Future simple (will)","Form: will + base verb. Negative: won't + base verb.|Use: predictions, spontaneous decisions, promises and offers.|Signals: tomorrow, next year, I think, probably, perhaps.|Example: I think it will rain. I'll help you with that bag.","s:futures"],
+["Going to and present for the future","Form: am/is/are going to + base verb. The present continuous and present simple can also show the future.|Use: going to = plans and predictions from evidence. Present continuous = arranged plans. Present simple = timetables.|Signals: Look at the clouds!, this weekend, the train leaves at nine.|Example: It's going to rain. I'm seeing the dentist on Friday.","s:futures"],
+["Future continuous","Form: will be + verb-ing.|Use: an action in progress at a future time, or a polite question about plans.|Signals: this time tomorrow, at 6 p.m. next Monday, soon.|Example: This time tomorrow I will be flying to Paris.","s:tenses"],
+["Future perfect","Form: will have + past participle.|Use: an action that will be finished before a future time.|Signals: by, by the time, by next year, before.|Example: By June she will have finished her course.","s:tenses"],
+["Future perfect continuous","Form: will have been + verb-ing.|Use: the duration of an action up to a future time.|Signals: for, by next month, by the time + present simple.|Example: By July I will have been working here for ten years.","s:tenses"],
+["All tenses at a glance","Present: simple (habit), continuous (now), perfect (result now), perfect continuous (duration up to now).|Past: simple (finished), continuous (in progress), perfect (earlier past), perfect continuous (duration before a past time).|Future: will, going to, continuous (in progress), perfect (finished by), perfect continuous (duration by).|Choose the tense from the time words and the relationship between the events.","s:tenses"],
 ["Conditionals & wishes","Zero and first: If it rains, we stay / will stay.|Second: If I were you, I would apologise (unreal present).|Third: If he had left, he would have caught it (unreal past).|Wish + past perfect for regrets. Inversion: Had I known, I would have told you.","s:conditionals"],
 ["Prepositions & articles","Learn fixed pairs: good at, interested in, depends on, afraid of, accused of.|Time: at six, on Monday, in July. Place: at the station, in London.|a/an for one of many, the for known things; some/any with uncountables.|Few = not many, a little = some (uncountable).","s:prepositions"],
 ["Linking words","Contrast: but, although, however, whereas, despite + noun.|Cause and result: because, so, therefore, consequently, as a result.|Addition: moreover, in addition. Example: for example, such as.|Use a comma after sentence-opening linkers.","s:linking"],
 ["Phrasal verbs","A phrasal verb is verb + particle with a special meaning (give up = stop).|Some split (turn the light on), some do not (look after her).|Learn them in a sentence and with their meaning.|Higher levels use formal ones: phase out, fall through, bring about.","s:phrasal"],
 ["CEFR levels & IELTS","A1-A2 basic, B1-B2 independent, C1-C2 advanced; IELTS targets band 6.5 to 8+.|Pass marks rise from 70% to 85%, and B2 and above are timed.|IELTS tips: paraphrase, use precise data language (rose sharply, remained stable), and link ideas.|Use the Level test to find your level, Daily practice for habit, Endless mode for challenge.","m:reading"]];
-function lessons(){return`<div class="row"><button data-v="home">Home</button><span class="chip">Lessons</span></div><div class="card">${LES.map(l=>`<details><summary>${esc(l[0])}</summary><ul>${l[1].split("|").map(t=>"<li>"+esc(t)+"</li>").join("")}</ul><div class="row"><button class="p" data-p="${l[2]}">Practise at ${curLv()}</button></div></details>`).join("")}</div>`}
+function lessons(){return`<div class="row"><button data-v="home">Home</button><span class="chip">Lessons</span></div><div class="card">${LES.map(l=>`<details><summary>${esc(l[0])}</summary><ul>${l[1].split("|").map(t=>"<li>"+esc(t)+"</li>").join("")}</ul><div class="row"><button class="p" data-p="${l[2]}">Practice</button></div></details>`).join("")}</div>`}
 /* ===== GLOBAL SUCCESS (Grade 6) — original lessons and exercises that follow the unit topics (not the textbook's own text) =====
    Row format:  Unit title | practice focus | lesson | word:definition;word:definition... | gap sentence~correct~wrong~wrong;...
    Add more units or other grades by adding rows (and a GS7 list + a grade selector, if you like). */
@@ -492,35 +980,35 @@ GS6.forEach((u,i)=>MN["gs"+(i+1)]="Unit "+(i+1)+": "+u.t);
 const GL={6:0,7:1,8:1,9:2,10:2,11:3,12:3};   /* CEFR level each grade is practised at (0=A1 ... 3=B2) */
 const gp=s=>s.trim().split("\n").map(r=>{let[t,k,w]=r.split("|");return{t,k,w:w.split(";").map(x=>x.split(":"))}});
 const GSU={6:GS6,
-7:gp(`Hobbies|tenses|keen:very interested;collect:gather things as a hobby;craft:skilled handwork;enjoy:like doing
-Healthy Living|articles|vitamin:a nutrient for health;snack:a small meal;exercise:physical activity;pimple:a small red spot on skin
-Community Service|prepositions|volunteer:a person who helps for free;litter:rubbish on the ground;donate:give to help;charity:a group that helps people
-Music and Arts|wordform|perform:show to an audience;talented:having natural skill;instrument:something to play music;exhibition:a public show of art
-Food and Drink|articles|ingredient:one item in a recipe;recipe:instructions to cook;fry:cook in hot oil;delicious:very tasty
-A Visit to a School|tenses|laboratory:a room for experiments;exchange:a swap between schools;assembly:a meeting of all students;canteen:a place to eat at school
-Traffic|prepositions|pavement:a path for walkers;junction:where roads meet;seat belt:a strap in a car;obey:follow a rule
+7:gp(`Hobbies|presentSimple|keen:very interested;collect:gather things as a hobby;craft:skilled handwork;enjoy:like doing
+Healthy Living|sentences|vitamin:a nutrient for health;snack:a small meal;exercise:physical activity;pimple:a small red spot on skin
+Community Service|pastSimple|volunteer:a person who helps for free;litter:rubbish on the ground;donate:give to help;charity:a group that helps people
+Music and Arts|comparison|perform:show to an audience;talented:having natural skill;instrument:something to play music;exhibition:a public show of art
+Food and Drink|quantifiers|ingredient:one item in a recipe;recipe:instructions to cook;fry:cook in hot oil;delicious:very tasty
+A Visit to a School|prepositions|laboratory:a room for experiments;exchange:a swap between schools;assembly:a meeting of all students;canteen:a place to eat at school
+Traffic|modals|pavement:a path for walkers;junction:where roads meet;seat belt:a strap in a car;obey:follow a rule
 Films|linking|plot:the story of a film;director:the person who makes a film;scene:a part of a film;audience:people who watch
-Festivals Around the World|phrasal|parade:a public march;costume:clothes for a role;lantern:a light in a case;harvest:the gathering of crops
-Energy Sources|wordform|renewable:able to be used again;fossil fuel:coal, oil or gas;solar:from the sun;electricity:power for machines
-Travelling in the Future|conditionals|hyperloop:a very fast tube train;autopilot:automatic control;driverless:without a driver;convenient:easy and useful
+Festivals Around the World|questions|parade:a public march;costume:clothes for a role;lantern:a light in a case;harvest:the gathering of crops
+Energy Sources|presentCont|renewable:able to be used again;fossil fuel:coal, oil or gas;solar:from the sun;electricity:power for machines
+Travelling in the Future|futures|hyperloop:a very fast tube train;autopilot:automatic control;driverless:without a driver;convenient:easy and useful
 English-speaking Countries|articles|capital:the main city;landmark:a famous place;accent:a way of pronouncing;nationality:belonging to a country`),
-8:gp(`Leisure Time|tenses|keen:very interested;hobby:something you do for fun;DIY:making things yourself;addicted:unable to stop doing
-Life in the Countryside|prepositions|harvest:gather crops;herd:a group of animals;plough:turn over soil;hospitable:friendly to guests
-Teenagers|wordform|independent:not needing help;pressure:strong demand to act;confident:sure of yourself;adolescent:a young person growing up
-Ethnic Groups of Viet Nam|articles|ethnic:of a cultural group;stilt house:a house on poles;terraced field:farmland in steps;minority:a smaller group in a country
-Our Customs and Traditions|phrasal|custom:a traditional habit;ancestor:a family member long ago;generation:people of about the same age;respect:a feeling of admiration
-Lifestyles|linking|lifestyle:the way you live;balance:a steady mix;routine:a regular set of actions;habit:something done often
-Environmental Protection|conditionals|pollution:harmful dirt in nature;recycle:make new things from old;conserve:protect from loss;habitat:the natural home of animals
-Shopping|prepositions|bargain:a good price;receipt:a paper proof of paying;discount:a lower price;customer:a person who buys
-Natural Disasters|tenses|earthquake:a shaking of the ground;flood:too much water on land;shelter:a safe place;rescue:save from danger
-Communication in the Future|conditionals|hologram:a 3D picture of light;virtual:made by computer;translate:change into another language;telepathy:sending thoughts without words
-Science and Technology|wordform|invent:create something new;experiment:a test in science;device:a small machine;breakthrough:an important discovery
-Life on Other Planets|transform|alien:a creature from space;planet:a large body orbiting a star;spacecraft:a vehicle for space;galaxy:a huge group of stars`),
-9:gp(`Local Community|phrasal|artisan:a skilled craft worker;craft village:a village known for crafts;suburb:an area outside a city centre;community:people living in one place
-City Life|prepositions|bustling:full of busy activity;public transport:buses and trains;skyscraper:a very tall building;metro:an underground railway
-Healthy Living for Teens|tenses|stress:mental pressure;balanced diet:a healthy mix of food;sleep:rest at night;fitness:being strong and healthy
+8:gp(`Leisure Time|gerunds|keen:very interested;hobby:something you do for fun;DIY:making things yourself;addicted:unable to stop doing
+Life in the Countryside|comparison|harvest:gather crops;herd:a group of animals;plough:turn over soil;hospitable:friendly to guests
+Teenagers|sentences|independent:not needing help;pressure:strong demand to act;confident:sure of yourself;adolescent:a young person growing up
+Ethnic Groups of Viet Nam|questions|ethnic:of a cultural group;stilt house:a house on poles;terraced field:farmland in steps;minority:a smaller group in a country
+Our Customs and Traditions|articles|custom:a traditional habit;ancestor:a family member long ago;generation:people of about the same age;respect:a feeling of admiration
+Lifestyles|futures|lifestyle:the way you live;balance:a steady mix;routine:a regular set of actions;habit:something done often
+Environmental Protection|sentences|pollution:harmful dirt in nature;recycle:make new things from old;conserve:protect from loss;habitat:the natural home of animals
+Shopping|presentSimple|bargain:a good price;receipt:a paper proof of paying;discount:a lower price;customer:a person who buys
+Natural Disasters|pastCont|earthquake:a shaking of the ground;flood:too much water on land;shelter:a safe place;rescue:save from danger
+Communication in the Future|possessives|hologram:a 3D picture of light;virtual:made by computer;translate:change into another language;telepathy:sending thoughts without words
+Science and Technology|reported|invent:create something new;experiment:a test in science;device:a small machine;breakthrough:an important discovery
+Life on Other Planets|reported|alien:a creature from space;planet:a large body orbiting a star;spacecraft:a vehicle for space;galaxy:a huge group of stars`),
+9:gp(`Local Community|whToInf|artisan:a skilled craft worker;craft village:a village known for crafts;suburb:an area outside a city centre;community:people living in one place
+City Life|comparison|bustling:full of busy activity;public transport:buses and trains;skyscraper:a very tall building;metro:an underground railway
+Healthy Living for Teens|modals|stress:mental pressure;balanced diet:a healthy mix of food;sleep:rest at night;fitness:being strong and healthy
 Remembering the Past|tenses|recall:remember;memory:something you remember;ancient:very old;monument:a structure to remember
-Our Experiences|tenses|experience:something that happened to you;adventure:an exciting trip;achievement:something done with effort;memorable:easy to remember
+Our Experiences|perfect|experience:something that happened to you;adventure:an exciting trip;achievement:something done with effort;memorable:easy to remember
 Vietnamese Lifestyle: Then and Now|transform|modernise:make up to date;tradition:a custom passed down;urban:of a city;rural:of the countryside
 Natural Wonders of the World|articles|wonder:something amazing;canyon:a deep valley;glacier:a large mass of ice;volcano:a mountain that erupts
 Tourism|articles|resort:a holiday place;itinerary:a plan of a journey;sightseeing:visiting famous places;accommodation:a place to stay
@@ -528,9 +1016,9 @@ World Englishes|linking|accent:a way of pronouncing;dialect:a form of a language
 Planet Earth|conditionals|climate:the usual weather;endangered:at risk of dying out;ecosystem:living things and their environment;global warming:rising Earth temperatures
 Electronic Devices|wordform|gadget:a small useful machine;battery:stores electric power;wireless:without wires;upgrade:improve to a newer version
 Career Choices|transform|career:a long-term job path;vocational:related to job skills;apprentice:a learner of a trade;qualification:proof of training`),
-10:gp(`Family Life|tenses|breadwinner:the person who earns money;chore:a small household job;bond:a close connection;responsibility:a duty
+10:gp(`Family Life|presentCont|breadwinner:the person who earns money;chore:a small household job;bond:a close connection;responsibility:a duty
 Humans and the Environment|conditionals|awareness:knowing about something;habitat:the natural home of animals;sustainable:able to continue;appliance:a home machine
-Music|wordform|genre:a type of music;lyrics:the words of a song;composer:a person who writes music;melody:a tune
+Music|sentences|genre:a type of music;lyrics:the words of a song;composer:a person who writes music;melody:a tune
 For a Better Community|phrasal|volunteer:a person who helps for free;donate:give to help;charity:a group that helps people;neighbourhood:the area where you live
 Inventions|tenses|invention:a new thing created;prototype:a first model;patent:a legal right to an invention;breakthrough:an important discovery
 Gender Equality|linking|equality:equal rights for all;discrimination:unfair treatment;stereotype:a fixed idea about a group;opportunity:a chance
@@ -538,21 +1026,21 @@ Viet Nam and International Organisations|prepositions|organisation:a group with 
 New Ways to Learn|wordform|platform:an online system;interactive:involving two-way action;tutor:a private teacher;self-study:learning by yourself
 Protecting the Environment|conditionals|conserve:protect from loss;renewable:able to be used again;emission:gas released into air;deforestation:cutting down forests
 Ecotourism|articles|ecotourism:travel that protects nature;wildlife:animals in the wild;preserve:keep safe;eco-friendly:not harming nature`),
-11:gp(`A Long and Healthy Life|tenses|longevity:a long life;nutritious:good for health;lifespan:how long a life lasts;workout:a session of exercise
-The Generation Gap|linking|generation:people of similar age;conflict:a serious disagreement;curfew:a time to be home;value:a belief about what matters
-Cities of the Future|conditionals|smart city:a city using technology;sustainable:able to continue;infrastructure:basic city systems;pollution:harmful dirt in nature
-ASEAN and Viet Nam|prepositions|member state:a country in a group;cooperation:working together;regional:of an area;charter:a founding document
-Global Warming|conditionals|greenhouse gas:a gas that traps heat;emission:gas released into air;melt:change from ice to water;drought:a long dry period
-Preserving Our Heritage|transform|heritage:valued things from the past;restore:repair to the original state;artefact:an object from history;landmark:a famous place
-Education Options for School-leavers|wordform|vocational:related to job skills;scholarship:money for study;degree:a university qualification;apply:ask formally for
-Becoming Independent|phrasal|independent:not needing help;budget:a plan for money;mature:fully grown in mind;responsible:able to be trusted
+11:gp(`A Long and Healthy Life|perfect|longevity:a long life;nutritious:good for health;lifespan:how long a life lasts;workout:a session of exercise
+The Generation Gap|modals|generation:people of similar age;conflict:a serious disagreement;curfew:a time to be home;value:a belief about what matters
+Cities of the Future|linking|smart city:a city using technology;sustainable:able to continue;infrastructure:basic city systems;pollution:harmful dirt in nature
+ASEAN and Viet Nam|gerunds|member state:a country in a group;cooperation:working together;regional:of an area;charter:a founding document
+Global Warming|participles|greenhouse gas:a gas that traps heat;emission:gas released into air;melt:change from ice to water;drought:a long dry period
+Preserving Our Heritage|infinitives|heritage:valued things from the past;restore:repair to the original state;artefact:an object from history;landmark:a famous place
+Education Options for School-leavers|perfectClauses|vocational:related to job skills;scholarship:money for study;degree:a university qualification;apply:ask formally for
+Becoming Independent|cleft|independent:not needing help;budget:a plan for money;mature:fully grown in mind;responsible:able to be trusted
 Social Issues|linking|poverty:having very little money;homelessness:having no home;bullying:hurting others repeatedly;campaign:an organised effort for change
-The Ecosystem|articles|ecosystem:living things and their environment;biodiversity:variety of life;species:a type of living thing;predator:an animal that hunts`),
-12:gp(`Life Stories We Admire|tenses|inspire:make someone want to act;achievement:something done with effort;determination:firm purpose;biography:the story of a life
-A Multicultural World|prepositions|diversity:a variety of people;tolerance:accepting differences;heritage:valued things from the past;stereotype:a fixed idea about a group
+The Ecosystem|compoundNouns|ecosystem:living things and their environment;biodiversity:variety of life;species:a type of living thing;predator:an animal that hunts`),
+12:gp(`Life Stories We Admire|pastCont|inspire:make someone want to act;achievement:something done with effort;determination:firm purpose;biography:the story of a life
+A Multicultural World|articles|diversity:a variety of people;tolerance:accepting differences;heritage:valued things from the past;stereotype:a fixed idea about a group
 Green Living|conditionals|carbon footprint:your effect on climate;sustainable:able to continue;eco-friendly:not harming nature;reduce:make smaller
 Urbanisation|wordform|urbanisation:growth of cities;overcrowded:too full of people;migrate:move to live elsewhere;infrastructure:basic city systems
-The World of Work|phrasal|workforce:all the workers;employer:a person who hires;qualification:proof of training;internship:short work experience
+The World of Work|sentences|workforce:all the workers;employer:a person who hires;qualification:proof of training;internship:short work experience
 Artificial Intelligence|transform|algorithm:a set of rules for a computer;automation:machines doing tasks;ethical:morally right;data:facts and figures
 The World of Mass Media|linking|broadcast:send out on TV or radio;journalist:a person who reports news;fake news:false information;headline:the title of a news story
 Wildlife Conservation|conditionals|endangered:at risk of dying out;poaching:illegal hunting;habitat:the natural home of animals;extinction:when a species dies out
@@ -627,10 +1115,83 @@ Third and mixed conditionals show consequences: if + had + past participle, woul
 Rewrite with the passive, gerunds and so...that.|He worked so hard that he was promoted quickly.
 Form words: learn, learner; skill, skilled; curious, curiosity.|Curiosity keeps learners skilled and motivated.`};
 for(const g in LSN)LSN[g]=LSN[g].split("\n");
+/* Lessons aligned with published unit summaries for Grade 7, Grade 8 and Grade 11 units 1-3 */
+Object.assign(LSN,{7:`Use the present simple for habits and facts. Add -s or -es for he, she and it, and use do or does for questions and negatives.|My sister collects stamps, but she doesn't collect coins.
+A simple sentence has one subject and one or more verbs. It can also have an object and an adverb of time.|I read science books every weekend and sleep at ten.
+Use the past simple for finished actions. Regular verbs add -ed, and many common verbs are irregular (go, went).|We cleaned the beach last Sunday and collected a lot of rubbish.
+Compare with like, different from and (not) as...as. Use -er or more for comparatives and -est or most for superlatives.|Her voice is not as strong as his, and it is different from other singers.
+Use some in positive sentences and offers. Use a lot of or lots of with plural and uncountable nouns.|We need some rice and a lot of vegetables for the soup.
+Use at for times and points, on for days and surfaces, in for months, years and spaces.|The visit starts at 8 a.m. on Friday, and we meet in the hall.
+Use should and shouldn't for advice. For distance, say: It is + distance + from A to B.|You should wear a helmet. It is two kilometres from my house to school.
+Show contrast with although and though (before a clause) and however (starts a new sentence, followed by a comma).|Although the film was long, I enjoyed it. However, the ending was sad.
+Make yes/no questions with be, a modal or do, does or did before the subject. Answer with Yes or No + subject + auxiliary.|Do people wear costumes at this festival? Yes, they do.
+Use am, is or are + verb-ing for actions happening now or around now.|The engineers are testing a new solar panel at the moment.
+Use will + verb for predictions. Possessive pronouns (mine, yours, his, hers, ours, theirs) replace a possessive adjective + noun.|Flying cars will be common. This seat is mine, and that one is yours.
+Use a or an for one of many, the for known or unique things, and no article for general plurals and uncountable nouns.|I read a book about the UK. The book was interesting.`.split("\n"),
+8:`After like, love, enjoy, hate and dislike, use verb-ing for general feelings. Use to + verb for a particular occasion.|I enjoy swimming, but today I would like to go cycling.
+Form comparative adverbs with -er (short) or more (long): faster, more carefully. Well becomes better.|Villagers work harder and live more slowly than city people.
+A compound sentence joins two clauses with and, but, or or so. A simple sentence has only one clause.|Teenagers want independence, but they still need advice.
+Yes/no questions start with an auxiliary. Wh- questions start with what, where, why, who or how. Use many with countable and much with uncountable nouns.|How many festivals do you have? How much rice do you need?
+Use a or an for the first mention, the for the second mention, and no article for general plurals and meals.|We visited a village. The village has an old temple.
+Use will for future results. First conditional: if + present simple, will + verb.|If you eat more vegetables, you will feel healthier.
+Link time with when, before, after, while, until and as soon as. Use the present simple after them for the future.|I will recycle the bottles as soon as I finish the drink.
+Adverbs of frequency (always, usually, often, sometimes, never) go before the main verb. The present simple can also show a timetable.|The market usually opens at six. The sale starts next Monday.
+Use was or were + verb-ing for an action in progress in the past, often interrupted by a past simple action.|We were sleeping when the storm hit the village.
+Use in for months and years, on for days, at for times. Possessive pronouns: mine, yours, his, hers, ours, theirs.|The meeting is on Friday at nine. That phone is yours, and this one is mine.
+In reported statements the verb usually moves one tense back, and pronouns and time words change.|"I am testing the robot," she said. = She said that she was testing the robot.
+In reported yes/no questions use if or whether. In wh- questions keep the question word. The word order is that of a statement.|"Are you coming?" = He asked if I was coming.`.split("\n")});
+LSN[11][0]="Use the past simple for finished time and the present perfect (have + past participle) for experiences and results connected to now.|I have exercised since 2020, and I started jogging last year.";
+LSN[11][1]="Modal verbs (can, may, must, have to, need) show ability, permission, obligation and necessity.|You must follow the rules, but you don't have to agree with every one.";
+LSN[11][2]="Stative verbs (know, like, believe, want) are not normally used in continuous forms. Linking words join ideas: and, but, so, because, however.|I know the city well, but I don't like the traffic.";
+/* Units whose grammar point comes from published unit summaries: grade -> "all" or list of unit numbers */
+const GSV={6:[1],7:"all",8:"all",9:[1,2,3,5],10:[1,3],11:"all",12:[1,2,5]};
+/* Lessons for units whose grammar was checked against published unit summaries in the second pass */
+LSN[9][0]="Use a question word + to-infinitive after ask, wonder, decide, tell and know. Phrasal verbs combine a verb and a particle (look around, turn down).|She wondered where to go. I turned down the offer.";
+LSN[9][1]="Double comparatives show that two changes happen together: the + comparative, the + comparative.|The more we walk, the healthier we feel. The city is getting busier and busier.";
+LSN[9][2]="Modal verbs can appear in the main clause of a conditional: can, could, may, might, should, must.|If Anna wakes up early, she can go for a run. If you feel stressed, you should talk to someone.";
+LSN[9][4]="Use the present perfect (have or has + past participle) for experiences and results connected to now, with ever, never, already, yet, since and for.|I have never tried rock climbing. She has already finished her project.";
+LSN[10][0]="Use the present simple for habits and facts, and the present continuous for actions now or around now.|My dad usually cooks, but this week he is working late.";
+LSN[10][2]="A compound sentence joins two clauses with and, but, or, so. After modal verbs and after let or make, use the bare infinitive; use the to-infinitive for purpose.|I like jazz, but my sister prefers rock. We came to listen to the concert.";
+LSN[11][3]="A gerund (verb-ing) works like a noun: as a subject, after prepositions, and after verbs such as enjoy, mind and avoid.|Being honest is important. They are interested in finding a solution.";
+LSN[11][4]="Present participles (-ing) and past participles (-ed or -en) can work as adjectives or shorten clauses.|The children playing outside are my cousins. The window broken by the storm is repaired.";
+LSN[11][5]="A to-infinitive clause can show purpose or follow nouns such as the first, the last and the best.|I studied hard to pass the exam. She is the first student to finish.";
+LSN[11][6]="Perfect gerunds and perfect participle clauses (having + past participle) show an action that happened earlier.|Having finished the work, he went home. She denied having taken the money.";
+LSN[11][7]="Cleft sentences emphasise one part: It + be + the emphasised part + that or who + clause.|It was Tom who won. It was at the shop that I left my bag.";
+LSN[11][8]="Linking words connect ideas: because, since, although, despite, in order to, moreover, therefore, as a result.|Despite the rain, they finished the marathon. He studied hard; therefore, he passed.";
+LSN[11][9]="A compound noun joins two words into one meaning: noun + noun (sunscreen), adjective + noun (hot dog), or hyphenated forms (passer-by).|I need sunscreen, and we will watch the elephant show at the zoo.";
+LSN[12][0]="Use the past simple for completed events and the past continuous for an action in progress when another event happened.|She was studying when the news arrived. He won the prize in 2015.";
+LSN[12][1]="Review the articles: a or an for a first mention, the for known or unique things, and no article for general plurals and uncountable nouns.|A festival was held in the city. The festival celebrated cultural diversity.";
+LSN[12][4]="A simple sentence has one clause, a compound sentence joins clauses with and, but, or, so, and a complex sentence has a main and a dependent clause.|I applied, and I got an interview. Although the job was demanding, she accepted it.";
+Object.assign(GS6[0],{f:"Present simple and adverbs of frequency",l:"Use the present simple for habits and routines. Adverbs of frequency (always, usually, often, sometimes, never) go before the main verb but after be."});
+GS6[0].g[1]=["I ____ play football, but not every week.","sometimes","never","always"];
+/* Lessons for the grammar sub-skills */
+LES.push(["Present simple","Habits, routines and facts: I walk to school. The Earth goes round the Sun.|Add -s or -es for he, she, it. Questions and negatives use do or does + the base verb.|Frequency adverbs (always, usually, often, sometimes, never) go before the main verb but after be.|Time words: every day, on Mondays, once a week.","s:presentSimple"],
+["Present continuous","Use am, is or are + verb-ing for actions happening now or around now.|Negative: is not working. Question: Are they playing?|Contrast: She usually walks, but today she is taking the bus.|Stative verbs (know, like, want) are not normally used in the continuous.","s:presentCont"],
+["Past simple","Finished actions at a known time: We visited Hue last year.|Regular verbs add -ed; irregular verbs change (go, went; see, saw).|Questions and negatives use did or didn't + the base verb.|Time words: yesterday, last week, in 2019, two days ago.","s:pastSimple"],
+["Past continuous","Use was or were + verb-ing for an action in progress at a past moment.|It is often interrupted by a past simple action: We were eating when the lights went out.|While links two actions in progress; when often introduces the interruption.|Compare: I read a book (finished) and I was reading a book (in progress).","s:pastCont"],
+["Future forms","Will + verb: predictions and quick decisions (It will rain).|Be going to: plans and evidence (Look at the clouds, it is going to rain).|The present simple for timetables: The train leaves at eight.|After if, when and as soon as, use the present simple, not will.","s:futures"],
+["Comparisons","Short adjectives: taller, the tallest. Long adjectives: more interesting, the most interesting.|Equality: as + adjective + as. Difference: different from, not as ... as.|Irregular forms: good, better, best; bad, worse, worst.|Double comparatives: The more you practise, the better you become.","s:comparison"],
+["Quantifiers","Countable nouns: many, a few, several. Uncountable nouns: much, a little.|Both kinds: some, any, a lot of, lots of, plenty of.|Use some in positive sentences and offers, and any in negatives and questions.|How many goes with countable nouns; how much goes with uncountable nouns.","s:quantifiers"],
+["Modal verbs","Can and could: ability and permission. Must and have to: obligation. Should: advice.|Mustn't means not allowed; don't have to means not necessary.|May, might and could show possibility. A modal is followed by the base verb.|Modals also appear in conditionals: If you feel ill, you should rest.","s:modals"],
+["Question forms","Yes/no questions put an auxiliary or modal before the subject: Do you like tea?|Wh- questions use what, where, when, why, who or how + auxiliary + subject.|How many goes with countable nouns, how much with uncountable nouns, how often with frequency.|Short answers repeat the auxiliary: Yes, I do. No, she isn't.","s:questions"],
+["Possessives","Possessive adjectives come before a noun: my, your, his, her, its, our, their.|Possessive pronouns stand alone: mine, yours, his, hers, ours, theirs.|Compare: This is my book. This book is mine.|Use 's for one owner (Mai's bag) and s' for plural owners (the students' room).","s:possessives"],
+["Verb + -ing / to","Enjoy, mind, avoid, finish and keep take verb-ing.|Want, hope, decide, learn and plan take to + the base verb.|Like, love, hate and prefer can take either; would like takes the to-infinitive.|A gerund can be a subject or follow a preposition: Being honest matters. He is good at drawing.","s:gerunds"],
+["Sentence types","A simple sentence has one clause. A compound sentence joins clauses with and, but, or, so.|A complex sentence has a main clause and a dependent clause (because, although, when, until).|Time clauses use the present simple for the future: I will call you when I arrive.|Contrast: although or though + a clause; however starts a new sentence.","s:sentences"],
+["Reported speech","Reporting verbs (said, told, asked) usually move the tense back: am becomes was, will becomes would.|Pronouns and time words change: I becomes he or she, tomorrow becomes the next day.|Yes/no questions use asked if or whether + statement order. Wh- questions keep the question word.|Example: 'Where do you live?' becomes She asked where I lived.","s:reported"],
+["Past vs perfect","Past simple: a finished time (I lost my keys yesterday).|Present perfect: a connection to now, with just, already, yet, ever, never, for and since.|Form it with have or has + the past participle: I have lived here for five years.|Do not use the present perfect with a finished time word such as yesterday or in 2019.","s:perfect"],
+["Participles","The present participle (-ing) is active: the girl standing there; an exciting film.|The past participle (-ed or -en) is passive or finished: the broken window; a tired student.|Participle clauses shorten sentences: Being tired, she went to bed.|Compare -ing and -ed adjectives: boring (causes the feeling) and bored (has the feeling).","s:participles"],
+["Infinitives","After modals and after let or make, use the bare infinitive: She made me laugh.|Use the to-infinitive for purpose: I went there to study.|Use it after adjectives and ordinals: easy to use, the first to arrive.|Many verbs take the to-infinitive: want, decide, hope, plan, promise.","s:infinitives"],
+["Perfect gerund and participle clauses","Having + the past participle shows an action finished before the main action.|Having finished the report, she went home.|The perfect gerund follows admit, deny, regret and remember: He denied having taken it.|Use these clauses to join sentences that share the same subject.","s:perfectClauses"],
+["Cleft sentences","A cleft sentence emphasises one part of a sentence.|Pattern: It + be + the emphasised part + that or who + a clause.|Emphasise the subject: It was Tom who won. Emphasise a place: It was at the shop that I left it.|Use who for people and that for things, places and times.","s:cleft"],
+["Compound nouns","A compound noun joins two words into one idea: sunscreen, haircut, bus stop.|Types: closed (snowfall), open (town square) and hyphenated (passer-by, sister-in-law).|The first word usually describes the second, and the stress is usually on the first part.|The plural goes on the main noun: sisters-in-law, passers-by.","s:compoundNouns"],
+["Question word + to-infinitive","After ask, wonder, know, decide and tell, use a question word + to + the base verb.|She didn't know what to do. Tell me how to get there.|It shortens a clause: Tell me where I should go becomes Tell me where to go.|Use where, what, which, when, how and who; why is rare.","s:whToInf"]);
+const gv=(g,i)=>GSV[g]=="all"||(GSV[g]||[]).includes(i+1);
+const gks=g=>{let a=[...new Set(GSU[g].map(u=>u.k).filter(k=>SKN[k]))];return a.length?a:["wordform","transform","prepositions","tenses","conditionals","phrasal","linking","articles"]};
+
 const lsn=(g,i)=>{let t=(LSN[g]||[])[i];if(!t)return"";let[a,b]=t.split("|");return"<p><b>Lesson</b></p><p>"+esc(a)+"</p><p><i>Example:</i> "+esc(b)+"</p><p class=\"mu\">Try it: write two sentences about this topic using the key words below.</p>"};
 function startGS(gr,n){let u=GSU[gr][n-1],ws=u.w,vq=sh(ws).map(([w,d])=>mc("Which word means: "+d+"?",[w,...sh(ws.filter(x=>x[0]!=w)).slice(0,2).map(x=>x[0])],0,w+": "+d)),q;MN["gs"+n]="Unit "+n+": "+u.t;
  if(u.g)q=[...vq,...u.g.map(([s,a,x,y])=>mc("Choose the best option: "+s,[a,x,y],0,s.replace("____",a)))];
- else{let lv=LV[GL[gr]];q=[...vq,...skillItems(lv,u.k).slice(0,4),...skillItems(lv,u.k=="wordform"?"tenses":"wordform").slice(0,2)]}
+ else{let lv=LV[GL[gr]],ok=gv(gr,n-1);q=[...vq,...skillItems(lv,u.k).slice(0,ok?6:4),...(ok?[]:skillItems(lv,u.k=="wordform"?"tenses":"wordform").slice(0,2))]}
  R={l:"Grade "+gr,m:"gs"+n,i:0,sc:0,st:0,ms:[],q:q.slice(0,10),done:0};view="round";draw()}
 /* Tabs: Basic (A1-B1), Advanced (B2-IELTS), Global Success */
 const TABS=[["basic","Basic (A1–B1)"],["advanced","Advanced (B2–IELTS)"],["school","Global Success"]];
@@ -639,7 +1200,7 @@ const tl=()=>LV.filter((l,i)=>S.tab=="advanced"?i>=3:i<3);
 const tls=()=>{let a=tl().filter(l=>DATA[l].P.length&&unlocked(l));return a.length?a:LV.filter(l=>DATA[l].P.length&&unlocked(l))};
 /* ===== GLOBAL SUCCESS grade tabs: Units | Grammar | Vocabulary | Review ===== */
 const GT=[["units","Units"],["grammar","Grammar"],["vocab","Vocabulary"],["review","Review"]];
-const GNOTE="Unit titles follow the textbook. The grammar focus, word lists, lessons and exercises are my own, written to match each unit's topic. They are not the textbook's text, and the book's exact grammar points and word lists may differ.";
+const GNOTE="Unit titles follow the textbook. Grammar points marked ✓ come from published summaries of the textbook units; the other units are topic-matched. Word lists, lessons and exercises are my own, not the textbook's text, and the book's exact word lists may differ.";
 const gwords=g=>GSU[g].flatMap((u,i)=>u.w.map(([w,d])=>[w,d,"Unit "+(i+1)+": "+u.t,""]));
 const lsp=(g,i)=>{let[a,b]=((LSN[g]||[])[i]||"|").split("|");return a?"<p>"+esc(a)+"</p><p><i>Example:</i> "+esc(b)+"</p>":""};
 const gbest=(g,c)=>{let b=S.p["Grade "+g+"gs"+c];return b!=null?" · "+b+"%":""};
@@ -651,12 +1212,12 @@ function gsx(gr,code){let lv=LV[GL[gr]],U=GSU[gr],kind=code=="rev"?"rev":code[0]
  q=kind=="v"?V():kind=="g"?G():[...V(),...G()];
  MN["gs"+code]=kind=="rev"?"Review test":(kind=="v"?"Vocabulary":"Grammar")+(n?" · Unit "+n+": "+U[n-1].t:" review");
  R={l:"Grade "+gr,m:"gs"+code,i:0,sc:0,st:0,ms:[],q,done:0};view="round";draw()}
-const uTab=g=>`<div class="card"><h2>Units · Grade ${g}</h2>${GSU[g].map((u,i)=>{let ls=!u.f&&LES.find(x=>x[2]=="s:"+(u.k=="articles"?"prepositions":u.k));return`<details><summary>Unit ${i+1}: ${esc(u.t)}${gbest(g,i+1)}</summary>${u.f?`<p><b>Practice focus:</b> ${esc(u.f)}</p><p>${esc(u.l)}</p>`:`<p><b>Practice focus:</b> ${esc(SKN[u.k])}</p>${lsn(g,i)}${ls?"<p><b>Skill notes</b></p><ul>"+ls[1].split("|").map(t=>"<li>"+esc(t)+"</li>").join("")+"</ul>":""}`}<p><b>Key words</b></p><ul>${u.w.map(w=>"<li><b>"+esc(w[0])+"</b>: "+esc(w[1])+"</li>").join("")}</ul><div class="row"><button class="p" data-gs="${i+1}">Practise (10 questions)</button></div></details>`}).join("")}</div><div class="card"><h2>Grade ${g} sub-skills</h2><p class="mu">Targeted practice at the level this grade works toward (${LV[GL[g]]}).</p><div class="row">${Object.entries(SKN).map(([k,v])=>`<button data-gsk="${k}">${v}</button>`).join("")}</div></div>`;
-const gTab=g=>`<div class="card"><h2>Grammar · Grade ${g}</h2><p class="mu">One grammar focus per unit, with a short rule, an example and practice.</p><div class="row"><button class="p" data-gx="gall">Mixed grammar review (10)${gbest(g,"gall")}</button></div>${GSU[g].map((u,i)=>`<details><summary>Unit ${i+1}: ${esc(u.t)} · ${esc(u.f||SKN[u.k])}${gbest(g,"g"+(i+1))}</summary>${u.f?`<p>${esc(u.l)}</p>`:lsp(g,i)}<div class="row"><button class="p" data-gx="g${i+1}">Practise this grammar</button></div></details>`).join("")}</div>`;
+const uTab=g=>`<div class="card"><h2>Units · Grade ${g}</h2>${GSU[g].map((u,i)=>{let ls=!u.f&&LES.find(x=>x[2]=="s:"+(u.k=="articles"?"prepositions":u.k));return`<details><summary>Unit ${i+1}: ${esc(u.t)}${gbest(g,i+1)}</summary>${u.f?`<p><b>Practice focus:</b> ${esc(u.f)} <span class="chip">${gv(g,i)?"from published unit summary":"topic-matched, not yet verified"}</span></p><p>${esc(u.l)}</p>`:`<p><b>Practice focus:</b> ${esc(SKN[u.k])} <span class="chip">${gv(g,i)?"from published unit summary":"topic-matched, not yet verified"}</span></p>${lsn(g,i)}${ls?"<p><b>Skill notes</b></p><ul>"+ls[1].split("|").map(t=>"<li>"+esc(t)+"</li>").join("")+"</ul>":""}`}<p><b>Key words</b></p><ul>${u.w.map(w=>"<li><b>"+esc(w[0])+"</b>: "+esc(w[1])+"</li>").join("")}</ul><div class="row"><button class="p" data-gs="${i+1}">Practise (10 questions)</button></div></details>`}).join("")}</div><div class="card"><h2>Grade ${g} sub-skills</h2><p class="mu">Practice on the grammar points of this grade's units (${LV[GL[g]]} level).</p><div class="row">${gks(g).map(k=>`<button data-gsk="${k}">${SKN[k]}</button>`).join("")}</div></div>`;
+const gTab=g=>`<div class="card"><h2>Grammar · Grade ${g}</h2><p class="mu">One grammar focus per unit, with a short rule, an example and practice. A ✓ means the grammar point comes from published summaries of the textbook unit; the rest are topic-matched and not yet verified.</p><div class="row"><button class="p" data-gx="gall">Mixed grammar review (10)${gbest(g,"gall")}</button></div>${GSU[g].map((u,i)=>`<details><summary>Unit ${i+1}: ${esc(u.t)} · ${esc(u.f||SKN[u.k])}${gv(g,i)?" ✓":""}${gbest(g,"g"+(i+1))}</summary>${u.f?`<p>${esc(u.l)}</p>`:lsp(g,i)}<div class="row"><button class="p" data-gx="g${i+1}">Practise this grammar</button></div></details>`).join("")}</div>`;
 const vTab=g=>`<div class="card"><h2>Vocabulary · Grade ${g}</h2><p class="mu">${gwords(g).length} key words from ${GSU[g].length} units.</p><div class="row"><button class="p" data-gx="vall">Mixed vocabulary quiz (10)${gbest(g,"vall")}</button><button data-gfl="1">Flashcards</button></div>${GSU[g].map((u,i)=>`<details><summary>Unit ${i+1}: ${esc(u.t)}${gbest(g,"v"+(i+1))}</summary><ul>${u.w.map(w=>"<li><b>"+esc(w[0])+"</b>: "+esc(w[1])+"</li>").join("")}</ul><div class="row"><button class="p" data-gx="v${i+1}">Practise these words</button></div></details>`).join("")}</div>`;
 const rTab=g=>`<div class="card"><h2>Review · Grade ${g}</h2><p class="mu">20 questions mixing the vocabulary and grammar of all ${GSU[g].length} units.${gbest(g,"rev")?" Best"+gbest(g,"rev").slice(2)+".":""}</p><div class="row"><button class="p" data-gx="rev">Start review test</button></div></div>`;
 function schoolHome(){let g=S.gr||6,t=S.gt||"units",body=t=="grammar"?gTab(g):t=="vocab"?vTab(g):t=="review"?rTab(g):uTab(g);
- return`<div class="hd"><div><h1>English Trainer</h1><p class="mu">Global Success practice, grade by grade.</p></div><span class="chip">Best streak ${S.bs}</span></div>${tabs()}<div class="row seg">${[6,7,8,9,10,11,12].map(x=>`<button class="${x==g?"p":""}" data-gr="${x}">Grade ${x}</button>`).join("")}</div><div class="row seg">${GT.map(([k,v])=>`<button class="${t==k?"p":""}" data-gt="${k}">${v}</button>`).join("")}</div><p class="mu">${GNOTE}</p>${body}<div class="row"><button data-v="lessons">Lessons</button><button data-gfl="1">Flashcards</button><button data-v="words">My words</button></div>`}
+ return`<div class="hd"><div><h1>English Trainer</h1><p class="mu">Global Success practice, grade by grade.</p></div><span class="chip">Best streak ${S.bs}</span></div>${tabs()}<div class="row seg">${[6,7,8,9,10,11,12].map(x=>`<button class="${x==g?"p":""}" data-gr="${x}">Grade ${x}</button>`).join("")}</div><div class="row seg">${GT.map(([k,v])=>`<button class="${t==k?"p":""}" data-gt="${k}">${v}</button>`).join("")}</div><p class="mu">${GNOTE}</p>${body}<div class="row"><button data-v="lessons">Lessons</button><button data-gfl="1">Flashcards</button><button data-v="words">My words</button><button class="p" data-v="studio">✨ Word Studio</button></div>`}
 /* ===== 6. UI RENDERING ===== */
 function draw(){let h="";
  if(view=="home")h=home();else if(view=="round")h=round();else if(view=="end")h=end();else if(view=="flash")h=flash();else if(view=="tutor")h=tutor();else if(view=="lessons")h=lessons();else h=words();
@@ -665,7 +1226,7 @@ function home(){if(S.tab=="school")return schoolHome();let cells=tl().map(l=>"<t
  return`<div class="hd"><div><h1>English Trainer</h1><p class="mu">Pick a level and a module. Pass marks rise from 70% to 85%, and B2 and above are timed.</p></div><span class="chip">Best streak ${S.bs}</span></div>
 ${tabs()}${dcard()}${scard()}${ecard()}<div class="card"><table><tr><th></th>${MD.map(m=>"<th>"+MN[m]+"</th>").join("")}</tr>${cells}</table>
 <div class="row"><label><input type="checkbox" id="pl" ${S.pl?"checked":""}> Placement: unlock all levels</label></div></div>
-<div class="row"><button class="p" data-test="1">Level test</button>${PROXY_URL?'<button data-v="tutor">Ask the tutor</button>':""}<button data-v="lessons">Lessons</button><button data-v="flash">Flashcards</button><button data-v="words">My words</button><button id="rs">Reset progress</button></div>
+<div class="row"><button class="p" data-test="1">Level test</button>${PROXY_URL?'<button data-v="tutor">Ask the tutor</button>':""}<button data-v="lessons">Lessons</button><button data-v="flash">Flashcards</button><button data-v="words">My words</button><button class="p" data-v="studio">✨ Word Studio</button><button id="rs">Reset progress</button></div>
 <p class="mu">Speech features need a browser with speech synthesis/recognition (Chrome, Edge, Safari).</p>`}
 function round(){let it=R.q[R.i]||(R.q[R.i]=R.endless?enext():tnext(R.i)),pct=Math.round(100*R.i/R.q.length),b="";
  if(it.say)b+=`<div class="row"><button data-say="${esc(it.say)}">▶ Play</button><button data-say="${esc(it.say)}" data-slow="1">Slow</button><label class="mu">Speed <input type="range" id="rt" min=".5" max="1.3" step=".1" value="${rate}"></label></div>`;
@@ -685,7 +1246,7 @@ function end(){if(R.tst)return tend();if(R.endless)return eend();let n=R.q.lengt
 function flash(){let ws=fw();R=R&&R.f?R:{f:1,i:0,fl:0};let w=ws[R.i%ws.length];
  return`<div class="row"><button data-v="home">Home</button><span class="mu">Card ${R.i%ws.length+1}/${ws.length}</span></div><div class="card flip"><div id="fc" tabindex="0" role="button" style="transform:rotateY(${R.fl?0:0}deg)">${R.fl?`<p>${esc(w[1])}</p><p class="mu">${esc(w[2])}</p>`:`<h2>${esc(w[0])}</h2><p class="mu">${esc(w[3])}</p>`}<p class="mu">(tap to flip)</p></div>
 <div class="row"><button data-k="1">Know it</button><button data-k="0">Still learning</button><button data-say="${esc(w[0])}">▶</button></div></div>`}
-function words(){let all=Object.values(DATA).flatMap(d=>d.W.map(w=>w[0])),g=(f)=>all.filter(w=>S.v[w]&&f(S.v[w])).join(", ")||"—";
+function words(){let all=[...new Set(Object.values(DATA).flatMap(d=>d.W.map(w=>w[0])).concat(Object.keys(GSU).flatMap(k=>gwords(k).map(w=>w[0]))))],g=(f)=>all.filter(w=>S.v[w]&&f(S.v[w])).join(", ")||"—";
  return`<div class="row"><button data-v="home">Home</button></div><div class="card"><h2>My words</h2><p><b>Mastered</b><br>${g(v=>v.b>=3)}</p><p><b>Learning</b><br>${g(v=>v.b>0&&v.b<3)}</p><p><b>Struggling</b><br>${g(v=>v.b==0&&v.m>0)}</p></div>`}
 /* ===== 7. EVENTS & MODULE INTERACTIONS ===== */
 function wire(){let A=$("#app"),it=R&&R.q&&R.q[R.i],pick=[];
@@ -699,14 +1260,14 @@ function wire(){let A=$("#app"),it=R&&R.q&&R.q[R.i],pick=[];
   else if(D.gx)gsx(S.gr||6,D.gx);
   else if(D.gfl){S.fwg=S.gr||6;R=null;view="flash";draw()}
   else if(D.gsk)startSkill(LV[GL[S.gr||6]],D.gsk);
-  else if(D.sk)startSkill($("#sl").value,D.sk);
+  else if(D.sk)startSkill(skl(),D.sk);
   else if(D.p){let[a,b]=D.p.split(":");a=="m"?start(curLv(),b):startSkill(curLv(),b)}
   else if(D.daily)startDaily($("#dl").value);
   else if(D.endless)startEndless(D.el||$("#el").value,D.em||$("#em").value);
   else if(D.apply){S.est=R.res.o;save();R=null;view="home";draw()}
   else if(D.v){if(R)clearTimeout(R.tm);if(D.v=="flash")S.fwg=0;view=D.v;if(D.v!="flash")R=D.v=="home"?null:R;draw()}
   else if(D.say!=null){let s=rate;if(D.slow)rate=.55;say(D.say);rate=s}
-  else if(t.id=="rs"){if(confirm("Reset all progress?")){S={p:{},v:{},pl:0,bs:0};save();draw()}}
+  else if(t.id=="rs"){askReset()}
   else if(t.id=="fc"){R.fl^=1;draw()}
   else if(D.k!=null){let ws=fw();vmark(ws[R.i%ws.length][0],D.k=="1");save();R.i++;R.fl=0;draw()}
   else if(t.id=="nx"){R.i++;R.done=0;(R.endless?R.lives>0:R.i<R.q.length)?draw():finish()}
@@ -734,11 +1295,80 @@ const cl=(v,it)=>chk(v,it).map(c=>(c[0]?"✓ ":"○ ")+c[1]).join("<br>");
 function wcheck(it){let v=$("#wr").value;answer(chk(v,it).every(c=>c[0]),it,"<br>"+cl(v,it)+"<br><b>Model answer:</b> "+esc(it.a));$("#wr").readOnly=true}
 /* Speaking / Pronunciation: record, compare words, highlight misses */
 function listen(it){let rc=new SR();rc.lang="en-US";$("#rec").textContent="Listening…";
- rc.onresult=e=>{let heard=norm(e.results[0][0].transcript),tg=norm(it.a),hit=tg.map(w=>heard.includes(w)),p=Math.round(100*hit.filter(Boolean).length/tg.length);
+ rc.onresult=e=>{done=1;let b=$("#rec");if(b)b.textContent="● Record";let heard=norm(e.results[0][0].transcript),tg=norm(it.a),hit=tg.map(w=>heard.includes(w)),p=Math.round(100*hit.filter(Boolean).length/tg.length);
   answer(p>=spt(it),{...it,x:""},`Match ${p}%. `+tg.map((w,i)=>hit[i]?w:`<span class="miss">${w}</span>`).join(" ")+(p<spt(it)?"<br>Need "+spt(it)+"% at this level. Hear it again and retry.":""))};
- rc.onerror=()=>{$("#rec").textContent="● Record";$("#fb").textContent="Could not hear you. Check the microphone permission and try again."};
+ let done=0;rc.onend=()=>{let b=$("#rec");if(b&&b.textContent=="Listening…")b.textContent="● Record";if(!done&&$("#fb")&&!$("#fb").textContent)$("#fb").textContent="I didn't catch anything. Tap Record and try again."};rc.onerror=()=>{done=1;$("#rec").textContent="● Record";$("#fb").textContent="Could not hear you. Check the microphone permission and try again."};
  rc.start()}
 draw();loadFeed().then(()=>{if(view=="home")draw()});
 /* Auto-update: re-check the feed whenever the tab becomes visible again (e.g. next morning) */
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState=="visible")loadFeed().then(()=>{if(view=="home")draw()})});
-</script></body></html>
+function askReset(){let d=document.createElement("dialog");d.className="dlg";d.innerHTML='<h2>Reset progress?</h2><p class="mu">This clears your scores, streaks and word progress on this device. It can\'t be undone.</p><div class="row"><button class="p no" value="y">Reset</button><button value="n" autofocus>Cancel</button></div>';
+document.body.appendChild(d);d.onclick=e=>{let v=e.target.value;if(e.target===d)v="n";if(!v)return;if(v=="y"){S={p:{},v:{},pl:0,bs:0};save();draw()}d.close()};d.onclose=()=>d.remove();d.showModal()}
+</script><script>
+/* Theme switcher: Warm (default), Ocean, Forest, Violet, Rose. Light/dark still follows the device. */
+(function(){var T=["warm","ocean","forest","violet","rose"],N=["Warm","Ocean","Forest","Violet","Rose"],i=0,h=document.documentElement;
+try{i=Math.max(0,T.indexOf(localStorage.getItem("engtheme")))}catch(e){}
+var b=document.createElement("button");b.id="thm";b.textContent="🎨";b.setAttribute("aria-label","Change colour theme");
+var t=document.createElement("div");t.id="toast";t.setAttribute("role","status");document.body.appendChild(t);var tm;
+function ap(say){i?h.setAttribute("data-theme",T[i]):h.removeAttribute("data-theme");b.title="Theme: "+N[i]+" (tap to change)";
+ var m=document.querySelector('meta[name=theme-color]');if(m)m.content=getComputedStyle(document.body).backgroundColor;
+ if(say){t.textContent=N[i]+" theme";t.classList.add("on");clearTimeout(tm);tm=setTimeout(function(){t.classList.remove("on")},1400)}}
+b.onclick=function(){i=(i+1)%T.length;ap(1);try{localStorage.setItem("engtheme",T[i])}catch(e){}};
+ap();document.body.appendChild(b)})();
+/* Feel-good extras: confetti for a strong finish, light haptics on answers */
+(function(){var rm=matchMedia("(prefers-reduced-motion:reduce)").matches;
+function confetti(){if(rm)return;var c=document.createElement("canvas"),x=c.getContext("2d"),w=c.width=innerWidth,h=c.height=innerHeight,cs=getComputedStyle(document.documentElement),
+ col=[cs.getPropertyValue("--g1"),cs.getPropertyValue("--g2"),"#fff","#f2c14e","#6cc4a1"].map(function(s){return s.trim()||"#c9743a"}),
+ p=Array.from({length:90},function(){return{x:w/2,y:h*.35,vx:(Math.random()-.5)*14,vy:-Math.random()*13-3,s:4+Math.random()*6,r:Math.random()*6,vr:(Math.random()-.5)*.4,c:col[Math.random()*col.length|0]}}),t=0;
+ c.style.cssText="position:fixed;inset:0;pointer-events:none;z-index:70";document.body.appendChild(c);
+ (function f(){x.clearRect(0,0,w,h);p.forEach(function(q){q.vy+=.35;q.x+=q.vx;q.y+=q.vy;q.r+=q.vr;x.save();x.translate(q.x,q.y);x.rotate(q.r);x.fillStyle=q.c;x.globalAlpha=Math.max(0,1-t/110);x.fillRect(-q.s/2,-q.s/4,q.s,q.s/2);x.restore()});
+  if(++t<110)requestAnimationFrame(f);else c.remove()})()}
+var oa=window.answer,of=window.finish;
+window.answer=function(ok){var d=R&&R.done;oa.apply(this,arguments);if(!d)try{navigator.vibrate&&navigator.vibrate(ok?12:[30,40,30])}catch(e){}};
+window.finish=function(){of.apply(this,arguments);try{if(R&&((R.endless&&R.nw)||(!R.endless&&!R.tst&&R.q.length&&R.sc/R.q.length>=.8)))setTimeout(confetti,120)}catch(e){}}})();
+</script>
+<script>
+/* ===== WORD STUDIO: learners describe a topic or difficult words; AI builds a tailored practice set =====
+   The AI runs on the English Trainer app server (key stays on the server). Saved words go into My words. */
+const WS_URL="https://project--1c9d08cc-37dc-4369-9d32-9c31acb4e928.lovable.app/api/public/practice";
+const WS={req:"",lv:"Intermediate",busy:0,err:"",set:null,tab:"words",flip:{},qa:{},fa:{},fc:{}};
+const WS_IDEAS=["Unit 3: My friends — personality words","environment, pollution, recycle, endangered","Words for describing feelings at school","Travel and asking for directions"];
+function wsSay(t){try{let u=new SpeechSynthesisUtterance(t);u.lang="en-GB";speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
+function wsSaved(w){return (S.ws||[]).some(x=>x.word.toLowerCase()==w.toLowerCase())}
+function studio(){let s=WS.set,h=`<div class="row"><button data-v="home">Home</button><span class="chip">✨ Word Studio</span></div>
+<div class="ws-hero"><span class="ws-kick">AI practice set</span><h2>Word Studio</h2><p class="mu">Describe a topic, or paste words you find difficult. You'll get flip cards, a quiz and fill-in practice made just for you.</p>
+<textarea id="ws-req" maxlength="1500" placeholder="e.g. affect, effect, borrow, lend — or “Unit 5: Food and drink”">${esc(WS.req)}</textarea>
+<div class="ws-ideas">${WS_IDEAS.map((x,i)=>`<button data-ws="idea" data-i="${i}">${esc(x)}</button>`).join("")}</div>
+<div class="ws-lv seg">${["Beginner","Intermediate","Advanced"].map(l=>`<button class="${WS.lv==l?"p":""}" data-ws="lv" data-l="${l}">${l}</button>`).join("")}</div>
+<button class="p ws-go" data-ws="gen" ${WS.busy?"disabled":""}>${WS.busy?"Creating your set…":"✨ Create my practice set"}</button>
+${WS.busy?'<div class="ws-load"><span class="ws-sp"></span>Your teacher is writing cards and questions. This takes a few seconds.</div>':""}
+${WS.err?`<div class="ws-err">${esc(WS.err)}</div>`:""}</div>`;
+ if(!s)return h;
+ h+=`<div class="card"><h2>${esc(s.title)}</h2><p class="mu">${esc(s.summary)}</p><div class="ws-tabs seg">${[["words","Words"],["quiz","Quiz"],["fill","Fill in"]].map(([k,v])=>`<button class="${WS.tab==k?"p":""}" data-ws="tab" data-t="${k}">${v}</button>`).join("")}</div>`;
+ if(WS.tab=="words"){h+=`<div class="ws-grid">${s.words.map((w,i)=>`<div class="ws-card ${WS.flip[i]?"f":""}" data-ws="flip" data-i="${i}"><div class="ws-in"><div class="ws-face"><span class="ws-pos">${esc(w.partOfSpeech)}</span><div class="ws-w">${esc(w.word)}</div><div class="ws-ipa">${esc(w.ipa)}</div><div class="ws-acts"><button data-ws="say" data-i="${i}">🔊 Listen</button><button data-ws="keep" data-i="${i}" ${wsSaved(w.word)?"disabled":""}>${wsSaved(w.word)?"✓ Saved":"＋ My words"}</button></div><div class="ws-hint">Tap to flip</div></div><div class="ws-face ws-back"><b>${esc(w.meaning)}</b><p><i>“${esc(w.example)}”</i></p><p>💡 ${esc(w.tip)}</p></div></div></div>`).join("")}</div><div class="row"><button data-ws="keepall">＋ Save all to My words</button></div>`}
+ else if(WS.tab=="quiz"){let sc=Object.keys(WS.qa).filter(i=>WS.qa[i]==s.quiz[i].answerIndex).length;
+  h+=`<p class="ws-score">${sc} / ${s.quiz.length} correct</p>`+s.quiz.map((q,i)=>{let a=WS.qa[i];return`<div class="ws-q"><b>${i+1}. ${esc(q.question)}</b><div class="ws-opts">${q.options.map((o,j)=>`<button class="${a==null?"":j==q.answerIndex?"ok":j==a?"no":""}" data-ws="ans" data-i="${i}" data-j="${j}" ${a!=null?"disabled":""}>${esc(o)}</button>`).join("")}</div>${a!=null?`<div class="ws-ex">${a==q.answerIndex?"✓ Correct. ":"✗ Not quite. "}${esc(q.explanation)}</div>`:""}</div>`}).join("")}
+ else{h+=s.fillIns.map((f,i)=>{let c=WS.fc[i];return`<div class="ws-q ws-fi"><b>${i+1}. ${esc(f.sentence)}</b><input id="ws-f${i}" value="${esc(WS.fa[i]||"")}" class="${c==null?"":c?"ok":"no"}" placeholder="Type the missing word" aria-label="Answer ${i+1}"><div class="ws-acts"><button data-ws="chk" data-i="${i}">Check</button><button data-ws="show" data-i="${i}">Hint</button></div>${c===false?`<div class="ws-ex">Answer: <b>${esc(f.answer)}</b></div>`:WS.fh&&WS.fh[i]?`<div class="ws-ex">💡 ${esc(f.hint)}</div>`:""}</div>`}).join("")}
+ return h+`<div class="row"><button data-ws="new">Start a new set</button></div></div>`}
+async function wsGen(){let r=$("#ws-req");WS.req=r?r.value.trim():WS.req;if(WS.req.length<2){WS.err="Please describe a topic or type a few words first.";draw();return}
+ WS.busy=1;WS.err="";draw();
+ try{let res=await fetch(WS_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({request:WS.req,level:WS.lv})}),j=await res.json();
+  if(j.ok){WS.set=j.set;WS.tab="words";WS.flip={};WS.qa={};WS.fa={};WS.fc={};WS.fh={}}else WS.err=j.error||"Couldn't create a practice set. Please try again."}
+ catch(e){WS.err="Couldn't reach Word Studio. Check your internet connection and try again."}
+ WS.busy=0;draw()}
+function wsKeep(w){S.ws=S.ws||[];if(!wsSaved(w.word))S.ws.push({word:w.word,meaning:w.meaning,example:w.example});S.v[w.word]=S.v[w.word]||{b:0,m:0}}
+document.addEventListener("click",e=>{let t=e.target.closest("[data-ws]");if(!t||view!="studio")return;let D=t.dataset,i=+D.i,s=WS.set;e.stopPropagation();
+ let r=$("#ws-req");if(r)WS.req=r.value;
+ if(D.ws=="idea"){WS.req=WS_IDEAS[i];draw()}else if(D.ws=="lv"){WS.lv=D.l;draw()}else if(D.ws=="gen")wsGen();
+ else if(D.ws=="tab"){WS.tab=D.t;draw()}else if(D.ws=="flip"){WS.flip[i]=!WS.flip[i];let c=t;c.classList.toggle("f")}
+ else if(D.ws=="say")wsSay(s.words[i].word+". "+s.words[i].example);
+ else if(D.ws=="keep"){wsKeep(s.words[i]);save();draw()}else if(D.ws=="keepall"){s.words.forEach(wsKeep);save();draw()}
+ else if(D.ws=="ans"){WS.qa[i]=+D.j;draw()}
+ else if(D.ws=="chk"){let v=($("#ws-f"+i)||{}).value||"";WS.fa[i]=v;WS.fc[i]=v.trim().toLowerCase()==s.fillIns[i].answer.trim().toLowerCase();draw()}
+ else if(D.ws=="show"){WS.fa[i]=($("#ws-f"+i)||{}).value||"";WS.fh=WS.fh||{};WS.fh[i]=1;draw()}
+ else if(D.ws=="new"){WS.set=null;WS.req="";window.scrollTo(0,0);draw()}},true);
+/* Hook Word Studio into navigation and My words */
+const _wsWords=words;words=function(){if(view=="studio")return studio();let h=_wsWords(),l=S.ws||[];
+ if(!l.length)return h;return h.replace(/<\/div>$/,`<p><b>✨ From Word Studio</b><br>${l.map(w=>`<span title="${esc(w.meaning)}">${esc(w.word)}</span>`).join(", ")}</p></div>`)};
+</script>
+</body></html>
