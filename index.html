@@ -471,7 +471,7 @@ const LV=Object.keys(DATA),MD=["listening","speaking","reading","writing","vocab
             "daily":{"2026-10-25":{"B1":[["mc",question,[options],answerIndex,explanation],["order",sentence],
                      ["type",prompt,answer,explanation,optionalAudioText],["tf",statement,0|1|2,explanation,passage],["speak",sentence]]}}}
    "extra" adds to the same pools as DATA (same formats). "daily" gives ready-made questions for that date and level. */
-const FEED_URL="";
+const FEED_URL="https://github.com/Finn0080/English-trainer/feed.json";
 /* AI tutor (optional): address of your proxy (see worker.js). The API key lives only on the server. Leave "" to hide the tutor. */
 const PROXY_URL="https://english-tutor.tunglamisfinn.workers.dev";
 let FEED={};
