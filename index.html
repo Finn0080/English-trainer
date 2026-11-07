@@ -3368,7 +3368,7 @@ html[data-theme="graphite"], [data-swatch="graphite"] {
     gap: 20px;
     flex: 1;
   }
-  .trainer:is([data-view="round"], [data-view="end"], [data-view="flash"], [data-view="tutor"]) {
+  .trainer:is([data-view="round"], [data-view="end"], [data-view="flash"], [data-view="tutor"], [data-view="studio"]) {
     max-width: 720px;
   }
   .trainer:not([data-view="tutor"]) > * {
@@ -6945,7 +6945,7 @@ html[data-mode="dark"]{
 .ring{box-shadow:none}
 /* header lines up with the narrower reading views */
 .topbar-in{transition:max-width .35s cubic-bezier(.2,.7,.2,1)}
-.app-shell:has(.trainer[data-view="round"],.trainer[data-view="end"],.trainer[data-view="flash"],.trainer[data-view="tutor"]) .topbar-in{max-width:720px}
+.app-shell:has(.trainer[data-view="round"],.trainer[data-view="end"],.trainer[data-view="flash"],.trainer[data-view="tutor"],.trainer[data-view="studio"]) .topbar-in{max-width:720px}
 html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:color-mix(in oklab,var(--primary) 38%,var(--muted)) transparent}
 button,select,label,summary,[role=button]{touch-action:manipulation}
 :where(button,select,[role=button]){-webkit-user-select:none;user-select:none}
@@ -6967,6 +6967,26 @@ html.mode-anim,html.mode-anim *,html.mode-anim *::before,html.mode-anim *::after
   .card-feature .card-head>.chip{display:none}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.topbar-in{transition:none}}
+
+/* ===== WORD STUDIO ===== */
+.ws-make textarea{width:100%;min-height:104px;margin-top:14px}
+.ws-ideas{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.ws-idea{font-size:.82rem;font-weight:600;padding:7px 12px;border-radius:999px;border:1px dashed var(--border-strong);background:transparent;color:var(--muted-foreground);transition:border-color .2s,background-color .2s,color .2s}
+.ws-idea:hover{border-color:var(--primary);background:var(--accent);color:var(--accent-foreground)}
+.ws-lv{margin:4px 0 14px}
+.ws-go{width:100%}
+.ws-load{display:flex;align-items:center;gap:10px;margin-top:14px;font-size:.92rem;color:var(--muted-foreground)}
+.ws-sp{flex:none;width:18px;height:18px;border-radius:50%;border:2px solid var(--border-strong);border-top-color:var(--primary);animation:wsr .8s linear infinite}
+@keyframes wsr{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.ws-sp{animation-duration:2.4s}}
+.ws-make .fb{margin-top:14px}
+.ws-tabs{margin-top:16px}
+.ws-q{display:flex;flex-direction:column;gap:12px}
+.ws-qt{font-family:var(--font-display);font-size:1.25rem;font-weight:520;line-height:1.35}
+.ws-sub{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.fc-tip{max-width:38ch;font-size:.9rem;color:var(--muted-foreground)}
+.fc-tip::before{content:"Tip \00b7  ";font-weight:700;color:var(--primary)}
+.flashcard .eyebrow{margin:0}
 </style><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='oklch%280.6 0.15 42%29'/%3E%3Cstop offset='1' stop-color='oklch%280.72 0.15 72%29'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url%28%23g%29'/%3E%3Ctext x='32' y='44' font-family='Georgia%2Cserif' font-style='italic' font-size='34' text-anchor='middle' fill='white'%3EEe%3C/text%3E%3C/svg%3E"><script>try{var t=localStorage.getItem("english-trainer-theme");if(t)document.documentElement.dataset.theme=t;var m=localStorage.getItem("english-trainer-mode");if(m==="light"||m==="dark")document.documentElement.dataset.mode=m}catch(e){}</script></head><body><div class="app-shell"><header class="topbar"><div class="topbar-in"><button class="brand" onclick="window.trainerHome()"><span class="brand-mark">Ee</span><span class="brand-name">English Trainer</span></button>
 <div class="theme-wrap"><button type="button" class="theme-trigger" id="theme-btn" aria-haspopup="true" aria-expanded="false" aria-controls="theme-pop" aria-label="Colour theme"><span class="swatch-dot" id="theme-dot" data-swatch="warm"></span><span id="theme-name">Warm</span><svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button><div class="theme-pop" id="theme-pop" role="radiogroup" aria-label="Colour theme" hidden><div class="theme-pop-head"><p class="theme-pop-title">Colour theme</p><span class="theme-pop-hint">Saved on this device</span></div><div class="mode-seg" id="mode-seg" role="radiogroup" aria-label="Appearance" data-m="auto"><span class="mode-thumb" aria-hidden="true"></span><button type="button" role="radio" aria-checked="true" data-mode-opt="auto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg><span>Auto</span></button><button type="button" role="radio" aria-checked="false" data-mode-opt="light"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg><span>Light</span></button><button type="button" role="radio" aria-checked="false" data-mode-opt="dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><span>Dark</span></button></div><div class="theme-grid"><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="warm" data-swatch="warm" style="--i:0"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Warm</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="ocean" data-swatch="ocean" style="--i:1"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Ocean</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="forest" data-swatch="forest" style="--i:2"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Forest</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="violet" data-swatch="violet" style="--i:3"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Violet</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="rose" data-swatch="rose" style="--i:4"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Rose</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="mint" data-swatch="mint" style="--i:5"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Mint</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="cherry" data-swatch="cherry" style="--i:6"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Cherry</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="sunflower" data-swatch="sunflower" style="--i:7"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Sunflower</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="lagoon" data-swatch="lagoon" style="--i:8"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Lagoon</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="graphite" data-swatch="graphite" style="--i:9"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Graphite</span></button></div></div></div></div></header><main id="app" class="trainer"></main></div>
 <script>/* English Trainer engine: content (DATA), state, question builders and round logic.
@@ -7124,7 +7144,7 @@ const LV=Object.keys(DATA),MD=["listening","speaking","reading","writing","vocab
             "daily":{"2026-10-25":{"B1":[["mc",question,[options],answerIndex,explanation],["order",sentence],
                      ["type",prompt,answer,explanation,optionalAudioText],["tf",statement,0|1|2,explanation,passage],["speak",sentence]]}}}
    "extra" adds to the same pools as DATA (same formats). "daily" gives ready-made questions for that date and level. */
-const FEED_URL="https://github.com/Finn0080/English-trainer/blob/main/feed.json";
+const FEED_URL="";
 /* AI tutor (optional): address of your proxy (see worker.js). The API key lives only on the server. Leave "" to hide the tutor. */
 const PROXY_URL="https://english-tutor.tunglamisfinn.workers.dev";
 let FEED={};
@@ -7971,7 +7991,7 @@ const ring=p=>`<div class="ring" role="img" aria-label="Score ${p}%"><svg viewBo
 /* ===== 7. SCREENS ===== */
 let _vk="";
 function draw(){let h="";
- if(view=="home")h=home();else if(view=="round")h=round();else if(view=="end")h=end();else if(view=="flash")h=flash();else if(view=="tutor")h=tutor();else if(view=="lessons")h=lessons();else h=words();
+ if(view=="home")h=home();else if(view=="round")h=round();else if(view=="end")h=end();else if(view=="flash")h=flash();else if(view=="studio")h=studio();else if(view=="tutor")h=tutor();else if(view=="lessons")h=lessons();else h=words();
  let A=$("#app");if(!A)return;A.innerHTML=h;A.dataset.view=view;
  let k=view+(view=="round"&&R?":"+R.i:"");if(k!=_vk){if(_vk)window.scrollTo({top:0,left:0,behavior:"instant"});_vk=k}
  wire();
@@ -7986,7 +8006,7 @@ function matrix(){let L=tl(),timed=L.some(l=>RT[LV.indexOf(l)]);
    return`<td><button class="cell${pass?" pass":""}" style="--p:${p||0}" data-go="${l}|${m}" ${ok?"":"disabled"} aria-label="${l} ${MN[m]}${!ok?", locked":p!=null?", best "+p+"%":", not started"}" title="${!ok?"Locked: pass the previous level first":p!=null?"Best "+p+"% · pass mark "+PASS[i]+"%":"Start "+l+" "+MN[m]}">${!ok?ic("lock"):p!=null?`<span>${p}<small>%</small></span>${pass?`<span class="cell-badge">${ic("check")}</span>`:""}`:`<span class="cell-go">${ic("play")}</span>`}</button></td>`}).join("")}</tr>`}).join("")}</tbody></table>
  <div class="card-foot"><span class="legend"><span><i class="lg lg-pass"></i>Passed</span><span><i class="lg lg-tried"></i>Tried</span>${timed?`<span>${ic("clock")}Timed</span>`:""}</span></div></section>`}
 function tools(school){let T=school?[["v:lessons","Lessons","Short guides with practice","book"],["gfl","Flashcards","This grade’s key words","layers"],["v:words","My words","See what you’ve mastered","star"]]:
- [["test","Level test","16 adaptive questions","target"],PROXY_URL?["v:tutor","Ask the tutor","Grammar, words and corrections","message"]:null,["v:lessons","Lessons","Short guides with practice","book"],["v:flash","Flashcards","Review this level’s words","layers"],["v:words","My words","See what you’ve mastered","star"]].filter(Boolean);
+ [["test","Level test","16 adaptive questions","target"],PROXY_URL?["v:tutor","Ask the tutor","Grammar, words and corrections","message"]:null,["v:lessons","Lessons","Short guides with practice","book"],["v:flash","Flashcards","Review this level’s words","layers"],["v:studio","Word Studio","AI practice from any topic","sparkles"],["v:words","My words","See what you’ve mastered","star"]].filter(Boolean);
  return`<section class="tools" aria-label="More practice">${T.map(([k,t,d,i])=>`<button class="tool" ${k=="test"?'data-test="1"':k=="gfl"?'data-gfl="1"':`data-v="${k.slice(2)}"`}><span class="tool-ic">${ic(i)}</span><span class="tool-t">${t}</span><span class="tool-d">${d}</span></button>`).join("")}</section>`}
 const foot=()=>`<footer class="foot"><p>${ic("info")}Speech features need a browser with speech synthesis/recognition (Chrome, Edge, Safari).</p><button class="btn-link danger" id="rs">${ic("rotate")}Reset progress</button></footer>`;
 const QP=/^(Fill the gap|Choose the best option|Choose the correct form|Choose the natural collocation|Correct the error|Dictation|Complete with ONE word from the passage|True, False or Not given\?):?\s+([\s\S]+)$/;
@@ -8023,11 +8043,82 @@ function flash(){let ws=fw();R=R&&R.f?R:{f:1,i:0,fl:0};let k=R.i%ws.length,w=ws[
 function words(){let all=[...new Set(Object.values(DATA).flatMap(d=>d.W.map(w=>w[0])))],g=f=>all.filter(w=>S.v[w]&&f(S.v[w])),
  G=[["Mastered","star","success",g(v=>v.b>=3)],["Learning","sprout","primary",g(v=>v.b>0&&v.b<3)],["Struggling","target","danger",g(v=>v.b==0&&v.m>0)]];
  return bar("My words")+`<section class="card">${head("star","My words","Words move up as you answer them in Words practice and Flashcards. Three right in a row and a word is mastered. Tap a word to hear it.")}<div class="wg-summary">${G.map(([t,,c,ws])=>`<div class="wsum ${c}"><b>${ws.length}</b><span>${t}</span></div>`).join("")}</div>
-${G.map(([t,i,c,ws])=>`<div class="wg wg-${c}"><p class="sub-h">${ic(i)}${t}</p>${ws.length?`<ul class="wchips">${ws.map(w=>`<li><button class="wchip" data-say="${esc(w)}">${ic("volume")}${esc(w)}</button></li>`).join("")}</ul>`:`<p class="empty">Nothing here yet.</p>`}</div>`).join("")}</section>`}
+${G.map(([t,i,c,ws])=>`<div class="wg wg-${c}"><p class="sub-h">${ic(i)}${t}</p>${ws.length?`<ul class="wchips">${ws.map(w=>`<li><button class="wchip" data-say="${esc(w)}">${ic("volume")}${esc(w)}</button></li>`).join("")}</ul>`:`<p class="empty">Nothing here yet.</p>`}</div>`).join("")}${wsGroup()}</section>`}
+/* ===== WORD STUDIO: describe a topic or difficult words; AI builds flashcards, a quiz and fill-ins ===== */
+const WS_URL="https://project--1c9d08cc-37dc-4369-9d32-9c31acb4e928.lovable.app/api/public/practice";
+const WS={req:"",lv:"Intermediate",busy:0,err:"",set:null,tab:"words",fi:0,fl:0,fm:{},qa:{},fa:{},fc:{},fh:{}};
+const WS_IDEAS=["Unit 3: My friends — personality words","environment, pollution, recycle, endangered","Words for describing feelings at school","Travel and asking for directions"];
+const wsDraw=()=>{if(view=="studio")draw()};
+const wsSaved=w=>(S.ws||[]).some(x=>x.word.toLowerCase()==String(w).toLowerCase());
+function wsKeep(w){S.ws=S.ws||[];if(!wsSaved(w.word))S.ws.push({word:w.word,meaning:w.meaning||"",example:w.example||""});S.v[w.word]=S.v[w.word]||{b:0,m:0}}
+const wsFb=(ok,title,body)=>`<div class="fb ${ok?"is-ok":"is-no"}"><span class="fb-ic">${ic(ok?"check":"x")}</span><div class="fb-body"><p class="fb-title">${title}</p>${body?`<p>${esc(body)}</p>`:""}</div></div>`;
+function wsGroup(){let l=S.ws||[];if(!l.length)return"";
+ return`<div class="wg wg-primary"><p class="sub-h">${ic("sparkles")}From Word Studio</p><ul class="wchips">${l.map(w=>`<li><button class="wchip" data-say="${esc(w.word)}" title="${esc(w.meaning||"")}">${ic("volume")}${esc(w.word)}</button></li>`).join("")}</ul></div>`}
+/* the flashcard deck uses the same card, mastery dots and buttons as the main Flashcards view */
+function wsDeck(s){let n=s.words.length;if(!n)return`<p class="empty">No words in this set. Try creating a new one.</p>`;
+ if(WS.fi>=n){let kn=Object.values(WS.fm).filter(Boolean).length;
+  return`<section class="card result"><p class="eyebrow">Deck complete</p><h2 class="result-h">${kn==n?"You know them all":"Nice work"}</h2><div class="result-stats">${rtile("check",kn+"/"+n,"Know it",kn==n)}${rtile("rotate",n-kn,"Still learning")}</div><div class="actions center"><button class="btn-primary btn-lg" data-ws="restart">${ic("rotate")}Practise again</button><button class="btn btn-lg" data-ws="tab" data-t="quiz">Take the quiz${ic("arrowR")}</button></div></section>`}
+ let k=WS.fi,w=s.words[k],bx=vb(w.word);
+ return`<div class="progress" aria-hidden="true"><i style="width:${Math.round(100*(k+1)/n)}%"></i></div><section class="flash"><div class="deck"><div class="flashcard ${WS.fl?"is-back":"is-front"}" id="fc" tabindex="0" role="button" aria-label="${WS.fl?"Show the word":"Show the meaning"}"><span class="fc-box" title="Mastery ${bx} of 3">${[1,2,3].map(m=>`<i class="${bx>=m?"on":""}"></i>`).join("")}</span>${WS.fl?`<p class="eyebrow">Meaning</p><p class="fc-def">${esc(w.meaning)}</p>${w.example?`<p class="fc-ex">${esc(w.example)}</p>`:""}${w.tip?`<p class="fc-tip">${esc(w.tip)}</p>`:""}`:`<p class="eyebrow">${esc(w.partOfSpeech||"Word")}</p><h2 class="fc-word">${esc(w.word)}</h2>${w.ipa?`<p class="fc-ipa">${esc(w.ipa)}</p>`:""}`}<span class="fc-hint">${ic("refresh")}Tap to flip</span></div></div>
+<div class="flash-actions"><button class="btn btn-lg" data-ws="k" data-k="0">${ic("rotate")}Still learning</button><button class="btn-icon btn-lg" data-say="${esc(w.word)}" aria-label="Hear the word">${ic("volume")}</button><button class="btn-primary btn-lg" data-ws="k" data-k="1">${ic("check")}Know it</button></div>
+<div class="ws-sub">${k>0?`<button class="btn-ghost btn-sm" data-ws="prev">${ic("back")}Previous</button>`:""}<button class="btn-ghost btn-sm" data-ws="keepall" ${s.words.every(x=>wsSaved(x.word))?"disabled":""}>${s.words.every(x=>wsSaved(x.word))?"All saved to My words":"Save all to My words"}</button></div></section>`}
+function wsQuiz(s){if(!s.quiz.length)return`<p class="empty">No quiz questions in this set.</p>`;
+ let sc=s.quiz.filter((q,i)=>WS.qa[i]==q.answerIndex).length;
+ return`<div class="ws-sub"><span class="chip">${ic("check")}${sc} / ${s.quiz.length} correct</span></div>`+s.quiz.map((q,i)=>{let a=WS.qa[i],done=a!=null;
+  return`<section class="card ws-q"><p class="eyebrow">Question ${i+1}</p><h3 class="ws-qt">${esc(q.question)}</h3><div class="opts" role="group" aria-label="Answer options">${q.options.map((o,j)=>`<button class="${!done?"":j==q.answerIndex?"ok":j==a?"no":""}" data-ws="ans" data-i="${i}" data-j="${j}" ${done?"disabled":""}><span class="opt-k">${"ABCDEF"[j]}</span><span class="opt-t">${esc(o)}</span><span class="opt-mark">${ic("check","i-ok")}${ic("x","i-no")}</span></button>`).join("")}</div>${done?wsFb(a==q.answerIndex,a==q.answerIndex?"Correct":"Not quite",q.explanation):""}</section>`}).join("")}
+function wsFill(s){if(!s.fillIns.length)return`<p class="empty">No fill-in questions in this set.</p>`;
+ return s.fillIns.map((f,i)=>{let c=WS.fc[i];
+  return`<section class="card ws-q"><p class="eyebrow">Fill in ${i+1}</p><h3 class="ws-qt">${gapify(f.sentence)}</h3><div class="answer-row"><input type="text" id="ws-f${i}" value="${esc(WS.fa[i]||"")}" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Type the missing word" aria-label="Answer ${i+1}"><button class="btn-primary" data-ws="chk" data-i="${i}">Check</button><button class="btn-ghost" data-ws="show" data-i="${i}">Hint</button></div>${c===true?wsFb(true,"Correct"):c===false?wsFb(false,"Not quite","Answer: "+f.answer):WS.fh[i]&&f.hint?`<p class="inline-note">${ic("info")}<span>${esc(f.hint)}</span></p>`:""}</section>`}).join("")}
+function studio(){let s=WS.set,n=s?s.words.length:0;
+ let h=bar("Word Studio",s&&WS.tab=="words"&&n&&WS.fi<n?pill("layers",(WS.fi+1)+" / "+n,"Card"):"")+`<section class="card ws-make">${head("sparkles","Word Studio","Describe a topic, or paste words you find difficult. You get flashcards, a quiz and fill-in practice made just for you.")}
+<textarea id="ws-req" maxlength="1500" rows="4" placeholder="e.g. affect, effect, borrow, lend — or “Unit 5: Food and drink”" aria-label="Topic or words">${esc(WS.req)}</textarea>
+<div class="ws-ideas">${WS_IDEAS.map((x,i)=>`<button class="ws-idea" data-ws="idea" data-i="${i}">${esc(x)}</button>`).join("")}</div>
+<div class="seg ws-lv" role="group" aria-label="Level">${["Beginner","Intermediate","Advanced"].map(l=>`<button class="${WS.lv==l?"on":""}" aria-pressed="${WS.lv==l}" data-ws="lv" data-l="${l}">${l}</button>`).join("")}</div>
+<button class="btn-primary btn-lg ws-go" data-ws="gen" ${WS.busy?"disabled":""}>${ic("sparkles")}${WS.busy?"Creating your set…":"Create my practice set"}</button>
+${WS.busy?`<div class="ws-load" role="status"><span class="ws-sp"></span>Your teacher is writing cards and questions. This takes a few seconds.</div>`:""}
+${WS.err?`<div class="fb is-warn" role="alert"><span class="fb-ic">${ic("info")}</span><div class="fb-body"><p>${esc(WS.err)}</p></div></div>`:""}</section>`;
+ if(!s)return h;
+ h+=`<section class="card">${head("layers",esc(s.title),esc(s.summary))}<div class="seg ws-tabs" role="group" aria-label="Practice type">${[["words","Flashcards"],["quiz","Quiz"],["fill","Fill in"]].map(([k,v])=>`<button class="${WS.tab==k?"on":""}" aria-pressed="${WS.tab==k}" data-ws="tab" data-t="${k}">${v}</button>`).join("")}</div></section>`;
+ h+=WS.tab=="words"?wsDeck(s):WS.tab=="quiz"?wsQuiz(s):wsFill(s);
+ return h+`<div class="actions center"><button class="btn-ghost" data-ws="new">${ic("rotate")}Start a new set</button></div>`}
+async function wsGen(){let r=$("#ws-req");WS.req=r?r.value.trim():WS.req;
+ if(WS.req.length<2){WS.err="Please describe a topic or type a few words first.";draw();return}
+ WS.busy=1;WS.err="";draw();
+ let ctl=new AbortController(),tm=setTimeout(()=>ctl.abort(),60000);
+ try{let res=await fetch(WS_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({request:WS.req,level:WS.lv}),signal:ctl.signal}),j=await res.json();
+  if(j.ok&&j.set){let s=j.set;for(const k of["words","quiz","fillIns"])s[k]=Array.isArray(s[k])?s[k]:[];s.title=s.title||"Your practice set";s.summary=s.summary||"";
+   s.quiz=s.quiz.filter(q=>q&&Array.isArray(q.options)&&q.options.length>1);
+   WS.set=s;WS.tab="words";WS.fi=0;WS.fl=0;WS.fm={};WS.qa={};WS.fa={};WS.fc={};WS.fh={}}
+  else WS.err=j.error||"Couldn’t create a practice set. Please try again."}
+ catch(e){WS.err="Couldn’t reach Word Studio. Check your internet connection and try again."}
+ clearTimeout(tm);WS.busy=0;wsDraw()}
+/* returns true when the click belonged to Word Studio */
+function wsClick(t,D){let r=$("#ws-req");if(r)WS.req=r.value;let s=WS.set,i=+D.i;
+ if(t.id=="fc"){if(!s)return true;WS.fl^=1;draw();return true}
+ if(D.ws==null)return false;
+ switch(D.ws){
+  case"idea":WS.req=WS_IDEAS[i];draw();break;
+  case"lv":WS.lv=D.l;draw();break;
+  case"gen":wsGen();break;
+  case"tab":WS.tab=D.t;draw();break;
+  case"k":{if(!s)break;let w=s.words[WS.fi];if(!w)break;wsKeep(w);vmark(w.word,D.k=="1");WS.fm[WS.fi]=D.k=="1";save();WS.fi++;WS.fl=0;draw();break}
+  case"prev":if(WS.fi>0){WS.fi--;WS.fl=0;draw()}break;
+  case"restart":WS.fi=0;WS.fl=0;WS.fm={};draw();break;
+  case"keepall":if(s){s.words.forEach(wsKeep);save();draw()}break;
+  case"ans":WS.qa[i]=+D.j;draw();break;
+  case"chk":wsCheck(i);break;
+  case"show":{let el=$("#ws-f"+i);if(el)WS.fa[i]=el.value;WS.fh[i]=1;draw();break}
+  case"new":WS.set=null;WS.req="";WS.err="";WS.fi=0;WS.fl=0;window.scrollTo({top:0,left:0,behavior:"instant"});draw();break;
+  default:return false}
+ return true}
+function wsCheck(i){let el=$("#ws-f"+i),f=WS.set&&WS.set.fillIns[i];if(!f)return;let v=el?el.value:"";WS.fa[i]=v;
+ let ok=v.trim().toLowerCase()==String(f.answer).trim().toLowerCase();WS.fc[i]=ok;draw()}
+function wsWire(){let r=$("#ws-req");if(r)r.oninput=()=>{WS.req=r.value};
+ document.querySelectorAll("#app input[id^=ws-f]").forEach(el=>{let i=+el.id.slice(4);el.oninput=()=>{WS.fa[i]=el.value};el.onkeydown=e=>{if(e.key=="Enter"){e.preventDefault();wsCheck(i)}}})}
 /* ===== 8. EVENTS & MODULE INTERACTIONS ===== */
 function wire(){let A=$("#app"),it=R&&R.q&&R.q[R.i],pick=[],pi=[];
  const showSel=()=>{let s=$("#sel");if(s)s.innerHTML=pick.map(w=>`<span class="tok">${esc(w)}</span>`).join("")};
- A.onclick=e=>{let t=e.target.closest("button,#fc");if(!t||t.disabled)return;let D=t.dataset;
+ A.onclick=e=>{let t=e.target.closest("button,#fc");if(!t||t.disabled)return;let D=t.dataset;if(view=="studio"&&wsClick(t,D))return;
   if(D.go){let[l,m]=D.go.split("|");start(l,m)}
   else if(D.test)startTest();
   else if(D.tab){S.tab=D.tab;save();draw()}
@@ -8062,6 +8153,7 @@ function wire(){let A=$("#app"),it=R&&R.q&&R.q[R.i],pick=[],pi=[];
  let wr=$("#wr");if(wr){wr.focus();wr.oninput=()=>$("#cl").innerHTML=cl(wr.value,it)}
  let tx=$("#tx");if(tx){tx.focus();tx.onkeydown=e=>{if(e.key=="Enter"&&!R.done)$("#ck").click()}}
  let fc=$("#fc");if(fc)fc.onkeydown=e=>{if(e.key=="Enter"||e.key==" "){e.preventDefault();fc.click()}};
+ if(view=="studio")wsWire();
  if(it&&it.say&&it.t!="speak")setTimeout(()=>say(it.say),300);
  if(R&&(R.endless||R.timed)&&view=="round"&&it&&!R.done&&it.t!="speak"&&it.t!="write")etimer(it)}
 /* Keyboard: A–F or 1–6 picks an answer during a round */
