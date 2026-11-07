@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>English Trainer — HTML edition</title><meta name="description" content="English practice and lessons with ten colour themes, offline progress, and optional account sync."><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&amp;family=Fraunces:ital,wght@0,400;0,600;1,600&amp;display=swap"><style>/*! tailwindcss v4.3.4 | MIT License | https://tailwindcss.com */
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>English Trainer</title><meta name="description" content="English practice and lessons with ten colour themes and offline progress."><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&amp;family=Fraunces:ital,wght@0,400;0,600;1,600&amp;display=swap"><style>/*! tailwindcss v4.3.4 | MIT License | https://tailwindcss.com */
 @layer properties;
 @layer theme, base, components, utilities;
 @layer theme {
@@ -6793,81 +6793,8 @@ html[data-theme="graphite"], [data-swatch="graphite"] {
     }
   }
 }
-</style><style>
-/* ===== Account sync (HTML edition) ===== */
-.account-zone { margin-left: auto; display: flex; align-items: center; gap: 8px; }
-.sync-chip {
-  font-size: 0.78rem;
-  color: var(--muted-foreground);
-  background: var(--muted);
-  border: 1px solid var(--border);
-  padding: 6px 10px;
-  border-radius: 999px;
-  white-space: nowrap;
-}
-.sync-chip[data-state="on"] {
-  color: var(--success-foreground);
-  background: var(--success-soft);
-  border-color: color-mix(in oklab, var(--success) 40%, var(--border));
-}
-.account-dialog {
-  width: min(430px, calc(100vw - 32px));
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-xl);
-  background: var(--card);
-  color: var(--foreground);
-  padding: 22px;
-  box-shadow: 0 30px 60px -24px rgb(0 0 0 / 0.45);
-}
-.account-dialog::backdrop { background: rgb(0 0 0 / 0.5); }
-.account-title { font-family: var(--font-display); font-size: 1.3rem; margin: 0 0 6px; }
-.account-help { color: var(--muted-foreground); font-size: 0.88rem; margin: 0 0 14px; }
-.account-field {
-  display: grid;
-  gap: 6px;
-  margin-bottom: 12px;
-  font-size: 0.82rem;
-  color: var(--muted-foreground);
-}
-.account-field input {
-  min-height: 42px;
-  padding: 0 12px;
-  border-radius: 12px;
-  border: 1px solid var(--border-strong);
-  background: var(--background);
-  color: var(--foreground);
-  font: inherit;
-}
-.account-field input:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
-.account-error { color: var(--destructive); font-size: 0.85rem; min-height: 1.3em; margin: 0 0 8px; }
-.account-error[data-ok="yes"] { color: var(--success-foreground); }
-.account-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
-@media (max-width: 700px) {
-  .sync-chip { display: none; }
-}
-</style></head><body><div class="app-shell"><header class="topbar"><div class="topbar-in"><button class="brand" onclick="window.trainerHome()"><span class="brand-mark">Ee</span><span class="brand-name">English Trainer</span></button>
-<div class="account-zone">
-  <span class="sync-chip" id="export-sync">Offline</span>
-  <button class="btn btn-soft btn-sm" id="export-account-open" type="button">Sign in</button>
-</div>
-<label class="theme-trigger"><span class="sr-only">Colour theme</span><select id="export-theme" aria-label="Colour theme"><option value="warm">Warm</option><option value="ocean">Ocean</option><option value="forest">Forest</option><option value="violet">Violet</option><option value="rose">Rose</option><option value="mint">Mint</option><option value="cherry">Cherry</option><option value="sunflower">Sunflower</option><option value="lagoon">Lagoon</option><option value="graphite">Graphite</option></select></label></div></header><p class="export-note">HTML edition: practise offline, or sign in to save progress, completed lessons and your colour theme to your account. Remembered AI coach conversations live in the online app. <a href="https://delight-in-the-details.lovable.app" target="_blank" rel="noopener">Open online app</a></p><main id="app" class="trainer"></main></div>
-<dialog id="export-account" class="account-dialog" aria-labelledby="account-title">
-  <h2 class="account-title" id="account-title">Sync with your account</h2>
-  <p class="account-help">Your progress, completed lessons and colour theme are saved to your account. You can keep practising without signing in.</p>
-  <label class="account-field"><span>Email</span><input id="account-email" type="email" autocomplete="email" placeholder="you@example.com"></label>
-  <label class="account-field"><span>Password</span><input id="account-password" type="password" autocomplete="current-password" placeholder="At least 6 characters"></label>
-  <p class="account-error" id="account-error" role="status" aria-live="polite"></p>
-  <div class="account-actions" id="account-form-actions">
-    <button class="btn-primary btn-sm" id="account-signin" type="button">Sign in</button>
-    <button class="btn btn-sm" id="account-signup" type="button">Create account</button>
-    <button class="btn-ghost btn-sm" id="account-close" type="button">Cancel</button>
-  </div>
-  <div class="account-actions" id="account-signed-actions" hidden>
-    <button class="btn-primary btn-sm" id="account-push" type="button">Save now</button>
-    <button class="btn btn-sm" id="account-signout" type="button">Sign out</button>
-    <button class="btn-ghost btn-sm" id="account-close-2" type="button">Close</button>
-  </div>
-</dialog>
+</style><style>.topbar-in .theme-trigger{margin-left:auto}</style></head><body><div class="app-shell"><header class="topbar"><div class="topbar-in"><button class="brand" onclick="window.trainerHome()"><span class="brand-mark">Ee</span><span class="brand-name">English Trainer</span></button>
+<label class="theme-trigger"><span class="sr-only">Colour theme</span><select id="export-theme" aria-label="Colour theme"><option value="warm">Warm</option><option value="ocean">Ocean</option><option value="forest">Forest</option><option value="violet">Violet</option><option value="rose">Rose</option><option value="mint">Mint</option><option value="cherry">Cherry</option><option value="sunflower">Sunflower</option><option value="lagoon">Lagoon</option><option value="graphite">Graphite</option></select></label></div></header><main id="app" class="trainer"></main></div>
 <script>/* English Trainer engine: content (DATA), state, question builders and round logic.
    Loaded together with ui.js as one classic script (see src/components/trainer/load-engine.ts). */
 
@@ -6914,7 +6841,7 @@ B1:{P:[["Although the hotel was cheap, the room was spotless and the staff were 
 ["Remote work has made it easier to balance family life, though some people miss the office.","What do some people miss?",["The office","Their family","Travelling"],0],
 ["She looked after her neighbour's cat while they were away on holiday.","What did she do?",["Took care of a cat","Bought a cat","Lost a cat"],0]],
 W:[["give up","to stop trying or doing something","Never give up on your dreams.","/ɡɪv ʌp/","give UP","quit"],
-["look after","to take care of","She looks after her brother.","/lʊk ˈæftər/","look AF-ter","care for"],
+["look after","to take care of","I look after my little brother.","/lʊk ˈæftər/","look AF-ter","care for"],
 ["although","despite the fact that","Although it rained, we went out.","/ɔːlˈðoʊ/","al-THOUGH","though"],
 ["achieve","to succeed in reaching a goal","He achieved his goal.","/əˈtʃiːv/","a-CHIEVE","accomplish"],
 ["environment","the natural world around us","We must protect the environment.","/ɪnˈvaɪrənmənt/","en-VI-ron-ment","surroundings"],
@@ -6935,7 +6862,7 @@ W:[["reluctant","unwilling and hesitant","He was reluctant to speak.","/rɪˈlʌ
 ["deadline","the time by which work must be done","The deadline is Friday.","/ˈdedlaɪn/","DEAD-line",""],
 ["figure out","to understand or solve","I can't figure out this puzzle.","/ˈfɪɡjər aʊt/","FIG-ure out","work out"],
 ["particularly","especially","It was particularly cold.","/pərˈtɪkjələrli/","par-TIC-u-lar-ly","especially"],
-["come up with","to think of an idea","She came up with a plan.","/kʌm ʌp wɪð/","come UP with","devise"]],
+["come up with","to think of an idea","Can you come up with a better plan?","/kʌm ʌp wɪð/","come UP with","devise"]],
 M:[["law","low"],["sheet","cheat"],["collar","caller"]],
 E:[["If I would have time, I would help.","If I had time, I would help."],["He asked me where was the station.","He asked me where the station was."],["I look forward to meet you.","I look forward to meeting you."]],
 T:[[1,"Productivity has improved.",1],[4,"She eventually accepted the offer.",2],[0,"Laura left home before dawn.",0]],
@@ -6946,7 +6873,10 @@ C1:{P:[["The author contends that economic growth, though desirable, should not 
 ["Her proposal was met with lukewarm enthusiasm, which left her wondering whether to press on.","How did people react?",["Without much enthusiasm","With great excitement","With anger"],0],
 ["Not only did the experiment fail, but it also cost the lab a fortune.","What happened?",["It failed and was costly","It succeeded cheaply","It was cancelled"],0],
 ["It goes without saying that the findings, however preliminary, warrant further investigation.","What do the findings need?",["More research","No more study","Immediate publication"],0],
-["By the time the negotiators reached an impasse, both sides had dug in their heels.","What does 'dug in their heels' mean?",["Refused to compromise","Left the room","Reached a deal"],0]],
+["By the time the negotiators reached an impasse, both sides had dug in their heels.","What does 'dug in their heels' mean?",["Refused to compromise","Left the room","Reached a deal"],0],
+["Urbanisation has accelerated over the past century, with more than half of the global population now residing in cities, which places considerable strain on infrastructure.","What strain does urbanisation cause?",["On infrastructure","On farming","On tourism"],0],
+["Researchers found that students who slept eight hours scored significantly higher in memory tests than those who slept fewer than six hours.","Who scored higher?",["Those who slept eight hours","Those who slept six hours","Both equally"],0],
+["Although renewable energy investment has risen, fossil fuels still account for the majority of global energy consumption.","What supplies most energy?",["Fossil fuels","Renewables","Nuclear power"],0]],
 W:[["ambiguous","having more than one meaning","The reply was ambiguous.","/æmˈbɪɡjuəs/","am-BIG-u-ous","unclear"],
 ["mitigate","to make less severe","Trees mitigate the heat.","/ˈmɪtɪɡeɪt/","MIT-i-gate","alleviate"],
 ["scrutinise","to examine closely","Auditors scrutinise accounts.","/ˈskruːtənaɪz/","SCRU-ti-nise","inspect"],
@@ -6954,18 +6884,24 @@ W:[["ambiguous","having more than one meaning","The reply was ambiguous.","/æm�
 ["break the ice","to ease tension at a first meeting","A joke helped break the ice.","/breɪk ði aɪs/","break the ICE",""],
 ["inevitable","impossible to avoid","Change is inevitable.","/ɪnˈevɪtəbəl/","in-EV-i-ta-ble","unavoidable"],
 ["subtle","delicate and not obvious","There is a subtle difference.","/ˈsʌtəl/","SUB-tle","delicate"],
-["undermine","to weaken gradually","Rumours undermine trust.","/ˌʌndərˈmaɪn/","un-der-MINE","weaken"]],
-M:[["affect","effect"],["desert","dessert"],["thorough","through"]],
-E:[["Hardly he had arrived when it rained.","Hardly had he arrived when it rained."],["The data that was collected is flawed.","The data that were collected are flawed."],["Neither of the options are suitable.","Neither of the options is suitable."]],
-T:[[1,"Everyone loved her proposal.",1],[3,"The findings are final.",1],[2,"The lab has now closed.",2]],
-C:[["___ a stance","take","make","do"],["___ a conclusion","draw","make","do"],["___ light on","shed","make","put"]],
-F:[["ambiguous","ambiguity","ambiguously"],["persuade","persuasion","persuasive"]],
-G:[["Discuss whether social media does more harm than good. Plan an introduction, two points and a conclusion.",80,"Social media is often criticised, yet its effects are mixed. On the one hand, it can damage self-esteem and spread misinformation. On the other hand, it connects communities and gives a voice to people who are rarely heard. Therefore, the impact depends on how it is used, and education is essential."]]},
+["undermine","to weaken gradually","Rumours undermine trust.","/ˌʌndərˈmaɪn/","un-der-MINE","weaken"],
+["significant","large or important enough to notice","There was a significant rise.","/sɪɡˈnɪfɪkənt/","sig-NIF-i-cant","considerable"],
+["fluctuate","to rise and fall irregularly","Prices fluctuate daily.","/ˈflʌktʃueɪt/","FLUC-tu-ate","vary"],
+["consume","to use up","Cities consume huge amounts of energy.","/kənˈsuːm/","con-SUME","use"],
+["demonstrate","to show clearly","The data demonstrate a trend.","/ˈdemənstreɪt/","DEM-on-strate","illustrate"]],
+M:[["affect","effect"],["desert","dessert"],["thorough","through"],["accept","except"],["advice","advise"]],
+E:[["Hardly he had arrived when it rained.","Hardly had he arrived when it rained."],["The data that was collected is flawed.","The data that were collected are flawed."],["Neither of the options are suitable.","Neither of the options is suitable."],["The number of cars have increased.","The number of cars has increased."],["Many people agrees with this opinion.","Many people agree with this opinion."]],
+T:[[1,"Everyone loved her proposal.",1],[3,"The findings are final.",1],[2,"The lab has now closed.",2],[6,"The study involved teenagers.",2],[7,"Renewables now supply most energy.",1]],
+C:[["___ a stance","take","make","do"],["___ a conclusion","draw","make","do"],["___ light on","shed","make","put"],["___ emphasis on","place","make","do"],["___ an impact on","have","do","give"]],
+F:[["ambiguous","ambiguity","ambiguously"],["persuade","persuasion","persuasive"],["analyse","analysis","analytical"]],
+G:[["Discuss whether social media does more harm than good. Plan an introduction, two points and a conclusion.",80,"Social media is often criticised, yet its effects are mixed. On the one hand, it can damage self-esteem and spread misinformation. On the other hand, it connects communities and gives a voice to people who are rarely heard. Therefore, the impact depends on how it is used, and education is essential."],["Some people think children should learn a foreign language from a very young age. To what extent do you agree? Aim for at least 80 words.",80,"I largely agree that children should start learning a foreign language early. Firstly, young learners absorb pronunciation and grammar more naturally. In addition, bilingualism can improve problem-solving skills. However, schools must provide skilled teachers, otherwise the benefits may be lost. In conclusion, early language education is valuable provided it is well supported."]]},
 C2:{P:[["The minister's statement, couched in studiously neutral language, did little to allay the public's misgivings.","Did the statement reassure people?",["No, doubts remained","Yes, fully","It angered everyone"],0],
 ["Far from being a panacea, the policy has, if anything, exacerbated the very inequalities it sought to redress.","What has the policy done?",["Worsened inequality","Solved inequality","Ignored inequality"],0],
 ["The novel's prose, at once sparse and lyrical, belies the complexity of its themes.","What does the prose hide?",["The complexity of the themes","A simple plot","Its length"],0],
 ["Were it not for her tenacity, the project would have foundered long before completion.","What saved the project?",["Her tenacity","Extra funding","Luck"],0],
-["He professed ignorance of the affair, though few were inclined to take him at his word.","Did people believe him?",["Few did","Most did","Everybody did"],0]],
+["He professed ignorance of the affair, though few were inclined to take him at his word.","Did people believe him?",["Few did","Most did","Everybody did"],0],
+["The graph shows that online shopping increased steadily between 2015 and 2020, before levelling off in 2021.","What happened in 2021?",["Growth levelled off","A sharp rise","A sharp fall"],0],
+["Governments should prioritise public transport, as it reduces congestion and lowers emissions simultaneously.","Which two benefits are given?",["Less congestion and lower emissions","Lower fares and more jobs","Faster cars and safer roads"],0]],
 W:[["panacea","a cure for all problems","There is no panacea for poverty.","/ˌpænəˈsiːə/","pan-a-CE-a","cure-all"],
 ["exacerbate","to make worse","Stress can exacerbate pain.","/ɪɡˈzæsərbeɪt/","ex-AC-er-bate","aggravate"],
 ["tenacity","determination to keep going","Her tenacity paid off.","/təˈnæsəti/","te-NAC-i-ty","persistence"],
@@ -6973,50 +6909,35 @@ W:[["panacea","a cure for all problems","There is no panacea for poverty.","/ˌp
 ["a double-edged sword","something with good and bad effects","Fame is a double-edged sword.","/ə ˈdʌbəl edʒd sɔːrd/","a DOUble edged SWORD",""],
 ["tip of the iceberg","a small visible part of a bigger problem","The leak is just the tip of the iceberg.","/tɪp əv ði ˈaɪsbɜːrɡ/","tip of the ICE berg",""],
 ["ubiquitous","found everywhere","Phones are ubiquitous.","/juːˈbɪkwɪtəs/","u-BIQ-ui-tous","omnipresent"],
-["nuance","a subtle difference","Translation loses nuance.","/ˈnuːɑːns/","NU-ance","subtlety"]],
-M:[["vary","very"],["bard","bored"],["hoarse","horse"]],
-E:[["Were I to be asked, I will refuse.","Were I to be asked, I would refuse."],["Not until he left did she realised.","Not until he left did she realise."],["The committee have made it's decision.","The committee has made its decision."]],
-T:[[1,"The policy has reduced inequality.",1],[3,"Her colleagues gave her a bonus.",2],[0,"The statement used neutral wording.",0]],
-C:[["___ a grudge","bear","make","do"],["___ the odds","beat","win","hit"],["___ common ground","find","make","do"]],
-F:[["tenacious","tenacity","tenaciously"],["ubiquitous","ubiquity","ubiquitously"]],
-G:[["Evaluate the claim that technology has made us less capable of deep thought. Use precise vocabulary and a balanced argument.",90,"The claim has some merit, yet it oversimplifies. Constant notifications fragment attention, and quick answers can discourage sustained reasoning. Nevertheless, technology also grants unprecedented access to knowledge, which can deepen inquiry for those who use it deliberately. Ultimately, the effect depends less on the tools than on habits of use."]]},
-IELTS:{P:[["Urbanisation has accelerated over the past century, with more than half of the global population now residing in cities, which places considerable strain on infrastructure.","What strain does urbanisation cause?",["On infrastructure","On farming","On tourism"],0],
-["Researchers found that students who slept eight hours scored significantly higher in memory tests than those who slept fewer than six hours.","Who scored higher?",["Those who slept eight hours","Those who slept six hours","Both equally"],0],
-["Although renewable energy investment has risen, fossil fuels still account for the majority of global energy consumption.","What supplies most energy?",["Fossil fuels","Renewables","Nuclear power"],0],
-["The graph shows that online shopping increased steadily between 2015 and 2020, before levelling off in 2021.","What happened in 2021?",["Growth levelled off","A sharp rise","A sharp fall"],0],
-["Governments should prioritise public transport, as it reduces congestion and lowers emissions simultaneously.","Which two benefits are given?",["Less congestion and lower emissions","Lower fares and more jobs","Faster cars and safer roads"],0]],
-W:[["significant","large or important enough to notice","There was a significant rise.","/sɪɡˈnɪfɪkənt/","sig-NIF-i-cant","considerable"],
-["fluctuate","to rise and fall irregularly","Prices fluctuate daily.","/ˈflʌktʃueɪt/","FLUC-tu-ate","vary"],
-["consume","to use up","Cities consume huge amounts of energy.","/kənˈsuːm/","con-SUME","use"],
-["demonstrate","to show clearly","The data demonstrate a trend.","/ˈdemənstreɪt/","DEM-on-strate","illustrate"],
+["nuance","a subtle difference","Translation loses nuance.","/ˈnuːɑːns/","NU-ance","subtlety"],
 ["analyse","to examine in detail","We analysed the results.","/ˈænəlaɪz/","AN-a-lyse","examine"],
 ["on the whole","generally","On the whole, results improved.","/ɒn ðə hoʊl/","on the WHOLE",""],
 ["substantial","large in amount","There was a substantial increase.","/səbˈstænʃəl/","sub-STAN-tial","considerable"],
 ["contribute","to give or add to","Cars contribute to pollution.","/kənˈtrɪbjuːt/","con-TRIB-ute","add"]],
-M:[["accept","except"],["advice","advise"],["breath","breathe"]],
-E:[["The number of cars have increased.","The number of cars has increased."],["Many people agrees with this opinion.","Many people agree with this opinion."],["Despite of the rain, we went out.","Despite the rain, we went out."]],
-T:[[1,"The study involved teenagers.",2],[2,"Renewables now supply most energy.",1],[3,"Online shopping rose between 2015 and 2020.",0]],
-C:[["___ emphasis on","place","make","do"],["___ an impact on","have","do","give"],["___ a significant role","play","do","make"]],
-F:[["analyse","analysis","analytical"],["consume","consumption","consumable"]],
-G:[["Task 2: Some people think children should learn a foreign language from a very young age. To what extent do you agree? (In the exam, aim for 250 words; 80+ here.)",80,"I largely agree that children should start learning a foreign language early. Firstly, young learners absorb pronunciation and grammar more naturally. In addition, bilingualism can improve problem-solving skills. However, schools must provide skilled teachers, otherwise the benefits may be lost. In conclusion, early language education is valuable provided it is well supported."]]}};
+M:[["vary","very"],["bard","bored"],["hoarse","horse"],["breath","breathe"]],
+E:[["Were I to be asked, I will refuse.","Were I to be asked, I would refuse."],["Not until he left did she realised.","Not until he left did she realise."],["The committee have made it's decision.","The committee has made its decision."],["Despite of the rain, we went out.","Despite the rain, we went out."]],
+T:[[1,"The policy has reduced inequality.",1],[3,"Her colleagues gave her a bonus.",2],[0,"The statement used neutral wording.",0],[5,"Online shopping rose between 2015 and 2020.",0]],
+C:[["___ a grudge","bear","make","do"],["___ the odds","beat","win","hit"],["___ common ground","find","make","do"],["___ a significant role","play","do","make"]],
+F:[["tenacious","tenacity","tenaciously"],["ubiquitous","ubiquity","ubiquitously"],["consume","consumption","consumable"]],
+G:[["Evaluate the claim that technology has made us less capable of deep thought. Use precise vocabulary and a balanced argument.",90,"The claim has some merit, yet it oversimplifies. Constant notifications fragment attention, and quick answers can discourage sustained reasoning. Nevertheless, technology also grants unprecedented access to knowledge, which can deepen inquiry for those who use it deliberately. Ultimately, the effect depends less on the tools than on habits of use."]]}};
 /* Extra question pools for A1–B1: T=true/false/not given [passageIndex,statement,0 true|1 false|2 not given], C=collocations [stem,right,wrong,wrong], F=word families [base,noun,other form] */
 Object.assign(DATA.A1,{T:[[0,"The dog is brown.",0],[2,"Anna's house is big.",1],[4,"The shop is open on Sundays.",2]],C:[["___ breakfast","have","do","make"],["___ a photo","take","do","put"],["___ homework","do","make","take"]],F:[["happy","happiness","happily"],["kind","kindness","kindly"]]});
 Object.assign(DATA.A2,{T:[[0,"They watched a film.",0],[1,"Ben went to school.",2],[3,"The trip takes an hour.",1]],C:[["___ a shower","take","do","make"],["___ a phone call","make","do","say"],["___ a question","ask","do","make"]],F:[["invite","invitation","invited"],["comfortable","comfort","comfortably"]]});
 Object.assign(DATA.B1,{T:[[0,"They left the same day.",1],[1,"Sam still smokes.",1],[3,"Everyone prefers the office.",2]],C:[["___ an appointment","make","do","take"],["___ attention","pay","make","do"],["___ a chance","take","do","make"]],F:[["achieve","achievement","achievable"],["improve","improvement","improved"]]});
 /* RP = long reading passages [text,[questions]] — m: [“m”,question,options,answerIndex,explanation], t: [“t”,statement,0 true|1 false|2 not given,explanation], g: [“g”,sentence with ____,answer,explanation]. Questions paraphrase the text. */
-DATA.IELTS.RP=[["The proliferation of green spaces in dense urban districts has been linked to measurable reductions in stress among residents. Planners, however, face a dilemma: land in city centres is scarce, and developers frequently lobby for commercial use. Some municipalities have responded by requiring rooftop gardens on new buildings, a measure that critics dismiss as cosmetic because such gardens are seldom accessible to the public. Proponents counter that even inaccessible vegetation lowers surrounding temperatures and absorbs rainwater, thereby easing pressure on drainage systems.",
+DATA.C1.RP=[["The proliferation of green spaces in dense urban districts has been linked to measurable reductions in stress among residents. Planners, however, face a dilemma: land in city centres is scarce, and developers frequently lobby for commercial use. Some municipalities have responded by requiring rooftop gardens on new buildings, a measure that critics dismiss as cosmetic because such gardens are seldom accessible to the public. Proponents counter that even inaccessible vegetation lowers surrounding temperatures and absorbs rainwater, thereby easing pressure on drainage systems.",
 [["m","What makes it hard to create new parks in city centres?",["Little available land and pressure to build commercially","Residents do not want parks","Plants are too expensive"],0,"“Scarce land” and developers lobbying for commercial use."],
 ["t","Rooftop gardens are generally open to the public.",1,"The text says they are “seldom accessible to the public”."],
 ["g","Even gardens that nobody can enter help relieve the burden on ____ systems.","drainage","Vegetation absorbs rainwater, easing pressure on drainage systems."]]],
-["Antibiotic resistance, once regarded as a distant threat, is now among the most pressing challenges in medicine. Resistance arises when bacteria survive exposure to a drug and pass their adaptations to subsequent generations. Overprescription accelerates this process, as does the routine use of antibiotics in livestock farming. While researchers continue to seek novel compounds, the pace of discovery has slowed considerably, partly because the financial returns on such drugs are modest compared with treatments for chronic conditions.",
-[["m","Why has the search for new antibiotics lost momentum?",["They bring comparatively little profit","Bacteria no longer change","Governments have banned the research"],0,"Financial returns are modest compared with chronic-condition drugs."],
-["t","Antibiotic resistance has always been treated as an urgent problem.",1,"It was “once regarded as a distant threat”."],
-["t","Livestock farming is the main cause of antibiotic resistance.",2,"Farming is mentioned as one contributing factor; “main cause” is not stated."]]],
 ["The pandemic-era shift towards remote working prompted predictions that cities would empty out. Yet recent data suggest a more nuanced picture. Although office occupancy remains below pre-2020 levels, urban populations have not fallen significantly; instead, many employees have adopted hybrid patterns, commuting only a few days a week. Economists caution against drawing firm conclusions, noting that housing costs and local labour markets also influence where people choose to live, and that the long-term effects may take a decade to become apparent.",
 [["m","What do the figures suggest about city populations?",["They have remained largely steady","They have collapsed","They have doubled"],0,"Populations “have not fallen significantly”."],
 ["t","Most employees now work entirely from home.",1,"Many have adopted hybrid patterns."],
 ["t","Economists expect the consequences to be clear within two years.",1,"Long-term effects may take a decade."],
 ["g","Many workers now follow ____ patterns, going into the office only a few days a week.","hybrid","The text says “hybrid patterns”."]]]];
+DATA.C2.RP=[["Antibiotic resistance, once regarded as a distant threat, is now among the most pressing challenges in medicine. Resistance arises when bacteria survive exposure to a drug and pass their adaptations to subsequent generations. Overprescription accelerates this process, as does the routine use of antibiotics in livestock farming. While researchers continue to seek novel compounds, the pace of discovery has slowed considerably, partly because the financial returns on such drugs are modest compared with treatments for chronic conditions.",
+[["m","Why has the search for new antibiotics lost momentum?",["They bring comparatively little profit","Bacteria no longer change","Governments have banned the research"],0,"Financial returns are modest compared with chronic-condition drugs."],
+["t","Antibiotic resistance has always been treated as an urgent problem.",1,"It was “once regarded as a distant threat”."],
+["t","Livestock farming is the main cause of antibiotic resistance.",2,"Farming is mentioned as one contributing factor; “main cause” is not stated."]]]];
 /* Sound-focus sets for Pronunciation: [sound, practice words] */
 const SF2=[["th","thoroughly rhythm sixth breathe"],["r / l","particularly library reluctantly really"],["v / w","nevertheless vehicle weather whether"],["final consonants","asked helped worked reached"],["long vs short vowels","leave live feel fill"]];
 const SF=[["th","think three thank"],["r / l","right light read lead"],["v / w","very west vine wine"],["final consonants","bed bad cat cap"],["long vs short vowels","ship sheep full fool"]];
@@ -7036,16 +6957,29 @@ let FEED={};
 /* ===== 2. STATE ===== */
 let S=load(),R=null,view="home";
 /* ===== 3. STORAGE (try/catch: works even if localStorage is blocked) ===== */
-function load(){try{return JSON.parse(localStorage.getItem("eng1"))||{p:{},v:{},pl:0,bs:0}}catch(e){return{p:{},v:{},pl:0,bs:0}}}
+function load(){let s=null;try{s=JSON.parse(localStorage.getItem("eng1"))}catch(e){}
+ if(!s||typeof s!="object"||Array.isArray(s))s={};
+ for(const k of["p","v"])if(!s[k]||typeof s[k]!="object"||Array.isArray(s[k]))s[k]={};
+ s.bs=+s.bs||0;delete s.pl;
+ /* the IELTS level and the sign-in feature were removed: drop their leftovers */
+ for(const k of Object.keys(s.p))if(k.indexOf("IELTS")==0)delete s.p[k];
+ if(s.hs)for(const k of Object.keys(s.hs))if(k.indexOf("IELTS|")==0)delete s.hs[k];
+ if(s.d&&s.d.IELTS)delete s.d.IELTS;
+ for(const k of["dl","el"])if(s[k]=="IELTS")s[k]="C2";
+ if(s.est>5)s.est=5;
+ try{localStorage.removeItem("english-trainer-account")}catch(e){}
+ return s}
 function save(){try{localStorage.setItem("eng1",JSON.stringify(S))}catch(e){}}
 /* ===== helpers ===== */
 const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const sh=a=>{a=[...a];for(let i=a.length-1;i>0;i--){let j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+/* pl(list,n): n random items, so bigger pools rotate between rounds */
+const pl=(a,n)=>sh(a).slice(0,n);
 const norm=s=>s.toLowerCase().replace(/’/g,"'").replace(/[^a-z0-9' ]/g," ").split(/\s+/).filter(Boolean);
 /* Difficulty by level: pass mark to unlock the NEXT level, speaking match needed, seconds per question (0 = untimed) */
-const PASS=[70,70,70,75,80,85,85],SP=[60,65,70,75,80,85,90],RT=[0,0,0,45,35,28,22];
+const PASS=[70,70,70,75,80,85],SP=[60,65,70,75,80,85],RT=[0,0,0,45,35,28];
 const spt=it=>SP[it.lv!=null?it.lv:Math.max(0,LV.indexOf(R.l))];
-const unlocked=l=>{let i=LV.indexOf(l);return i==0||S.pl||i<=(S.est||0)||MD.some(m=>(S.p[LV[i-1]+m]||0)>=PASS[i-1])};
+const unlocked=l=>LV.includes(l);
 let rate=0.9;
 let VO=null;const pickVoice=()=>{try{let v=speechSynthesis.getVoices().filter(x=>/^en[-_]US/i.test(x.lang));return v.find(x=>/Google US English|Samantha|Aria|Jenny|Natural|Premium|Enhanced/i.test(x.name))||v.find(x=>x.localService)||v[0]||null}catch(e){return null}};
 if(window.speechSynthesis){VO=pickVoice();try{speechSynthesis.addEventListener("voiceschanged",()=>{VO=pickVoice()})}catch(e){}}
@@ -7053,20 +6987,27 @@ const say=t=>{if(!window.speechSynthesis)return;speechSynthesis.cancel();let u=n
 const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
 /* ===== 4. QUESTION BUILDERS — one per module. Item types: mc, type, order, speak ===== */
 const mc=(q,o,a,x,e={})=>{let c=o[a];o=sh(o);return{t:"mc",q,o,a:o.indexOf(c),x,...e}};
-const gap=(w,d)=>mc("Fill the gap: "+w[2].replace(new RegExp(w[0],"i"),"____"),[w[0],...sh(d.W.filter(v=>v!=w)).slice(0,2).map(v=>v[0])],0,w[0]+" means: "+w[1]);
+const rx=s=>s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+const gap=(w,d)=>!new RegExp(rx(w[0]),"i").test(w[2])?null:mc("Fill the gap: "+w[2].replace(new RegExp(rx(w[0]),"i"),"____"),[w[0],...sh(d.W.filter(v=>v!=w)).slice(0,2).map(v=>v[0])],0,w[0]+" means: "+w[1]);
+const synQ=(w,d)=>{if(!w[5])return null;let o=sh(d.W.filter(v=>v[5]&&v[5]!=w[5])).slice(0,2);return o.length<2?null:mc('Closest synonym of "'+w[0]+'"?',[w[5],...o.map(v=>v[5])],0,w[0]+" ≈ "+w[5],{w:w[0]})};
 const ord=s=>({t:"order",q:"Put the words in order.",w:sh(s.replace(/[.?!]$/,"").split(" ")),a:s.replace(/[.?!]$/,""),x:s});
+const stressOK=w=>{let s=String(w[4]||"").split("-");return s.length>1&&!/\s/.test(w[4])&&new Set(s.map(v=>v.toLowerCase())).size==s.length&&s.filter(v=>/[A-Z]/.test(v)&&v==v.toUpperCase()).length==1};
 const B={
-listening:d=>[...d.P.map(p=>mc(p[1],p[2],p[3],p[0],{say:p[0]})),...d.P.slice(0,4).map(p=>({t:"type",q:"Dictation: type what you hear.",say:p[0],a:p[0],x:p[0]}))],
-speaking:d=>[...d.P.map(p=>({t:"speak",q:p[0],a:p[0],x:"Try to match every word."})),...d.W.slice(0,3).map(w=>({t:"speak",q:w[2],a:w[2],x:"Try to match every word."}))],
-reading:d=>d.RP?d.RP.flatMap(p=>p[1].map(q=>q[0]=="m"?mc(q[1],q[2],q[3],q[4],{text:p[0]}):q[0]=="t"?{t:"mc",text:p[0],q:"True, False or Not given? "+q[1],o:["True","False","Not given"],a:q[2],x:q[3]}:{t:"type",text:p[0],q:"Complete with ONE word from the passage: "+q[1],a:q[2],x:q[3]})):[...d.P.map(p=>mc(p[1],p[2],p[3],"Answer found in the passage.",{text:p[0]})),...(d.T||[]).map(t=>({t:"mc",text:d.P[t[0]][0],q:"True, False or Not given? "+t[1],o:["True","False","Not given"],a:t[2],x:"Check the passage: “Not given” means it is not stated."})),...d.W.slice(0,4).map(w=>gap(w,d))],
-writing:d=>[...(d.G||[]).map(g=>({t:"write",q:g[0],min:g[1],a:g[2],x:"Compare your answer with the model."})),...d.P.map(p=>ord(p[0].split(/(?<=[.])\s/)[0])),...d.E.map(e=>({t:"type",q:"Correct the error: "+e[0],a:e[1],x:e[1]})),ord(d.W[0][2])],
+listening:d=>[...pl(d.P,6).map(p=>mc(p[1],p[2],p[3],p[0],{say:p[0]})),...pl(d.P,4).map(p=>({t:"type",q:"Dictation: type what you hear.",say:p[0],a:p[0],x:p[0]}))],
+speaking:d=>[...pl(d.P,7).map(p=>({t:"speak",q:p[0],a:p[0],x:"Try to match every word."})),...pl(d.W,3).map(w=>({t:"speak",q:w[2],a:w[2],x:"Try to match every word."}))],
+reading:d=>{let rp=(d.RP||[]).flatMap(p=>p[1].map(q=>q[0]=="m"?mc(q[1],q[2],q[3],q[4],{text:p[0]}):q[0]=="t"?{t:"mc",text:p[0],q:"True, False or Not given? "+q[1],o:["True","False","Not given"],a:q[2],x:q[3]}:{t:"type",text:p[0],q:"Complete with ONE word from the passage: "+q[1],a:q[2],x:q[3]})),
+ sp=n=>pl(d.P,n).map(p=>mc(p[1],p[2],p[3],"Answer found in the passage.",{text:p[0]})),
+ tf=n=>pl(d.T||[],n).map(t=>({t:"mc",text:d.P[t[0]][0],q:"True, False or Not given? "+t[1],o:["True","False","Not given"],a:t[2],x:"Check the passage: “Not given” means it is not stated."})),
+ gp=n=>pl(d.W,n+2).map(w=>gap(w,d)).filter(Boolean).slice(0,n);
+ return rp.length?[...pl(rp,4),...sp(3),...tf(3),...gp(3)]:[...sp(6),...tf(6),...gp(4)]},
+writing:d=>{let g=pl(d.G||[],1),e=pl(d.E,3),p=pl(d.P,Math.max(1,Math.min(6,9-g.length-e.length)));return[...g.map(g=>({t:"write",q:g[0],min:g[1],a:g[2],x:"Compare your answer with the model."})),...p.map(p=>ord(p[0].split(/(?<=[.])\s/)[0])),...e.map(e=>({t:"type",q:"Correct the error: "+e[0],a:e[1],x:e[1]})),ord(pl(d.W,1)[0][2])]},
 vocab:d=>[...vocabOrder(d).slice(0,6).map((w,i)=>{let o=sh(d.W.filter(v=>v!=w)).slice(0,2),k=i%3;
  if(k==1)return mc('What does "'+w[0]+'" mean?',[w[1],...o.map(v=>v[1])],0,w[0]+": "+w[2],{w:w[0]});
- if(k==2&&w[5])return mc('Closest synonym of "'+w[0]+'"?',[w[5],...o.map(v=>v[5]||v[0])],0,w[0]+" ≈ "+w[5],{w:w[0]});
- return mc("Which word means: "+w[1]+"?",[w[0],...o.map(v=>v[0])],0,"Example: "+w[2],{w:w[0]})}),...(d.C||[]).slice(0,2).map(c=>mc("Choose the natural collocation: "+c[0],[c[1],c[2],c[3]],0,"“"+c[0].replace("___",c[1])+"” is the natural collocation.")),...(d.F||[]).slice(0,2).map(f=>mc("Noun from “"+f[0]+"”?",[f[1],f[2],f[0]],0,"Word family: "+f.join(" → ")))].slice(0,10),
+ if(k==2){let sq=synQ(w,d);if(sq)return sq}
+ return mc("Which word means: "+w[1]+"?",[w[0],...o.map(v=>v[0])],0,"Example: "+w[2],{w:w[0]})}),...pl(d.C||[],2).map(c=>mc("Choose the natural collocation: "+c[0],[c[1],c[2],c[3]],0,"“"+c[0].replace("___",c[1])+"” is the natural collocation.")),...pl(d.F||[],2).map(f=>mc("Noun from “"+f[0]+"”?",[f[1],f[2],f[0]],0,"Word family: "+f.join(" → ")))].slice(0,10),
 pron:d=>[...sh(d.M.flatMap(m=>m.map(x=>mc("Which word did you hear?",[...m],m.indexOf(x),"You heard “"+x+"”.",{say:x})))).slice(0,4),
- ...d.W.slice(0,2).map(w=>({t:"speak",q:w[0],a:w[0],h:w[3]+"  "+w[4],x:"Stress: "+w[4]})),
- ...d.W.filter(w=>w[4].includes("-")).slice(0,2).map(w=>{let s=w[4].split("-");return mc("Which syllable is stressed in "+w[0]+" "+w[3]+"?",s.map(v=>v.toLowerCase()),s.findIndex(v=>v==v.toUpperCase()),"Stress: "+w[4],{say:w[0]})}),...[0,1].map(k=>(Object.values(DATA).indexOf(d)>=3?SF2:SF)[(Object.values(DATA).indexOf(d)+k)%SF.length]).map(f=>({t:"speak",q:f[1],a:f[1],h:"Sound focus: "+f[0],x:"Practise "+f[0]+": "+f[1]}))]};
+ ...pl(d.W,2).map(w=>({t:"speak",q:w[0],a:w[0],h:w[3]+"  "+w[4],x:"Stress: "+w[4]})),
+ ...pl(d.W.filter(stressOK),2).map(w=>{let s=w[4].split("-");return mc("Which syllable is stressed in "+w[0]+" "+w[3]+"?",s.map(v=>v.toLowerCase()),s.findIndex(v=>/[A-Z]/.test(v)&&v==v.toUpperCase()),"Stress: "+w[4],{say:w[0]})}),...[0,1].map(k=>(Object.values(DATA).indexOf(d)>=3?SF2:SF)[(Object.values(DATA).indexOf(d)+k)%SF.length]).map(f=>({t:"speak",q:f[1],a:f[1],h:"Sound focus: "+f[0],x:"Practise "+f[0]+": "+f[1]}))]};
 /* spaced repetition: weakest words (lowest box) come first */
 const vb=w=>(S.v[w]||{b:0}).b;
 const vocabOrder=d=>sh(d.W).sort((a,b)=>vb(a[0])-vb(b[0])).slice(0,10);
@@ -7136,7 +7077,7 @@ function explain(it){let Q=it.q||"",tf=/^True, False/.test(Q);
  let h=""; for(const f of RL){h=f(al,q);if(h)break}
  if(!h)return"";let wr=(it.o||[]).filter((_,i)=>i!=it.a);
  return"<b>Rule:</b> "+esc(h)+(wr.length?"<br><b>Not:</b> "+wr.map(w=>"“"+esc(w)+"”").join(", ")+" do not fit here.":"")}
-function answer(ok,item,extra=""){if(R.done)return;R.done=1;ok?(R.sc++,R.st++):(R.st=0,R.ms.push(item.x||item.q));R.bs=Math.max(R.bs||0,R.st);clearTimeout(R.tm);let tb=$("#tb"),tags=[];if(tb){tb.style.width=getComputedStyle(tb).width;tb.style.transition="none"}if(R.endless){if(ok){R.n++;let p=Math.round(10*MULT[LV.indexOf(R.l)]*(1+Math.min(R.st-1,10)/10)),ex=R.n%10==0&&R.lives<5;R.pts+=p;tags.push("+"+p+" pts");if(ex){R.lives++;tags.push("Extra life!")}}else{R.lives--;tags.push("−1 life")}$("#es").innerHTML=estat()}if(R.tst){let k=item.k;if(ok)R.hit[k]=Math.max(R.hit[k],item.lv);R.p[k]=Math.max(0,Math.min(6,R.p[k]+(ok?1:-1)))}
+function answer(ok,item,extra=""){if(R.done)return;R.done=1;ok?(R.sc++,R.st++):(R.st=0,R.ms.push(item.x||item.q));R.bs=Math.max(R.bs||0,R.st);clearTimeout(R.tm);let tb=$("#tb"),tags=[];if(tb){tb.style.width=getComputedStyle(tb).width;tb.style.transition="none"}if(R.endless){if(ok){R.n++;let p=Math.round(10*MULT[LV.indexOf(R.l)]*(1+Math.min(R.st-1,10)/10)),ex=R.n%10==0&&R.lives<5;R.pts+=p;tags.push("+"+p+" pts");if(ex){R.lives++;tags.push("Extra life!")}}else{R.lives--;tags.push("−1 life")}$("#es").innerHTML=estat()}if(R.tst){let k=item.k;if(ok)R.hit[k]=Math.max(R.hit[k],item.lv);R.p[k]=Math.max(0,Math.min(LV.length-1,R.p[k]+(ok?1:-1)))}
  if(item.w)vmark(item.w,ok);if(!ok&&item.w&&R.q.length<14)R.q.splice(R.i+3,0,{...item});save();
  let w="";try{w=explain(item)}catch(e){}extra=String(extra||"").replace(/^(\s*<br>)+/,"").trim();let fb=$("#fb");fb.className="fb "+(ok?"is-ok":"is-no");
  fb.innerHTML=`<span class="fb-ic">${ic(ok?"check":"x")}</span><div class="fb-body"><p class="fb-title">${ok?"Correct":"Not quite"}${tags.map(t=>`<span class="chip">${t}</span>`).join("")}</p>${item.x?`<p>${esc(item.x)}</p>`:""}${w?`<div class="fb-explain">${w}</div>`:""}${extra?`<div class="fb-extra">${extra}</div>`:""}</div>`;
@@ -7148,15 +7089,14 @@ function startTest(){R={tst:1,l:"Test",m:"",i:0,sc:0,st:0,ms:[],q:Array(16).fill
 function tnext(i){let k=i%4,lv=R.p[k],all=B[SM[k]](DATA[LV[lv]]),ok=x=>k==0||k==2?x.t=="mc":k==3?x.t=="order"||x.t=="type":1,
  pool=all.filter(ok),it=sh(pool.filter(x=>!R.used[x.q+x.a]))[0]||sh(pool)[0];R.used[it.q+it.a]=1;return{...it,k,lv}}
 function tend(){let r=R.res,lv=LV[r.o];return`<section class="card result"><p class="eyebrow">Level test result</p><div class="lvl-badge"><small>Estimated level</small><b>${lv}</b><span>${LVN[lv]||""}</span></div><h1 class="result-h">You’re at ${lv}</h1><p class="lede">${R.sc} of ${R.q.length} correct. Self-rated speaking (no recognition) is less reliable.</p><div class="skillbars">${SK.map((s,k)=>`<div class="sb"><span class="sb-l">${ic(MI[SM[k]])}${s}</span><span class="sb-track"><i style="width:${Math.round(100*(r.sk[k]+1)/LV.length)}%"></i></span><b>${LV[r.sk[k]]}</b></div>`).join("")}</div><div class="actions center"><button class="btn-primary btn-lg" data-apply="1">${ic("unlock")}Unlock up to ${lv}</button><button class="btn btn-lg" data-test="1">${ic("rotate")}Retake</button><button class="btn-ghost btn-lg" data-v="home">${ic("home")}Home</button></div></section>`}
-/* Grammar frames per level (A1 ... IELTS): "sentence with ____|correct answer|wrong|wrong". Add your own lines! */
+/* Grammar frames per level (A1 ... C2): "sentence with ____|correct answer|wrong|wrong". Add your own lines! */
 const FR=[
 ["I get up ____ seven o'clock.|at|on|in","She goes to school ____ Monday.|on|at|in","He was born ____ July.|in|on|at","She lives ____ London.|in|on|at","There is ____ apple on the table.|an|a|two","She has ____ new bike.|a|an|many","I wake up ____ the morning.|in|at|on"],
 ["Look at the clouds! It ____ rain.|is going to|will to|going to","This bag is ____ than that one.|heavier|more heavy|heavyer","Yesterday we ____ to the beach.|went|go|goed","She is the ____ student in the class.|best|most good|goodest","I ____ my homework when you called.|was doing|did|am doing","How ____ water do you drink every day?|much|many|few","I'm cold. I think I ____ close the window.|will|am going|going to"],
 ["If it ____ tomorrow, we will stay at home.|rains|will rain|rain","If I had more money, I ____ a bigger flat.|would buy|will buy|bought","Please ____ your shoes before you come in.|take off|take out|take away","We ran ____ of milk this morning.|out|off|away","She has lived here ____ 2018.|since|for|from","I'm looking forward ____ you next week.|to seeing|to see|for seeing","He suggested ____ a taxi.|taking|to take|take","The film was so boring that I ____ asleep.|fell|felt|fall"],
 ["The report ____ by the team last week.|was written|wrote|has written","She said that she ____ tired.|was|is|will be","____ the heavy rain, the match went ahead.|Despite|Although|Because","If I had known, I ____ you.|would have told|would tell|had told","He denied ____ the window.|breaking|to break|break","By the time we arrived, the film ____.|had started|started|has started","I'd rather you ____ smoke here.|didn't|don't|wouldn't","The new law is expected ____ next year.|to take effect|taking effect|take effect"],
-["Not only ____ late, but he also forgot the documents.|did he arrive|he arrived|he did arrive","Rarely ____ such dedication.|have I seen|I have seen|I saw","If I ____ harder at school, I would have a better job now.|had studied|studied|would study","I wish I ____ more time yesterday.|had had|have had|would have","He decided to ____ the bullet and accept the offer.|bite|take|hit","Hardly ____ the room when the alarm went off.|had she entered|she had entered|did she enter","The proposal, ____ was widely criticised, was eventually withdrawn.|which|what|who","It's high time we ____ a decision.|made|make|will make"],
-["It is essential that every applicant ____ the form by Friday.|submit|submits|submitted","Were he ____ the truth, he would apologise.|to know|knowing|knew","The speech was remarkably ____, avoiding any controversy.|anodyne|incendiary|verbose","So ____ was the damage that the bridge had to close.|extensive|extensively|extent","The minister's reassurances did little to ____ public anxiety.|allay|alley|ally","Little ____ she know that the offer would be withdrawn.|did|had|does","The findings, ____ preliminary, merit attention.|albeit|despite|whereas","Notwithstanding the setbacks, the team ____ on.|pressed|pushed off|pulled"],
-["Sales ____ sharply between 2018 and 2020.|rose|raised|arose","The figure remained ____ at around 20%.|stable|stabilise|stability","____ renewable energy is growing, fossil fuels still dominate.|Although|Despite|Because of","The ____ of cities has put pressure on housing.|expansion|expand|expanded","The number of visitors ____ from 2m to 3m.|increased|was increased|has been increase","This trend can be ____ to changes in consumer habits.|attributed|contributed|distributed","Overall, there was a significant ____ in unemployment.|decline|declining|declined","Governments should invest ____ public transport.|in|on|to"]];
+["Not only ____ late, but he also forgot the documents.|did he arrive|he arrived|he did arrive","Rarely ____ such dedication.|have I seen|I have seen|I saw","If I ____ harder at school, I would have a better job now.|had studied|studied|would study","I wish I ____ more time yesterday.|had had|have had|would have","He decided to ____ the bullet and accept the offer.|bite|take|hit","Hardly ____ the room when the alarm went off.|had she entered|she had entered|did she enter","The proposal, ____ was widely criticised, was eventually withdrawn.|which|what|who","It's high time we ____ a decision.|made|make|will make","Sales ____ sharply between 2018 and 2020.|rose|raised|arose","The figure remained ____ at around 20%.|stable|stabilise|stability","____ renewable energy is growing, fossil fuels still dominate.|Although|Despite|Because of","The ____ of cities has put pressure on housing.|expansion|expand|expanded"],
+["It is essential that every applicant ____ the form by Friday.|submit|submits|submitted","Were he ____ the truth, he would apologise.|to know|knowing|knew","The speech was remarkably ____, avoiding any controversy.|anodyne|incendiary|verbose","So ____ was the damage that the bridge had to close.|extensive|extensively|extent","The minister's reassurances did little to ____ public anxiety.|allay|alley|ally","Little ____ she know that the offer would be withdrawn.|did|had|does","The findings, ____ preliminary, merit attention.|albeit|despite|whereas","Notwithstanding the setbacks, the team ____ on.|pressed|pushed off|pulled","The number of visitors ____ from 2m to 3m.|increased|was increased|has been increase","This trend can be ____ to changes in consumer habits.|attributed|contributed|distributed","Overall, there was a significant ____ in unemployment.|decline|declining|declined","Governments should invest ____ public transport.|in|on|to"]];
 const frm=t=>{let[a,b,...c]=t.split("|");return{gap:a,ans:b,opts:[b,...c],full:a.replace("____",b)}};
 /* A1-B1 also mix in the verb-form generator below; B2 and above use only their own frames */
 function pickFr(r,ix){let l=FR[ix],i=r()*(l.length+(ix<3?3:0))|0;return i>=l.length?gen(r,ix):frm(l[i])}
@@ -7177,15 +7117,15 @@ function gen(r,ix){let P=a=>a[r()*a.length|0],s=P(SUBJ),v=P(ix>2?VH:VB),k=P(ix<1
  return{full:mk(f),gap:mk("____"),ans:f,opts:k==0?[v[1],v[0],v[2]]:k==1?[v[2],v[0],v[1]]:[v[3],v[0],v[1]]}}
 /* Daily recipe per level: [grammar, word order, dictation, vocabulary, word form (typed), transformation (typed), collocation, word family].
    Lower levels get more choice questions; higher levels get more typed answers (harder) and longer passage sentences. All items come from that level only. */
-const DC=[[4,2,1,2,0,0,1,0],[3,2,1,2,0,0,1,1],[3,1,1,2,1,0,1,1],[3,1,1,1,1,1,1,1],[2,1,1,1,2,2,1,0],[2,0,1,1,2,3,1,0],[2,0,1,1,2,3,0,1]];
+const DC=[[4,2,1,2,0,0,1,0],[3,2,1,2,0,0,1,1],[3,1,1,2,1,0,1,1],[3,1,1,1,1,1,1,1],[2,1,1,1,2,2,1,0],[2,0,1,1,2,3,1,0]];
 function startDaily(l){S.dl=l;let ix=LV.indexOf(l),d=DATA[l],r=rng(today()+l),q=[],c=DC[ix],mix=a=>[...a].sort(()=>r()-.5),
  used={},pf=()=>{for(let n=0;n<12;n++){let x=pickFr(r,ix);if(!used[x.full]){used[x.full]=1;return x}}return pickFr(r,ix)},
  first=p=>p[0].split(/(?<=[.])\s/)[0],ps=mix(d.P);
  for(let i=0;i<c[0];i++){let g=pf();q.push(mc((ix<3?"Choose the correct form: ":"Choose the best option: ")+g.gap,g.opts,g.opts.indexOf(g.ans),g.full))}
  for(let i=0;i<c[1];i++)q.push(ord(ix>=3?first(ps[i%ps.length]):pf().full));
  for(let i=0;i<c[2];i++){let t=ix>=3?ps[(i+2)%ps.length][0]:pf().full;q.push({t:"type",say:t,q:"Dictation: type what you hear.",a:t,x:t})}
- let ws=mix(d.W);ws.slice(0,c[3]).forEach((w,i)=>{let o=mix(d.W.filter(v=>v!=w)).slice(0,2),k=ix<2?0:ix<4?i%2:(w[5]?2:1);
-  q.push(k==1?mc('What does "'+w[0]+'" mean?',[w[1],...o.map(v=>v[1])],0,w[0]+": "+w[2],{w:w[0]}):k==2?mc('Closest synonym of "'+w[0]+'"?',[w[5],...o.map(v=>v[5]||v[0])],0,w[0]+" ≈ "+w[5],{w:w[0]}):mc("Which word means: "+w[1]+"?",[w[0],...o.map(v=>v[0])],0,"Example: "+w[2],{w:w[0]}))});
+ let ws=mix(d.W);ws.slice(0,c[3]).forEach((w,i)=>{let o=mix(d.W.filter(v=>v!=w)).slice(0,2),k=ix<2?0:ix<4?i%2:(w[5]?2:1),sq=k==2?synQ(w,d):null;
+  q.push(k==1?mc('What does "'+w[0]+'" mean?',[w[1],...o.map(v=>v[1])],0,w[0]+": "+w[2],{w:w[0]}):sq?sq:mc("Which word means: "+w[1]+"?",[w[0],...o.map(v=>v[0])],0,"Example: "+w[2],{w:w[0]}))});
  q.push(...skillItems(l,"wordform",r).slice(0,c[4]),...skillItems(l,"transform",r).slice(0,c[5]));
  mix(d.C||[]).slice(0,c[6]).forEach(x=>q.push(mc("Choose the natural collocation: "+x[0],[x[1],x[2],x[3]],0,"“"+x[0].replace("___",x[1])+"” is the natural collocation.")));
  mix(d.F||[]).slice(0,c[7]).forEach(f=>q.push(mc("Noun from “"+f[0]+"”?",[f[1],f[2],f[0]],0,"Word family: "+f.join(" → "))));
@@ -7218,12 +7158,12 @@ async function tsend(){let i=$("#ti"),v=i&&i.value.trim();if(!v||busy)return;CH.
    Play until you lose 3 lives. Questions come from your chosen level and do not repeat until the pool is used up.
    The timer shrinks every 10 correct answers, and after 10 correct some questions from ONE level above appear (never more),
    so levels stay clearly different. Points = 10 x level multiplier x streak bonus; every 10 correct answers earns a life (max 5). */
-const MULT=[1,1.2,1.5,2,2.5,3,4],TS=[26,23,20,17,14,12,10],EM={mixed:"Mixed",listening:"Listening",reading:"Reading",writing:"Writing",vocab:"Words",pron:"Sound",grammar:"Grammar"};
+const MULT=[1,1.2,1.5,2,2.5,3],TS=[26,23,20,17,14,12],EM={mixed:"Mixed",listening:"Listening",reading:"Reading",writing:"Writing",vocab:"Words",pron:"Sound",grammar:"Grammar"};
 const okT=x=>x.t=="mc"||x.t=="type"||x.t=="order";
 function epool(l,m){let d=DATA[l],ix=LV.indexOf(l),g=()=>{let o=[];for(let i=0;i<12;i++){let q=pickFr(Math.random,ix);o.push(i%3?mc("Choose the correct form: "+q.gap,q.opts,q.opts.indexOf(q.ans),q.full):ord(q.full))}return o};
  return(m=="mixed"?["listening","reading","writing","vocab","pron","grammar"]:[m]).flatMap(k=>k=="grammar"?g():B[k](d).filter(okT))}
 function edraw(l){let b=R.bags[l];if(!b||!b.length)b=R.bags[l]=sh(epool(l,R.m));return b.pop()}
-function enext(){let ix=LV.indexOf(R.l),up=ix<6&&R.n>=10&&Math.random()<Math.min(.4,(R.n-5)/80);return{...edraw(up?LV[ix+1]:R.l),up}}
+function enext(){let ix=LV.indexOf(R.l),up=ix<LV.length-1&&R.n>=10&&Math.random()<Math.min(.4,(R.n-5)/80);return{...edraw(up?LV[ix+1]:R.l),up}}
 function esecs(it){let t=Math.max(6,TS[LV.indexOf(R.l)]-Math.floor(R.n/10));if(it.t!="mc")t*=2;if(it.text)t+=Math.ceil(it.text.split(" ").length/3);if(it.say)t+=6;return t}
 function psecs(it){let t=RT[LV.indexOf(R.l)];if(it.t!="mc")t*=2;if(it.text)t+=Math.ceil(it.text.split(" ").length/3);if(it.say)t+=6;return t}
 function etimer(it){let s=R.endless?esecs(it):psecs(it),b=$("#tb");clearTimeout(R.tm);if(!b)return;b.style.transition="none";b.style.width="100%";void b.offsetWidth;b.style.transition="width "+s+"s linear";b.style.width="0%";R.tm=setTimeout(()=>{if(!R.done)answer(false,it,"<br>Time's up.")},s*1000)}
@@ -7233,8 +7173,8 @@ function eend(){return`<section class="card result"><p class="eyebrow">Endless �
 function ecard(){let ls=tls(),el=ls.includes(S.el)?S.el:ls[ls.length-1],em=S.em||"mixed",hs=Object.entries(S.hs||{}).sort((a,b)=>b[1].s-a[1].s).slice(0,5);
  return`<section class="card">${head("infinity","Endless mode","Keep going until you lose 3 lives. The timer shrinks and questions get harder as you score, and higher levels earn more points.")}<div class="controls">${sel("el","Level",ls.map(l=>[l,l+" · "+(LVN[l]||l)]),el)}${sel("em","Mode",Object.entries(EM),em)}<button class="btn-primary" data-endless="1">${ic("zap")}Start</button></div>${hs.length?`<div class="board"><p class="sub-h">${ic("trophy")}High scores</p><ol>${hs.map(([k,v],i)=>{let[l,m]=k.split("|");return`<li><span class="rank">${i+1}</span><span class="board-name">${esc(l)} · ${EM[m]||esc(m)}<small>${v.n} correct · streak ${v.st}</small></span><b>${v.s}<small> pts</small></b></li>`}).join("")}</ol></div>`:""}</section>`}
 /* ===== SUB-SKILLS & LESSONS =====
-   SKD rows:  mc skills:    skill|level 0-6|sentence with ____|correct|wrong|wrong
-              typed skills: skill|level 0-6|prompt|accepted answers separated by /     (wordform, transform)
+   SKD rows:  mc skills:    skill|level 0-5|sentence with ____|correct|wrong|wrong
+              typed skills: skill|level 0-5|prompt|accepted answers separated by /     (wordform, transform)
    A round takes the 10 rows closest to your chosen level. Add your own rows freely. */
 const SKN={wordform:"Word form",transform:"Transformation",prepositions:"Prepositions",tenses:"Tenses",conditionals:"Conditionals",phrasal:"Phrasal verbs",linking:"Linking words",articles:"Articles",presentSimple:"Present simple",presentCont:"Present continuous",pastSimple:"Past simple",pastCont:"Past continuous",futures:"Future forms",comparison:"Comparisons",quantifiers:"Quantifiers",modals:"Modal verbs",questions:"Questions",possessives:"Possessives",gerunds:"Verb + -ing / to",sentences:"Sentence types",reported:"Reported speech",perfect:"Past vs perfect",participles:"Participles",infinitives:"Infinitives",perfectClauses:"Perfect clauses",cleft:"Cleft sentences",compoundNouns:"Compound nouns",whToInf:"Wh- + to-infinitive",inversion:"Inversion",passive:"Passive voice"},TY={wordform:1,transform:1};
 for(const k in SKN)MN["sk_"+k]=SKN[k];
@@ -7250,8 +7190,8 @@ wordform|4|The company's ____ has grown steadily. (PRODUCE)|productivity
 wordform|4|She was praised for her ____ to detail. (ATTEND)|attention
 wordform|5|The report's findings were ____ and inconclusive. (AMBIGUITY)|ambiguous
 wordform|5|His ____ behaviour surprised the board. (PREDICT)|unpredictable
-wordform|6|There has been a sharp ____ in unemployment. (REDUCE)|reduction
-wordform|6|Urban ____ has accelerated this decade. (EXPAND)|expansion
+wordform|4|There has been a sharp ____ in unemployment. (REDUCE)|reduction
+wordform|5|Urban ____ has accelerated this decade. (EXPAND)|expansion
 transform|0|Make it negative: "She likes coffee." → She ____ coffee.|doesn't like/does not like
 transform|0|Make it a question: "They play tennis." → ____ they play tennis?|Do
 transform|1|"I started learning English in 2020." → I ____ English since 2020.|have been learning/have learnt
@@ -7263,8 +7203,8 @@ transform|4|"She began working here ten years ago." (BEEN) → She ____ here for
 transform|4|"I regret not telling her." (WISH) → I wish I ____ her.|had told
 transform|5|"I only realised how serious it was later." (NOT) → Not until later ____ how serious it was.|did I realise
 transform|5|"The meeting was cancelled because of the storm." (DUE) → The meeting was cancelled ____ the storm.|due to
-transform|6|"The number of visitors rose sharply." (INCREASE) → There was a sharp ____ the number of visitors.|increase in
-transform|6|"Few people came, which surprised the organisers." (NUMBER) → The ____ of people who came surprised the organisers.|small number
+transform|4|"The number of visitors rose sharply." (INCREASE) → There was a sharp ____ the number of visitors.|increase in
+transform|5|"Few people came, which surprised the organisers." (NUMBER) → The ____ of people who came surprised the organisers.|small number
 prepositions|0|I am good ____ English.|at|in|on
 prepositions|0|We arrive ____ the station at six.|at|to|on
 prepositions|1|She is afraid ____ dogs.|of|from|with
@@ -7273,7 +7213,7 @@ prepositions|2|She apologised ____ being late.|for|about|to
 prepositions|3|The decision depends ____ the weather.|on|of|from
 prepositions|4|He was accused ____ stealing the money.|of|for|with
 prepositions|5|She prides herself ____ her punctuality.|on|in|for
-prepositions|6|The rise was attributed ____ lower prices.|to|with|by
+prepositions|4|The rise was attributed ____ lower prices.|to|with|by
 tenses|0|She ____ to school every day.|goes|go|going
 tenses|1|I ____ TV when you called.|was watching|watched|watch
 tenses|2|We ____ here since 2019.|have lived|lived|live
@@ -7281,7 +7221,7 @@ tenses|3|By next year, they ____ the house.|will have built|will build|build
 tenses|3|She ____ for an hour when he arrived.|had been waiting|was wait|has waited
 tenses|4|This time tomorrow I ____ on a beach.|will be lying|will lie|lie
 tenses|5|No sooner ____ sat down than the phone rang.|had he|he had|did he
-tenses|6|The figures ____ steadily since 2015.|have risen|are rising|rose
+tenses|5|The figures ____ steadily since 2015.|have risen|are rising|rose
 articles|0|She has ____ umbrella.|an|a|two
 articles|1|I'd like ____ apple, please.|an|a|many
 articles|1|There isn't ____ milk left.|any|many|a
@@ -7298,7 +7238,7 @@ conditionals|4|I wish I ____ more time yesterday.|had had|have had|would have
 conditionals|4|Unless you ____ now, you will miss the bus.|leave|will leave|left
 conditionals|5|Had I known, I ____ you.|would have told|would tell|had told
 conditionals|5|Were it not for your help, we ____.|would fail|would have failed|will fail
-conditionals|6|Should you require assistance, ____ us.|contact|you contact|contacting
+conditionals|4|Should you require assistance, ____ us.|contact|you contact|contacting
 phrasal|0|Please sit ____.|down|on|at
 phrasal|1|Turn ____ the light, it's dark.|on|in|at
 phrasal|1|I need to look ____ my keys.|for|about|of
@@ -7308,7 +7248,7 @@ phrasal|3|He turned ____ the job offer.|down|off|in
 phrasal|3|They put ____ the meeting until Friday.|off|out|away
 phrasal|4|She came ____ with a clever solution.|up|out|over
 phrasal|5|The deal fell ____ at the last minute.|through|over|off
-phrasal|6|The scheme was phased ____ over five years.|out|off|away
+phrasal|5|The scheme was phased ____ over five years.|out|off|away
 linking|1|I was tired, ____ I went to bed early.|so|but|although
 linking|2|____ it was raining, we went for a walk.|Although|Because|However
 linking|2|She stayed home ____ she was ill.|because|so|despite
@@ -7317,8 +7257,8 @@ linking|3|____ the traffic, we arrived on time.|Despite|Although|However
 linking|4|Prices rose; ____, demand fell.|consequently|whereas|despite
 linking|4|He works hard, ____ his brother is lazy.|whereas|therefore|so
 linking|5|The plan is risky; ____, it could pay off.|nevertheless|therefore|besides
-linking|6|____ renewable energy has grown, fossil fuels dominate.|While|Despite|Due to
-linking|6|Cars are cheaper; ____, more people drive.|as a result|in contrast|on the whole
+linking|4|____ renewable energy has grown, fossil fuels dominate.|While|Despite|Due to
+linking|5|Cars are cheaper; ____, more people drive.|as a result|in contrast|on the whole
 presentSimple|0|My brother ____ football every Saturday.|plays|play|playing
 presentSimple|0|She ____ like spicy food.|doesn't|don't|isn't
 presentSimple|1|What time ____ your class start?|does|do|is
@@ -7460,31 +7400,31 @@ inversion|4|Seldom ____ so generous.|is he|he is|does he be
 inversion|5|Not until the lights went out ____ the danger.|did we realise|we realised|we did realise
 inversion|5|No sooner ____ the house than it began to rain.|had we left|we had left|did we leave
 inversion|5|Only after the results came in ____ the decision.|did they announce|they announced|they did announce
-inversion|6|Under no circumstances ____ the door be left open.|should|it should|does
-inversion|6|Little ____ they realise the scale of the problem.|did|had|were
-inversion|6|Only when she spoke ____ that she was a stranger.|did I realise|I realised|I did realise
+inversion|4|Under no circumstances ____ the door be left open.|should|it should|does
+inversion|5|Little ____ they realise the scale of the problem.|did|had|were
+inversion|4|Only when she spoke ____ that she was a stranger.|did I realise|I realised|I did realise
 passive|3|The bridge ____ in 1998.|was built|built|has built
 passive|3|English ____ all over the world.|is spoken|speaks|is speaking
 passive|4|The new policy ____ next month.|will be introduced|will introduce|is introduce
 passive|4|The documents ____ by the time we arrived.|had been signed|had signed|were signing
 passive|5|He is believed ____ the country last year.|to have left|to leave|having left
 passive|5|The suspect is said ____ by police at the moment.|to be questioned|to question|being questioned
-passive|6|It is widely accepted ____ the plan was flawed.|that|what|which
-passive|6|The patient insisted on ____ the results immediately.|being told|telling|to tell
+passive|5|It is widely accepted ____ the plan was flawed.|that|what|which
+passive|4|The patient insisted on ____ the results immediately.|being told|telling|to tell
 tenses|5|By the time she retires, she ____ here for thirty years.|will have been working|will work|has worked
-tenses|6|Prices ____ since the policy took effect, with no sign of slowing.|have been climbing|are climbing|climbed
+tenses|5|Prices ____ since the policy took effect, with no sign of slowing.|have been climbing|are climbing|climbed
 conditionals|5|If it ____ for his support, the project would have collapsed.|hadn't been|wasn't|weren't
-conditionals|6|Had the board acted sooner, the crisis ____ avoided.|might have been|might be|would avoid
+conditionals|4|Had the board acted sooner, the crisis ____ avoided.|might have been|might be|would avoid
 articles|5|____ unemployed often struggle to find work.|The|A|Some
-articles|6|It was ____ unprecedented decision.|an|a|some
+articles|5|It was ____ unprecedented decision.|an|a|some
 linking|5|____ the evidence, the committee refused to act.|In spite of|Despite of|Although
-linking|6|The results were promising; ____, further trials are required.|nevertheless|moreover|similarly
+linking|4|The results were promising; ____, further trials are required.|nevertheless|moreover|similarly
 prepositions|5|The study draws a distinction ____ correlation and causation.|between|among|from
-prepositions|6|The firm was held liable ____ the damage.|for|of|to
+prepositions|5|The firm was held liable ____ the damage.|for|of|to
 phrasal|5|The government has ruled ____ tax cuts.|out|off|away
-phrasal|6|The report sets ____ the main risks clearly.|out|off|up`.split("\n").map(r=>{let p=r.split("|");p[1]=+p[1];return p});
+phrasal|4|The report sets ____ the main risks clearly.|out|off|up`.split("\n").map(r=>{let p=r.split("|");p[1]=+p[1];return p});
 const SKB=["wordform","transform","prepositions","tenses","conditionals","phrasal","linking","articles","presentSimple","presentCont","pastSimple","pastCont","futures","comparison","quantifiers","modals","questions","possessives","gerunds","sentences","reported","perfect","infinitives","whToInf"],SKA=["wordform","transform","prepositions","tenses","conditionals","phrasal","linking","articles","passive","inversion","participles","perfectClauses","cleft","compoundNouns","reported","perfect","infinitives"];
-/* Basic (A1-B1) uses level 0-2 rows; Advanced (B2-IELTS) uses only level 3-6 rows, so the two tabs never share easy items */
+/* Basic (A1-B1) uses level 0-2 rows; Advanced (B2-C2) uses only level 3-5 rows, so the two tabs never share easy items */
 const SP2=(k,ix)=>{let a=SKD.filter(x=>x[0]==k),b=a.filter(x=>ix>=3?x[1]>=3:x[1]<=2);return b.length>=4?b:a};
 function skillItems(l,k,r){let ix=LV.indexOf(l),all=(r?[...SP2(k,ix)].sort(()=>r()-.5):sh(SP2(k,ix))).sort((a,b)=>Math.abs(a[1]-ix)-Math.abs(b[1]-ix)),near=all.filter(x=>Math.abs(x[1]-ix)<=1);
  return(near.length>=6?near:all.slice(0,6)).slice(0,10).map(x=>TY[k]?{t:"type",q:(k=="wordform"?"Word form: complete with the correct form. ":"Complete so the meaning stays the same. ")+x[2],a:x[3],x:x[3].split("/")[0]}:mc("Choose the best option: "+x[2],[x[3],x[4],x[5]],0,x[2].replace("____",x[3])))}
@@ -7492,10 +7432,10 @@ function startSkill(l,k){S.dl=l;R={l,m:"sk_"+k,i:0,sc:0,st:0,ms:[],q:skillItems(
 const fw=()=>S.fwg?gwords(S.fwg):DATA[curLv()].W;
 const curLv=()=>{let ls=LV.filter(x=>DATA[x].P.length&&unlocked(x));return ls.includes(S.dl)?S.dl:ls[ls.length-1]};
 const skl=()=>{let ls=tls();return ls.includes(S.dl)?S.dl:ls[ls.length-1]};
-function scard(){let cl=skl(),adv=S.tab=="advanced",pm=PASS[LV.indexOf(cl)]||70;return`<section class="card">${head("list","Sub-skills",adv?"Advanced practice: B2–IELTS structures only (inversion, passive reporting, participle and cleft clauses, formal linking). Harder items and tighter timers.":"Basic practice: A1–B1 grammar (tenses, modals, comparisons, questions, everyday patterns).",`<span class="chip">${cl}</span>`)}<div class="skills">${Object.entries(SKN).filter(([k])=>(adv?SKA:SKB).includes(k)).map(([k,v])=>{let p=S.p[cl+"sk_"+k];return`<button class="skill" data-sk="${k}"><span>${v}</span>${p!=null?`<span class="skill-p${p>=pm?" pass":""}">${p}%</span>`:`<span class="skill-go">${ic("chevR")}</span>`}</button>`}).join("")}</div></section>`}
+function scard(){let cl=skl(),adv=S.tab=="advanced",pm=PASS[LV.indexOf(cl)]||70;return`<section class="card">${head("list","Sub-skills",adv?"Advanced practice: B2–C2 structures only (inversion, passive reporting, participle and cleft clauses, formal linking). Harder items and tighter timers.":"Basic practice: A1–B1 grammar (tenses, modals, comparisons, questions, everyday patterns).",`<span class="chip">${cl}</span>`)}<div class="skills">${Object.entries(SKN).filter(([k])=>(adv?SKA:SKB).includes(k)).map(([k,v])=>{let p=S.p[cl+"sk_"+k];return`<button class="skill" data-sk="${k}"><span>${v}</span>${p!=null?`<span class="skill-p${p>=pm?" pass":""}">${p}%</span>`:`<span class="skill-go">${ic("chevR")}</span>`}</button>`}).join("")}</div></section>`}
 /* Lessons: [title, lines separated by |, practice target  m:module or s:sub-skill] */
 const LES=[["Listening: how to catch more","Read the question before you listen and predict the type of answer (number, place, reason).|Listen for stressed content words, not every word.|Dictation: replay in chunks of 3-4 words, then check small words (a, the, -s, -ed).|Slow the speed first, then raise it as you improve.","m:listening"],
-["Speaking & recognition","Say the whole sentence naturally; the score counts matching words.|Missed words are underlined: replay slowly, then repeat them alone.|Speak clearly at normal volume; background noise lowers the match.|Pass marks rise with level (60% at A1 to 90% at IELTS).","m:speaking"],
+["Speaking & recognition","Say the whole sentence naturally; the score counts matching words.|Missed words are underlined: replay slowly, then repeat them alone.|Speak clearly at normal volume; background noise lowers the match.|Pass marks rise with level (60% at A1 to 85% at C2).","m:speaking"],
 ["Reading: True / False / Not given","True = the text says it. False = the text says the opposite. Not given = the text does not say.|Questions paraphrase the text, so match meanings, not exact words.|Beware of extreme words: all, never, main cause, only.|Do not use outside knowledge.","m:reading"],
 ["Writing: structure & linking","Plan: introduction, two points with examples, conclusion.|Use linking words: however, therefore, moreover, for example, although.|Check the checklist: word count, 2+ linking words, 3+ sentences.|Compare with the model answer, then rewrite your weakest sentence.","m:writing"],
 ["Vocabulary that sticks","Learn words in chunks: collocations (make a decision, do homework).|Use word families: decide, decision, decisive.|Idioms and phrasal verbs: learn them in a full sentence.|Spaced repetition: missed words come back sooner, so review often.","m:vocab"],
@@ -7521,7 +7461,7 @@ const LES=[["Listening: how to catch more","Read the question before you listen 
 ["Prepositions & articles","Learn fixed pairs: good at, interested in, depends on, afraid of, accused of.|Time: at six, on Monday, in July. Place: at the station, in London.|a/an for one of many, the for known things; some/any with uncountables.|Few = not many, a little = some (uncountable).","s:prepositions"],
 ["Linking words","Contrast: but, although, however, whereas, despite + noun.|Cause and result: because, so, therefore, consequently, as a result.|Addition: moreover, in addition. Example: for example, such as.|Use a comma after sentence-opening linkers.","s:linking"],
 ["Phrasal verbs","A phrasal verb is verb + particle with a special meaning (give up = stop).|Some split (turn the light on), some do not (look after her).|Learn them in a sentence and with their meaning.|Higher levels use formal ones: phase out, fall through, bring about.","s:phrasal"],
-["CEFR levels & IELTS","A1-A2 basic, B1-B2 independent, C1-C2 advanced; IELTS targets band 6.5 to 8+.|Pass marks rise from 70% to 85%, and B2 and above are timed.|IELTS tips: paraphrase, use precise data language (rose sharply, remained stable), and link ideas.|Use the Level test to find your level, Daily practice for habit, Endless mode for challenge.","m:reading"]];
+["CEFR levels","A1-A2 basic, B1-B2 independent, C1-C2 advanced.|Pass marks rise from 70% to 85%, and B2 and above are timed.|Advanced tips: paraphrase, use precise data language (rose sharply, remained stable), and link ideas.|Use the Level test to find your level, Daily practice for habit, Endless mode for challenge.","m:reading"]];
 function lessons(){let lv=curLv(),n=0,G=[["Skills & strategy",LES.filter(l=>l[2].startsWith("m:"))],["Grammar",LES.filter(l=>!l[2].startsWith("m:"))]];
  return bar("Lessons")+`<section class="card">${head("book","Lessons","Short, practical guides. Open one, read the tips, then practise straight away.",`<span class="chip">${LES.length} lessons</span>`)}${G.map(([h,ls])=>`<p class="group-h">${h}</p><div class="accs">${ls.map(l=>{n++;let m=/^([^:]+): (.+)$/.exec(l[0]),t=m?m[2][0].toUpperCase()+m[2].slice(1):l[0];return acc(n,esc(t),m?esc(m[1]):"","",`${ticks(l[1])}<div class="acc-actions"><button class="btn-primary" data-p="${l[2]}">${ic("play")}Practise at ${lv}</button></div>`)}).join("")}</div>`).join("")}</section>`}
 /* ===== GLOBAL SUCCESS (Grade 6) — original lessons and exercises that follow the unit topics (not the textbook's own text) =====
@@ -7758,8 +7698,8 @@ function startGS(gr,n){let u=GSU[gr][n-1],ws=u.w,vq=sh(ws).map(([w,d])=>mc("Whic
  if(u.g)q=[...vq,...u.g.map(([s,a,x,y])=>mc("Choose the best option: "+s,[a,x,y],0,s.replace("____",a)))];
  else{let lv=LV[GL[gr]],ok=gv(gr,n-1);q=[...vq,...skillItems(lv,u.k).slice(0,ok?6:4),...(ok?[]:skillItems(lv,u.k=="wordform"?"tenses":"wordform").slice(0,2))]}
  R={l:"Grade "+gr,m:"gs"+n,i:0,sc:0,st:0,ms:[],q:q.slice(0,10),done:0};view="round";draw()}
-/* Tabs: Basic (A1-B1), Advanced (B2-IELTS), Global Success */
-const TABS=[["basic","Basic (A1–B1)"],["advanced","Advanced (B2–IELTS)"],["school","Global Success"]];
+/* Tabs: Basic (A1-B1), Advanced (B2-C2), Global Success */
+const TABS=[["basic","Basic (A1–B1)"],["advanced","Advanced (B2–C2)"],["school","Global Success"]];
 const TABI={basic:"sprout",advanced:"mountain",school:"cap"};
 const tabs=()=>`<nav class="seg seg-tabs" aria-label="Course">${TABS.map(([k,v])=>{let on=(S.tab||"basic")==k,m=/^(.*?) \((.*)\)$/.exec(v),t=m?m[1]:v,s=m?m[2]:"Grades 6–12";return`<button class="${on?"on":""}" data-tab="${k}" aria-pressed="${on}"><span class="seg-ic">${ic(TABI[k])}</span><span class="seg-tx"><b>${t}</b><small>${s}</small></span></button>`}).join("")}</nav>`;
 const tl=()=>LV.filter((l,i)=>S.tab=="advanced"?i>=3:i<3);
@@ -7836,7 +7776,7 @@ snail:'<path d="M2 13a6 6 0 1 0 12 0 4 4 0 1 0-8 0 2 2 0 0 0 4 0"/><circle cx="1
 };
 const ic=(n,c="")=>`<svg class="ic${c?" "+c:""}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICP[n]||""}</svg>`;
 const MI={listening:"headphones",speaking:"mic",reading:"book",writing:"pen",vocab:"spell",pron:"wave"};
-const LVN={A1:"Beginner",A2:"Elementary",B1:"Intermediate",B2:"Upper-intermediate",C1:"Advanced",C2:"Proficiency",IELTS:"Exam prep"};
+const LVN={A1:"Beginner",A2:"Elementary",B1:"Intermediate",B2:"Upper-intermediate",C1:"Advanced",C2:"Proficiency"};
 const gapify=s=>esc(s).replace(/_{3,}/g,'<span class="gap" role="img" aria-label="blank"></span>');
 const dstreak=()=>{let ds=S.ds||{n:0,t:""};return ds.t==today()||ds.t==ago(1)?ds.n:0};
 const mastered=()=>Object.values(S.v||{}).filter(v=>v.b>=3).length;
@@ -7864,12 +7804,12 @@ function draw(){let h="";
 function hero(sub){let n=dstreak(),d=new Date().toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long"});
  return`<section class="hero"><div class="hero-copy"><p class="eyebrow">${d}</p><h1>${greet()}<em>.</em></h1><p class="lede">${sub}</p><div class="stats"><div class="stat"><span class="stat-ic">${ic("flame")}</span><span><b>${n}</b><small>day streak</small></span></div><div class="stat"><span class="stat-ic">${ic("zap")}</span><span><b>${S.bs||0}</b><small>best streak</small></span></div><div class="stat"><span class="stat-ic">${ic("star")}</span><span><b>${mastered()}</b><small>words mastered</small></span></div></div></div><div class="hero-art" aria-hidden="true"><span class="ha-glyph">Aa</span><span class="ha-ipa">/ˈɪŋɡlɪʃ/</span><span class="ha-tag">${ic("check")}Correct</span></div></section>`}
 function home(){if(S.tab=="school")return schoolHome();
- return hero("Daily practice in listening, speaking, reading and writing, from your first words all the way to IELTS.")+tabs()+dcard()+matrix()+tools()+scard()+ecard()+foot()}
+ return hero("Daily practice in listening, speaking, reading and writing, from your first words all the way to advanced fluency.")+tabs()+dcard()+matrix()+tools()+scard()+ecard()+foot()}
 function matrix(){let L=tl(),timed=L.some(l=>RT[LV.indexOf(l)]);
  return`<section class="card">${head("grid","Levels &amp; modules","Pick a level and a module. Pass marks rise from 70% to 85%, and B2 and above are timed.")}<table class="matrix"><thead><tr><th scope="col"><span class="sr">Level</span></th>${MD.map(m=>`<th scope="col"><span class="mx-ic">${ic(MI[m])}</span>${MN[m]}</th>`).join("")}</tr></thead><tbody>${L.map(l=>{let ok=unlocked(l),i=LV.indexOf(l);
   return`<tr class="${ok?"":"locked"}"><th scope="row"><span class="mx-lv"><b>${l}</b>${RT[i]?`<span title="Timed questions">${ic("clock")}</span>`:""}</span><small>${LVN[l]||""}</small></th>${MD.map(m=>{let p=S.p[l+m],pass=p!=null&&p>=PASS[i];
    return`<td><button class="cell${pass?" pass":""}" style="--p:${p||0}" data-go="${l}|${m}" ${ok?"":"disabled"} aria-label="${l} ${MN[m]}${!ok?", locked":p!=null?", best "+p+"%":", not started"}" title="${!ok?"Locked: pass the previous level first":p!=null?"Best "+p+"% · pass mark "+PASS[i]+"%":"Start "+l+" "+MN[m]}">${!ok?ic("lock"):p!=null?`<span>${p}<small>%</small></span>${pass?`<span class="cell-badge">${ic("check")}</span>`:""}`:`<span class="cell-go">${ic("play")}</span>`}</button></td>`}).join("")}</tr>`}).join("")}</tbody></table>
- <div class="card-foot"><label class="switch"><input type="checkbox" id="pl" ${S.pl?"checked":""}><span class="switch-ui" aria-hidden="true"></span><span>Placement: unlock all levels</span></label><span class="legend"><span><i class="lg lg-pass"></i>Passed</span><span><i class="lg lg-tried"></i>Tried</span>${timed?`<span>${ic("clock")}Timed</span>`:""}</span></div></section>`}
+ <div class="card-foot"><span class="legend"><span><i class="lg lg-pass"></i>Passed</span><span><i class="lg lg-tried"></i>Tried</span>${timed?`<span>${ic("clock")}Timed</span>`:""}</span></div></section>`}
 function tools(school){let T=school?[["v:lessons","Lessons","Short guides with practice","book"],["gfl","Flashcards","This grade’s key words","layers"],["v:words","My words","See what you’ve mastered","star"]]:
  [["test","Level test","16 adaptive questions","target"],PROXY_URL?["v:tutor","Ask the tutor","Grammar, words and corrections","message"]:null,["v:lessons","Lessons","Short guides with practice","book"],["v:flash","Flashcards","Review this level’s words","layers"],["v:words","My words","See what you’ve mastered","star"]].filter(Boolean);
  return`<section class="tools" aria-label="More practice">${T.map(([k,t,d,i])=>`<button class="tool" ${k=="test"?'data-test="1"':k=="gfl"?'data-gfl="1"':`data-v="${k.slice(2)}"`}><span class="tool-ic">${ic(i)}</span><span class="tool-t">${t}</span><span class="tool-d">${d}</span></button>`).join("")}</section>`}
@@ -7930,7 +7870,7 @@ function wire(){let A=$("#app"),it=R&&R.q&&R.q[R.i],pick=[],pi=[];
   else if(D.v){if(R)clearTimeout(R.tm);if(D.v=="flash")S.fwg=0;view=D.v;if(D.v!="flash")R=D.v=="home"?null:R;draw()}
   else if(D.sug){let i=$("#ti");if(i){i.value=D.sug;tsend()}}
   else if(D.say!=null){let s=rate;if(D.slow)rate=.55;say(D.say);rate=s}
-  else if(t.id=="rs")ask("Reset all progress?","This clears your scores, streaks, high scores and word progress on this device. It can’t be undone.","Reset progress",()=>{S={p:{},v:{},pl:0,bs:0};save();draw()},1);
+  else if(t.id=="rs")ask("Reset all progress?","This clears your scores, streaks, high scores and word progress on this device. It can’t be undone.","Reset progress",()=>{S={p:{},v:{},bs:0};save();draw()},1);
   else if(t.id=="fc"){R.fl^=1;draw()}
   else if(D.k!=null){let ws=fw();vmark(ws[R.i%ws.length][0],D.k=="1");save();R.i++;R.fl=0;draw()}
   else if(t.id=="nx"){R.i++;R.done=0;(R.endless?R.lives>0:R.i<R.q.length)?draw():finish()}
@@ -7942,7 +7882,6 @@ function wire(){let A=$("#app"),it=R&&R.q&&R.q[R.i],pick=[],pi=[];
   else if(t.id=="rec")listen(it);
   else if(t.id=="snd")tsend();
   else if(D.self!=null)answer(D.self=="1",{...it,x:"Compare with the audio and keep practising."});};
- let c=$("#pl");if(c)c.onchange=()=>{S.pl=c.checked?1:0;save();draw()};
  let r=$("#rt");if(r)r.oninput=()=>{rate=+r.value;let o=$("#rto");if(o)o.textContent=rate.toFixed(1)+"×"};
  let ti=$("#ti");if(ti){ti.focus();ti.onkeydown=e=>{if(e.key=="Enter")tsend()}}
  let wr=$("#wr");if(wr){wr.focus();wr.oninput=()=>$("#cl").innerHTML=cl(wr.value,it)}
@@ -7988,20 +7927,7 @@ window.trainerRedraw=()=>draw();
 draw();loadFeed().then(()=>{if(view=="home")draw()});
 /* Auto-update: re-check the feed whenever the tab becomes visible again (e.g. next morning) */
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState=="visible")loadFeed().then(()=>{if(view=="home")draw()})});
-</script><script>// Shares only snapshots and account restoration with the React shell.
-window.trainerSnapshot = () => JSON.parse(JSON.stringify(S));
-window.trainerRestore = (snapshot) => {
-  if (!snapshot || typeof snapshot !== "object" || Array.isArray(snapshot)) return;
-  window.trainerHome();
-  S = { p: {}, v: {}, pl: 0, bs: 0, ...snapshot };
-  localStorage.setItem("eng1", JSON.stringify(S));
-  draw();
-};
-const originalAccountSave = save;
-save = function () {
-  originalAccountSave();
-  window.dispatchEvent(new CustomEvent("trainer-progress", { detail: window.trainerSnapshot() }));
-};
+</script><script>// Lesson completion helpers.
 document.addEventListener("toggle", (event) => {
   const detail = event.target;
   if (!(detail instanceof HTMLDetailsElement) || !detail.open || view !== "lessons") return;
@@ -8028,191 +7954,4 @@ window.trainerLessonContext = () => ({ lessons: Array.from(LES.reduce((map, l) =
 const picker = document.getElementById('export-theme');
 try { const value = localStorage.getItem('english-trainer-theme') || 'warm'; picker.value = value; document.documentElement.dataset.theme = picker.value || 'warm'; } catch {}
 picker.addEventListener('change', () => { document.documentElement.dataset.theme = picker.value; try { localStorage.setItem('english-trainer-theme', picker.value); } catch {} });
-</script><script>
-(function () {
-  var BACKEND = "https://c--f70ecba6-f156-40e6-aaec-e0b7fdbdc34a-prod.lovable.cloud";
-  var KEY = "sb_publishable_nHKdJdYpvylNZcuqhwLnxQ_JELjxyAV";
-  var SESSION = "english-trainer-account";
-  var chip = document.getElementById("export-sync");
-  var dialog = document.getElementById("export-account");
-  var open = document.getElementById("export-account-open");
-  var email = document.getElementById("account-email");
-  var password = document.getElementById("account-password");
-  var error = document.getElementById("account-error");
-  var formActions = document.getElementById("account-form-actions");
-  var signedActions = document.getElementById("account-signed-actions");
-  var timer = null;
-
-  function read(key) { try { return localStorage.getItem(key); } catch (e) { return null; } }
-  function write(key, value) { try { value === null ? localStorage.removeItem(key) : localStorage.setItem(key, value); } catch (e) {} }
-  function session() { try { return JSON.parse(read(SESSION) || "null"); } catch (e) { return null; } }
-  function remember(next) {
-    write(SESSION, next ? JSON.stringify({
-      access_token: next.access_token,
-      refresh_token: next.refresh_token,
-      expires_at: next.expires_at,
-      user: { id: next.user.id, email: next.user.email }
-    }) : null);
-  }
-  function status(text, on) {
-    if (chip) { chip.textContent = text; chip.dataset.state = on ? "on" : "off"; }
-  }
-  function say(text, ok) {
-    if (error) { error.textContent = text || ""; error.dataset.ok = ok ? "yes" : "no"; }
-  }
-  function headers(token) {
-    var h = { apikey: KEY, "Content-Type": "application/json" };
-    if (token) h.Authorization = "Bearer " + token;
-    return h;
-  }
-  function request(path, options) {
-    return fetch(BACKEND + path, options).then(function (res) {
-      return res.json().catch(function () { return null; }).then(function (data) {
-        if (!res.ok) {
-          var detail = data && (data.error_description || data.error || data.msg || data.message);
-          throw new Error(detail || "Request failed (" + res.status + ")");
-        }
-        return data;
-      });
-    });
-  }
-  function token() {
-    var stored = session();
-    if (!stored) return Promise.resolve(null);
-    if (!stored.expires_at || Date.now() / 1000 < stored.expires_at - 60) return Promise.resolve(stored.access_token);
-    return request("/auth/v1/token?grant_type=refresh_token", {
-      method: "POST",
-      headers: headers(null),
-      body: JSON.stringify({ refresh_token: stored.refresh_token })
-    }).then(function (next) { remember(next); return next.access_token; }).catch(function () {
-      remember(null);
-      return null;
-    });
-  }
-  function theme() { return document.documentElement.dataset.theme || "warm"; }
-  function applyTheme(value) {
-    var picker = document.getElementById("export-theme");
-    document.documentElement.dataset.theme = value;
-    if (picker) picker.value = value;
-    write("english-trainer-theme", value);
-  }
-  function snapshot() {
-    return window.trainerSnapshot ? window.trainerSnapshot() : null;
-  }
-  function save(row, current) {
-    return token().then(function (live) {
-      if (!live) throw new Error("Please sign in again");
-      return request("/rest/v1/learner_state?on_conflict=user_id", {
-        method: "POST",
-        headers: Object.assign(headers(live), { Prefer: "resolution=merge-duplicates" }),
-        body: JSON.stringify({
-          user_id: row.id,
-          progress: current.progress,
-          theme: current.theme,
-          completed_lessons: current.completed_lessons,
-          updated_at: current.updated_at
-        })
-      });
-    });
-  }
-  function payload() {
-    var progress = snapshot() || { p: {}, v: {}, pl: 0, bs: 0 };
-    return {
-      progress: progress,
-      theme: theme(),
-      completed_lessons: progress.completedLessons || [],
-      updated_at: new Date().toISOString()
-    };
-  }
-  function push() {
-    var stored = session();
-    if (!stored) return Promise.resolve();
-    status("Saving…", true);
-    return save(stored.user, payload()).then(function () {
-      status("Saved to account", true);
-    }).catch(function () {
-      status("Save failed — retry", false);
-    });
-  }
-  function queue() {
-    clearTimeout(timer);
-    timer = setTimeout(push, 1200);
-  }
-  function load() {
-    var stored = session();
-    if (!stored) return Promise.resolve();
-    status("Loading your saved progress…", true);
-    return token().then(function (live) {
-      if (!live) { status("Offline — saved on this device", false); return null; }
-      return request("/rest/v1/learner_state?select=*&user_id=eq." + stored.user.id, { headers: headers(live) });
-    }).then(function (rows) {
-      if (Array.isArray(rows) && rows.length) {
-        if (rows[0].progress && window.trainerRestore) window.trainerRestore(rows[0].progress);
-        if (rows[0].theme) applyTheme(rows[0].theme);
-      }
-      status("Signed in · " + stored.user.email, true);
-      showSigned(stored.user.email);
-      return push();
-    }).catch(function () {
-      status("Signed in, but saved progress couldn’t load", false);
-      showSigned(stored.user.email);
-    });
-  }
-  function showSigned(address) {
-    if (formActions) formActions.hidden = true;
-    if (signedActions) signedActions.hidden = false;
-    say("Signed in as " + address + ". Your practice saves here automatically.", true);
-  }
-  function showForm() {
-    if (formActions) formActions.hidden = false;
-    if (signedActions) signedActions.hidden = true;
-  }
-  open.addEventListener("click", function () {
-    var stored = session();
-    if (stored) showSigned(stored.user.email); else showForm();
-    say("");
-    dialog.showModal();
-  });
-  document.getElementById("account-close").addEventListener("click", function () { dialog.close(); });
-  document.getElementById("account-close-2").addEventListener("click", function () { dialog.close(); });
-  document.getElementById("account-push").addEventListener("click", function () { push(); });
-  document.getElementById("account-signout").addEventListener("click", function () {
-    remember(null);
-    showForm();
-    say("");
-    status("Offline — saved on this device", false);
-  });
-  document.getElementById("account-signin").addEventListener("click", function () {
-    say("");
-    request("/auth/v1/token?grant_type=password", {
-      method: "POST",
-      headers: headers(null),
-      body: JSON.stringify({ email: email.value.trim(), password: password.value })
-    }).then(function (next) {
-      remember(next);
-      return load();
-    }).catch(function (problem) {
-      say(problem.message, false);
-    });
-  });
-  document.getElementById("account-signup").addEventListener("click", function () {
-    say("");
-    request("/auth/v1/signup", {
-      method: "POST",
-      headers: headers(null),
-      body: JSON.stringify({ email: email.value.trim(), password: password.value })
-    }).then(function (data) {
-      if (data && data.access_token) {
-        remember(data);
-        return load();
-      }
-      say("Account created. Confirm the email we sent, then sign in here.", true);
-    }).catch(function (problem) {
-      say(problem.message, false);
-    });
-  });
-  window.addEventListener("trainer-progress", function () { if (session()) queue(); });
-  document.getElementById("export-theme").addEventListener("change", function () { if (session()) queue(); });
-  if (session()) load(); else status("Offline — saved on this device", false);
-})();
 </script></body></html>
