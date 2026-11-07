@@ -6793,8 +6793,182 @@ html[data-theme="graphite"], [data-swatch="graphite"] {
     }
   }
 }
-</style><style>.topbar-in .theme-trigger{margin-left:auto}</style></head><body><div class="app-shell"><header class="topbar"><div class="topbar-in"><button class="brand" onclick="window.trainerHome()"><span class="brand-mark">Ee</span><span class="brand-name">English Trainer</span></button>
-<label class="theme-trigger"><span class="sr-only">Colour theme</span><select id="export-theme" aria-label="Colour theme"><option value="warm">Warm</option><option value="ocean">Ocean</option><option value="forest">Forest</option><option value="violet">Violet</option><option value="rose">Rose</option><option value="mint">Mint</option><option value="cherry">Cherry</option><option value="sunflower">Sunflower</option><option value="lagoon">Lagoon</option><option value="graphite">Graphite</option></select></label></div></header><main id="app" class="trainer"></main></div>
+</style><style>
+/* ---- colour variables are animatable numbers, so every colour (gradients included) can ease between themes ---- */
+@property --h{syntax:"<number>";inherits:true;initial-value:42}
+@property --h2{syntax:"<number>";inherits:true;initial-value:72}
+@property --hb{syntax:"<number>";inherits:true;initial-value:80}
+@property --pc{syntax:"<number>";inherits:true;initial-value:0.14}
+
+/* ---- trigger ---- */
+.theme-wrap{position:relative;margin-left:auto}
+.theme-trigger{cursor:pointer;transition:border-color .2s,box-shadow .2s,transform .15s cubic-bezier(.2,.7,.2,1)}
+.theme-trigger:active{transform:scale(.97)}
+.theme-trigger .swatch-dot{box-shadow:inset 0 0 0 1px oklch(1 0 0/.3),0 0 0 3px color-mix(in oklab,oklch(.575 var(--pc) var(--h)) 18%,transparent),0 1px 3px oklch(0 0 0/.18)}
+.theme-trigger .swatch-dot.pop{animation:dotPop .55s cubic-bezier(.2,.8,.2,1)}
+.theme-trigger .chev{opacity:.55;transition:transform .25s cubic-bezier(.2,.7,.2,1)}
+.theme-trigger[aria-expanded="true"] .chev{transform:rotate(180deg)}
+@keyframes dotPop{0%{transform:scale(.7)}55%{transform:scale(1.18)}100%{transform:scale(1)}}
+
+/* ---- panel ---- */
+.theme-pop{position:absolute;right:0;top:calc(100% + 10px);z-index:60;width:min(300px,calc(100vw - 32px));min-width:0;padding:12px;border-radius:22px;
+  background:color-mix(in oklab,var(--popover) 98%,transparent);-webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);
+  box-shadow:var(--highlight),0 24px 48px -16px oklch(0 0 0/.28),0 4px 12px oklch(0 0 0/.08);
+  transform-origin:calc(100% - 28px) -8px;animation:popIn .22s cubic-bezier(.2,.8,.2,1) both}
+.theme-pop[hidden]{display:none}
+.theme-pop.is-closing{animation:popOut .14s ease-in both;pointer-events:none}
+.theme-pop-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:2px 4px 10px}
+.theme-pop-head .theme-pop-title{padding:0;margin:0}
+.theme-pop-hint{font-size:.72rem;color:var(--muted-foreground)}
+.theme-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.swatch{position:relative;width:auto;cursor:pointer;font:inherit;font-weight:600;font-size:.9rem;gap:10px;padding:8px 10px;border-radius:14px;
+  border:1px solid transparent;background:transparent;transition:background-color .15s,border-color .2s,transform .15s cubic-bezier(.2,.7,.2,1)}
+.swatch:hover{background:var(--muted)}
+.swatch:active{transform:scale(.97)}
+.swatch[aria-checked="true"]{background:color-mix(in oklab,oklch(.575 var(--pc) var(--h)) 10%,var(--card));border-color:color-mix(in oklab,oklch(.575 var(--pc) var(--h)) 45%,transparent)}
+.swatch .swatch-dot{position:relative;display:grid;place-items:center;width:28px;height:28px;transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+.swatch:hover .swatch-dot{transform:scale(1.1)}
+.swatch-tick{color:#fff;filter:drop-shadow(0 1px 1px oklch(0 0 0/.35));opacity:0;transform:scale(.4) rotate(-20deg);transition:opacity .2s,transform .3s cubic-bezier(.2,.9,.3,1.4)}
+.swatch[aria-checked="true"] .swatch-tick{opacity:1;transform:none}
+.theme-pop:not([hidden]):not(.is-closing) .swatch{animation:swIn .3s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i) * 24ms + 50ms)}
+.swatch:focus-visible,.theme-trigger:focus-visible{outline:2px solid var(--ring);outline-offset:2px}
+@keyframes popIn{from{opacity:0;transform:translateY(-6px) scale(.94)}to{opacity:1;transform:none}}
+@keyframes popOut{to{opacity:0;transform:translateY(-4px) scale(.96)}}
+@keyframes swIn{from{opacity:0;transform:translateY(6px) scale(.92)}to{opacity:1;transform:none}}
+
+/* ---- theme change: circular reveal from the swatch you picked (browsers with View Transitions) ---- */
+::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
+::view-transition-old(root){z-index:1}
+::view-transition-new(root){z-index:2}
+/* ---- other browsers: the colour variables themselves ease between themes ---- */
+html.theme-anim{transition:--h .7s cubic-bezier(.4,0,.2,1),--h2 .7s cubic-bezier(.4,0,.2,1),--hb .7s cubic-bezier(.4,0,.2,1),--pc .7s cubic-bezier(.4,0,.2,1)}
+@media (prefers-reduced-motion:reduce){.theme-pop,.theme-pop.is-closing,.theme-pop .swatch,.theme-trigger .swatch-dot.pop{animation:none!important}html.theme-anim{transition:none}}
+
+/* ===== appearance: Auto / Light / Dark (re-uses the app's own colour sets) ===== */
+html[data-mode="light"]{
+  --background: oklch(0.972 0.013 var(--hb));
+  --background-deep: oklch(0.946 0.02 var(--hb));
+  --foreground: oklch(0.255 0.024 var(--h));
+  --card: oklch(0.993 0.006 var(--hb));
+  --card-foreground: var(--foreground);
+  --popover: var(--card);
+  --popover-foreground: var(--foreground);
+  --primary: oklch(0.575 var(--pc) var(--h));
+  --primary-2: oklch(0.735 calc(var(--pc) * 0.95) var(--h2));
+  --primary-foreground: oklch(0.99 0.008 var(--hb));
+  --secondary: oklch(0.948 0.016 var(--hb));
+  --secondary-foreground: var(--foreground);
+  --muted: oklch(0.953 0.013 var(--hb));
+  --muted-foreground: oklch(0.505 0.026 var(--h));
+  --accent: oklch(0.935 0.038 var(--h));
+  --accent-foreground: oklch(0.45 calc(var(--pc) * 0.85) var(--h));
+  --success: oklch(0.56 0.125 152);
+  --success-soft: oklch(0.95 0.04 152);
+  --success-foreground: oklch(0.99 0.01 152);
+  --destructive: oklch(0.575 0.175 27);
+  --destructive-soft: oklch(0.956 0.03 27);
+  --destructive-foreground: oklch(0.99 0.01 27);
+  --warning: oklch(0.76 0.15 75);
+  --border: oklch(0.9 0.018 var(--hb));
+  --border-strong: oklch(0.845 0.024 var(--hb));
+  --input: var(--border-strong);
+  --ring: var(--primary);
+  --gradient-primary: linear-gradient(135deg, var(--primary), var(--primary-2));
+  --gradient-page: radial-gradient(1100px 520px at 8% -160px, var(--primary), transparent 70%),
+    radial-gradient(900px 520px at 105% 110%, var(--primary-2), transparent 70%),
+    linear-gradient(180deg, var(--background), var(--background-deep));
+  @supports (color: color-mix(in lab, red, red)) {
+    --gradient-page: radial-gradient(1100px 520px at 8% -160px, color-mix(in oklab, var(--primary) 13%, transparent), transparent 70%),
+    radial-gradient(900px 520px at 105% 110%, color-mix(in oklab, var(--primary-2) 12%, transparent), transparent 70%),
+    linear-gradient(180deg, var(--background), var(--background-deep));
+  }
+  --shadow-color: var(--h) 0.05 0.3;
+  --shadow-xs: 0 1px 2px oklch(0.3 0.04 var(--h) / 0.06);
+  --shadow-sm: 0 1px 2px oklch(0.3 0.04 var(--h) / 0.05), 0 4px 12px -4px oklch(0.3 0.04 var(--h) / 0.1);
+  --shadow-md: 0 1px 3px oklch(0.3 0.04 var(--h) / 0.06), 0 14px 34px -14px oklch(0.3 0.05 var(--h) / 0.22);
+  --shadow-lg: 0 2px 6px oklch(0.3 0.04 var(--h) / 0.06), 0 30px 70px -24px oklch(0.3 0.06 var(--h) / 0.32);
+  --shadow-primary: 0 10px 24px -10px var(--primary);
+  @supports (color: color-mix(in lab, red, red)) {
+    --shadow-primary: 0 10px 24px -10px color-mix(in oklab, var(--primary) 70%, transparent);
+  }
+  --highlight: inset 0 1px 0 oklch(1 0 0 / 0.65);
+  --chart-1: var(--primary);
+  --chart-2: var(--primary-2);
+  --chart-3: var(--success);
+  --chart-4: var(--warning);
+  --chart-5: var(--destructive);
+  --sidebar: var(--card);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: var(--accent);
+  --sidebar-accent-foreground: var(--accent-foreground);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
+  color-scheme: light;
+}
+html[data-mode="dark"]{
+  --background: oklch(0.188 0.012 var(--hb));
+  --background-deep: oklch(0.158 0.012 var(--hb));
+  --foreground: oklch(0.945 0.012 var(--hb));
+  --card: oklch(0.225 0.014 var(--hb));
+  --primary: oklch(0.76 calc(var(--pc) * 0.92) var(--h));
+  --primary-2: oklch(0.84 calc(var(--pc) * 0.75) var(--h2));
+  --primary-foreground: oklch(0.2 0.035 var(--h));
+  --secondary: oklch(0.262 0.014 var(--hb));
+  --muted: oklch(0.255 0.014 var(--hb));
+  --muted-foreground: oklch(0.73 0.022 var(--hb));
+  --accent: oklch(0.29 0.045 var(--h));
+  --accent-foreground: oklch(0.86 calc(var(--pc) * 0.6) var(--h));
+  --success: oklch(0.77 0.13 152);
+  --success-soft: oklch(0.285 0.045 152);
+  --success-foreground: oklch(0.2 0.04 152);
+  --destructive: oklch(0.73 0.15 27);
+  --destructive-soft: oklch(0.29 0.05 27);
+  --destructive-foreground: oklch(0.2 0.04 27);
+  --warning: oklch(0.8 0.14 78);
+  --border: oklch(0.31 0.014 var(--hb));
+  --border-strong: oklch(0.385 0.016 var(--hb));
+  --shadow-xs: 0 1px 2px oklch(0 0 0 / 0.3);
+  --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.3), 0 4px 14px -4px oklch(0 0 0 / 0.35);
+  --shadow-md: 0 1px 3px oklch(0 0 0 / 0.3), 0 16px 36px -14px oklch(0 0 0 / 0.55);
+  --shadow-lg: 0 2px 6px oklch(0 0 0 / 0.3), 0 30px 70px -24px oklch(0 0 0 / 0.7);
+  --shadow-primary: 0 10px 26px -12px var(--primary);
+  @supports (color: color-mix(in lab, red, red)) {
+    --shadow-primary: 0 10px 26px -12px color-mix(in oklab, var(--primary) 55%, transparent);
+  }
+  --highlight: inset 0 1px 0 oklch(1 0 0 / 0.05);
+  color-scheme: dark;
+}
+/* ===== polish ===== */
+/* a leftover utility class with the same name drew a thin dark box around the score ring */
+.ring{box-shadow:none}
+/* header lines up with the narrower reading views */
+.topbar-in{transition:max-width .35s cubic-bezier(.2,.7,.2,1)}
+.app-shell:has(.trainer[data-view="round"],.trainer[data-view="end"],.trainer[data-view="flash"],.trainer[data-view="tutor"]) .topbar-in{max-width:720px}
+html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:color-mix(in oklab,var(--primary) 38%,var(--muted)) transparent}
+button,select,label,summary,[role=button]{touch-action:manipulation}
+:where(button,select,[role=button]){-webkit-user-select:none;user-select:none}
+.mode-seg{position:relative;display:grid;grid-template-columns:repeat(3,1fr);padding:4px;margin:0 0 10px;border-radius:14px;background:var(--muted);border:1px solid var(--border)}
+.mode-seg button{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:6px;height:34px;border:0;background:transparent;border-radius:10px;font:inherit;font-weight:600;font-size:.84rem;color:var(--muted-foreground);cursor:pointer;transition:color .2s}
+.mode-seg button:hover{color:var(--foreground)}
+.mode-seg button[aria-checked="true"]{color:var(--foreground)}
+.mode-seg button svg{width:15px;height:15px;flex:none}
+.mode-thumb{position:absolute;z-index:0;top:4px;bottom:4px;left:4px;width:calc((100% - 8px) / 3);border-radius:10px;background:var(--card);box-shadow:var(--shadow-sm),var(--highlight);transition:transform .38s cubic-bezier(.3,1.25,.4,1)}
+.mode-seg[data-m="light"] .mode-thumb{transform:translateX(100%)}
+.mode-seg[data-m="dark"] .mode-thumb{transform:translateX(200%)}
+html.mode-anim,html.mode-anim *,html.mode-anim *::before,html.mode-anim *::after{transition:background-color .5s ease,color .5s ease,border-color .5s ease,box-shadow .5s ease,fill .5s ease,stroke .5s ease!important}
+@media (pointer:coarse){.kbd-hint{display:none}}
+@media (max-width:560px){
+  .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:18px}
+  .stat{flex-direction:column;justify-content:center;text-align:center;gap:6px;padding:10px 4px;border-radius:18px}
+  .stat>span:last-child{display:flex;flex-direction:column;align-items:center;line-height:1.15}
+  .stat small{margin:2px 0 0;font-size:.68rem;white-space:nowrap}
+  .card-feature .card-head>.chip{display:none}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.topbar-in{transition:none}}
+</style><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='oklch%280.6 0.15 42%29'/%3E%3Cstop offset='1' stop-color='oklch%280.72 0.15 72%29'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url%28%23g%29'/%3E%3Ctext x='32' y='44' font-family='Georgia%2Cserif' font-style='italic' font-size='34' text-anchor='middle' fill='white'%3EEe%3C/text%3E%3C/svg%3E"><script>try{var t=localStorage.getItem("english-trainer-theme");if(t)document.documentElement.dataset.theme=t;var m=localStorage.getItem("english-trainer-mode");if(m==="light"||m==="dark")document.documentElement.dataset.mode=m}catch(e){}</script></head><body><div class="app-shell"><header class="topbar"><div class="topbar-in"><button class="brand" onclick="window.trainerHome()"><span class="brand-mark">Ee</span><span class="brand-name">English Trainer</span></button>
+<div class="theme-wrap"><button type="button" class="theme-trigger" id="theme-btn" aria-haspopup="true" aria-expanded="false" aria-controls="theme-pop" aria-label="Colour theme"><span class="swatch-dot" id="theme-dot" data-swatch="warm"></span><span id="theme-name">Warm</span><svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button><div class="theme-pop" id="theme-pop" role="radiogroup" aria-label="Colour theme" hidden><div class="theme-pop-head"><p class="theme-pop-title">Colour theme</p><span class="theme-pop-hint">Saved on this device</span></div><div class="mode-seg" id="mode-seg" role="radiogroup" aria-label="Appearance" data-m="auto"><span class="mode-thumb" aria-hidden="true"></span><button type="button" role="radio" aria-checked="true" data-mode-opt="auto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg><span>Auto</span></button><button type="button" role="radio" aria-checked="false" data-mode-opt="light"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg><span>Light</span></button><button type="button" role="radio" aria-checked="false" data-mode-opt="dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><span>Dark</span></button></div><div class="theme-grid"><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="warm" data-swatch="warm" style="--i:0"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Warm</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="ocean" data-swatch="ocean" style="--i:1"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Ocean</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="forest" data-swatch="forest" style="--i:2"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Forest</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="violet" data-swatch="violet" style="--i:3"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Violet</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="rose" data-swatch="rose" style="--i:4"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Rose</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="mint" data-swatch="mint" style="--i:5"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Mint</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="cherry" data-swatch="cherry" style="--i:6"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Cherry</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="sunflower" data-swatch="sunflower" style="--i:7"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Sunflower</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="lagoon" data-swatch="lagoon" style="--i:8"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Lagoon</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="graphite" data-swatch="graphite" style="--i:9"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Graphite</span></button></div></div></div></div></header><main id="app" class="trainer"></main></div>
 <script>/* English Trainer engine: content (DATA), state, question builders and round logic.
    Loaded together with ui.js as one classic script (see src/components/trainer/load-engine.ts). */
 
@@ -7077,10 +7251,11 @@ function explain(it){let Q=it.q||"",tf=/^True, False/.test(Q);
  let h=""; for(const f of RL){h=f(al,q);if(h)break}
  if(!h)return"";let wr=(it.o||[]).filter((_,i)=>i!=it.a);
  return"<b>Rule:</b> "+esc(h)+(wr.length?"<br><b>Not:</b> "+wr.map(w=>"“"+esc(w)+"”").join(", ")+" do not fit here.":"")}
-function answer(ok,item,extra=""){if(R.done)return;R.done=1;ok?(R.sc++,R.st++):(R.st=0,R.ms.push(item.x||item.q));R.bs=Math.max(R.bs||0,R.st);clearTimeout(R.tm);let tb=$("#tb"),tags=[];if(tb){tb.style.width=getComputedStyle(tb).width;tb.style.transition="none"}if(R.endless){if(ok){R.n++;let p=Math.round(10*MULT[LV.indexOf(R.l)]*(1+Math.min(R.st-1,10)/10)),ex=R.n%10==0&&R.lives<5;R.pts+=p;tags.push("+"+p+" pts");if(ex){R.lives++;tags.push("Extra life!")}}else{R.lives--;tags.push("−1 life")}$("#es").innerHTML=estat()}if(R.tst){let k=item.k;if(ok)R.hit[k]=Math.max(R.hit[k],item.lv);R.p[k]=Math.max(0,Math.min(LV.length-1,R.p[k]+(ok?1:-1)))}
+const missText=it=>{let x=String(it.x||""),q=String(it.q||"");if(it.t=="mc"&&it.o&&it.o[it.a]!=null&&(!x||/^(Answer found|Check the passage)/.test(x)))return(q.length>110?q.slice(0,107)+"…":q)+" → "+it.o[it.a];return x||q};
+function answer(ok,item,extra=""){if(R.done)return;R.done=1;ok?(R.sc++,R.st++):(R.st=0,R.ms.push(missText(item)));R.bs=Math.max(R.bs||0,R.st);clearTimeout(R.tm);let tb=$("#tb"),tags=[];if(tb){tb.style.width=getComputedStyle(tb).width;tb.style.transition="none"}if(R.endless){if(ok){R.n++;let p=Math.round(10*MULT[LV.indexOf(R.l)]*(1+Math.min(R.st-1,10)/10)),ex=R.n%10==0&&R.lives<5;R.pts+=p;tags.push("+"+p+" pts");if(ex){R.lives++;tags.push("Extra life!")}}else{R.lives--;tags.push("−1 life")}$("#es").innerHTML=estat()}if(R.tst){let k=item.k;if(ok)R.hit[k]=Math.max(R.hit[k],item.lv);R.p[k]=Math.max(0,Math.min(LV.length-1,R.p[k]+(ok?1:-1)))}
  if(item.w)vmark(item.w,ok);if(!ok&&item.w&&R.q.length<14)R.q.splice(R.i+3,0,{...item});save();
  let w="";try{w=explain(item)}catch(e){}extra=String(extra||"").replace(/^(\s*<br>)+/,"").trim();let fb=$("#fb");fb.className="fb "+(ok?"is-ok":"is-no");
- fb.innerHTML=`<span class="fb-ic">${ic(ok?"check":"x")}</span><div class="fb-body"><p class="fb-title">${ok?"Correct":"Not quite"}${tags.map(t=>`<span class="chip">${t}</span>`).join("")}</p>${item.x?`<p>${esc(item.x)}</p>`:""}${w?`<div class="fb-explain">${w}</div>`:""}${extra?`<div class="fb-extra">${extra}</div>`:""}</div>`;
+ fb.innerHTML=`<span class="fb-ic">${ic(ok?"check":"x")}</span><div class="fb-body"><p class="fb-title">${ok?"Correct":"Not quite"}${tags.map(t=>`<span class="chip">${t}</span>`).join("")}</p>${item.x&&!(w&&/^(Answer found|Check the passage)/.test(item.x))?`<p>${esc(item.x)}</p>`:""}${w?`<div class="fb-explain">${w}</div>`:""}${extra?`<div class="fb-extra">${extra}</div>`:""}</div>`;
  document.querySelectorAll(".opts button,#pool button,#un,#ck,#rec,[data-self]").forEach(b=>b.disabled=true);let tx=$("#tx");if(tx)tx.readOnly=true;
  let nx=$("#nx");nx.hidden=false;if(R.endless&&R.lives<=0)nx.innerHTML="See results"+ic("arrowR");try{nx.focus({preventScroll:true})}catch(e){nx.focus()}setTimeout(()=>{try{nx.scrollIntoView({block:"nearest",behavior:"smooth"})}catch(e){}},60)}
 /* Level test: 16 adaptive questions, 4 per skill. Each skill starts at B1, moves up after a correct answer and down after a miss. */
@@ -7798,7 +7973,7 @@ let _vk="";
 function draw(){let h="";
  if(view=="home")h=home();else if(view=="round")h=round();else if(view=="end")h=end();else if(view=="flash")h=flash();else if(view=="tutor")h=tutor();else if(view=="lessons")h=lessons();else h=words();
  let A=$("#app");if(!A)return;A.innerHTML=h;A.dataset.view=view;
- let k=view+(view=="round"&&R?":"+R.i:"");if(k!=_vk){if(_vk)window.scrollTo(0,0);_vk=k}
+ let k=view+(view=="round"&&R?":"+R.i:"");if(k!=_vk){if(_vk)window.scrollTo({top:0,left:0,behavior:"instant"});_vk=k}
  wire();
  if(view=="tutor"){let c=$("#chat");if(c)c.scrollTop=c.scrollHeight}}
 function hero(sub){let n=dstreak(),d=new Date().toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long"});
@@ -7951,7 +8126,98 @@ document.addEventListener("click", (event) => {
   button.textContent = "✓ Lesson completed";
 });
 window.trainerLessonContext = () => ({ lessons: Array.from(LES.reduce((map, l) => { const previous = map.get(l[0]); map.set(l[0], { title: l[0], text: (previous ? previous.text + '\n' : '') + l[1].split('|').join('\n') }); return map; }, new Map()).values()), level: curLv() });</script><script>
-const picker = document.getElementById('export-theme');
-try { const value = localStorage.getItem('english-trainer-theme') || 'warm'; picker.value = value; document.documentElement.dataset.theme = picker.value || 'warm'; } catch {}
-picker.addEventListener('change', () => { document.documentElement.dataset.theme = picker.value; try { localStorage.setItem('english-trainer-theme', picker.value); } catch {} });
+(function () {
+  var KEY = 'english-trainer-theme', root = document.documentElement;
+  var NAMES = {warm:'Warm',ocean:'Ocean',forest:'Forest',violet:'Violet',rose:'Rose',mint:'Mint',cherry:'Cherry',sunflower:'Sunflower',lagoon:'Lagoon',graphite:'Graphite'};
+  var btn = document.getElementById('theme-btn'), pop = document.getElementById('theme-pop');
+  var dot = document.getElementById('theme-dot'), nameEl = document.getElementById('theme-name');
+  var opts = Array.prototype.slice.call(pop.querySelectorAll('[data-theme-opt]'));
+  var mq = window.matchMedia ? matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
+  var closeTimer = null, iconEl = document.querySelector('link[rel="icon"]');
+  function icon() {
+    if (!iconEl) return;
+    var cs = getComputedStyle(dot), h = cs.getPropertyValue('--h').trim() || '42', h2 = cs.getPropertyValue('--h2').trim() || h;
+    var svg = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='oklch(0.6 0.15 " + h + ")'/><stop offset='1' stop-color='oklch(0.72 0.15 " + h2 + ")'/></linearGradient></defs><rect width='64' height='64' rx='16' fill='url(#g)'/><text x='32' y='44' font-family='Georgia,serif' font-style='italic' font-size='34' text-anchor='middle' fill='white'>Ee</text></svg>";
+    iconEl.href = 'data:image/svg+xml,' + encodeURIComponent(svg);
+  }
+  function current() { var t = root.dataset.theme; return NAMES[t] ? t : 'warm'; }
+  function paint(t) {
+    root.dataset.theme = t; dot.dataset.swatch = t; nameEl.textContent = NAMES[t]; icon();
+    opts.forEach(function (o) { var on = o.dataset.themeOpt === t; o.setAttribute('aria-checked', on ? 'true' : 'false'); o.tabIndex = on ? 0 : -1; });
+  }
+  function showPop() {
+    clearTimeout(closeTimer); pop.classList.remove('is-closing'); pop.hidden = false; btn.setAttribute('aria-expanded', 'true');
+    var on = opts.filter(function (o) { return o.getAttribute('aria-checked') === 'true'; })[0] || opts[0]; on.focus({ preventScroll: true });
+  }
+  function hidePop(focusBtn, instant) {
+    if (pop.hidden) return;
+    btn.setAttribute('aria-expanded', 'false');
+    var finish = function () { pop.hidden = true; pop.classList.remove('is-closing'); };
+    if (instant || mq.matches) finish(); else { pop.classList.add('is-closing'); closeTimer = setTimeout(finish, 150); }
+    if (focusBtn) btn.focus({ preventScroll: true });
+  }
+  function pulse() { dot.classList.remove('pop'); void dot.offsetWidth; dot.classList.add('pop'); }
+  function reveal(from, apply, cls) {
+    if (mq.matches) { apply(); return; }
+    var r = from.getBoundingClientRect();
+    var x = r.left + r.width / 2, y = r.top + r.height / 2;
+    if (document.startViewTransition) {
+      var vt;
+      try { vt = document.startViewTransition(apply); } catch (e) { apply(); return; }
+      vt.ready.then(function () {
+        var rad = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+        root.animate(
+          { clipPath: ['circle(0px at ' + x + 'px ' + y + 'px)', 'circle(' + rad + 'px at ' + x + 'px ' + y + 'px)'] },
+          { duration: 800, easing: 'cubic-bezier(.45,0,.15,1)', pseudoElement: '::view-transition-new(root)' }
+        );
+      }).catch(function () {});
+    } else {
+      root.classList.add(cls);
+      apply();
+      setTimeout(function () { root.classList.remove(cls); }, 800);
+    }
+  }
+  function choose(t, from) {
+    if (t === current()) { hidePop(true); return; }
+    try { localStorage.setItem(KEY, t); } catch (e) {}
+    reveal(from.querySelector('.swatch-dot'), function () { paint(t); hidePop(true, true); pulse(); }, 'theme-anim');
+  }
+  var MKEY = 'english-trainer-mode', seg = document.getElementById('mode-seg');
+  var modeBtns = Array.prototype.slice.call(seg.querySelectorAll('[data-mode-opt]'));
+  function modeNow() { var m = root.dataset.mode; return m === 'light' || m === 'dark' ? m : 'auto'; }
+  function paintMode(m) {
+    if (m === 'auto') root.removeAttribute('data-mode'); else root.dataset.mode = m;
+    seg.dataset.m = m;
+    modeBtns.forEach(function (o) { var on = o.dataset.modeOpt === m; o.setAttribute('aria-checked', on ? 'true' : 'false'); o.tabIndex = on ? 0 : -1; });
+    icon();
+  }
+  function chooseMode(m, from) {
+    if (m === modeNow()) return;
+    try { if (m === 'auto') localStorage.removeItem(MKEY); else localStorage.setItem(MKEY, m); } catch (e) {}
+    reveal(from, function () { paintMode(m); }, 'mode-anim');
+  }
+  paint(current()); paintMode(modeNow());
+  modeBtns.forEach(function (o) { o.addEventListener('click', function () { chooseMode(o.dataset.modeOpt, o); }); });
+  btn.addEventListener('click', function () { pop.hidden || pop.classList.contains('is-closing') ? showPop() : hidePop(); });
+  opts.forEach(function (o) { o.addEventListener('click', function () { choose(o.dataset.themeOpt, o); }); });
+  document.addEventListener('pointerdown', function (e) { if (!pop.hidden && !pop.contains(e.target) && !btn.contains(e.target)) hidePop(); });
+  document.addEventListener('keydown', function (e) {
+    if (pop.hidden) return;
+    if (e.key === 'Escape') { e.preventDefault(); hidePop(true); return; }
+    var ai = document.activeElement, mi = modeBtns.indexOf(ai);
+    if (mi > -1) {
+      var cur = function () { return opts.filter(function (o) { return o.getAttribute('aria-checked') === 'true'; })[0] || opts[0]; };
+      if (e.key === 'ArrowRight') { e.preventDefault(); modeBtns[(mi + 1) % 3].focus({ preventScroll: true }); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); modeBtns[(mi + 2) % 3].focus({ preventScroll: true }); }
+      else if (e.key === 'ArrowDown') { e.preventDefault(); cur().focus({ preventScroll: true }); }
+      else if (e.key === 'Tab') hidePop();
+      return;
+    }
+    var i = opts.indexOf(ai), n = opts.length, go = function (j) { e.preventDefault(); opts[Math.max(0, Math.min(n - 1, j))].focus({ preventScroll: true }); };
+    if (e.key === 'ArrowRight') go(i + 1); else if (e.key === 'ArrowLeft') go(i - 1);
+    else if (e.key === 'ArrowDown') go(i < 0 ? 0 : i + 2); else if (e.key === 'ArrowUp') { if (i < 2) { e.preventDefault(); (modeBtns.filter(function (o) { return o.getAttribute('aria-checked') === 'true'; })[0] || modeBtns[0]).focus({ preventScroll: true }); } else go(i - 2); }
+    else if (e.key === 'Home') go(0); else if (e.key === 'End') go(n - 1);
+    else if (e.key === 'Tab') hidePop();
+  });
+})();
 </script></body></html>
