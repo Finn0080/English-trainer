@@ -3368,7 +3368,7 @@ html[data-theme="graphite"], [data-swatch="graphite"] {
     gap: 20px;
     flex: 1;
   }
-  .trainer:is([data-view="round"], [data-view="end"], [data-view="flash"], [data-view="tutor"], [data-view="studio"]) {
+  .trainer:is([data-view="round"], [data-view="end"], [data-view="flash"], [data-view="tutor"]) {
     max-width: 720px;
   }
   .trainer:not([data-view="tutor"]) > * {
@@ -6945,7 +6945,7 @@ html[data-mode="dark"]{
 .ring{box-shadow:none}
 /* header lines up with the narrower reading views */
 .topbar-in{transition:max-width .35s cubic-bezier(.2,.7,.2,1)}
-.app-shell:has(.trainer[data-view="round"],.trainer[data-view="end"],.trainer[data-view="flash"],.trainer[data-view="tutor"],.trainer[data-view="studio"]) .topbar-in{max-width:720px}
+.app-shell:has(.trainer[data-view="round"],.trainer[data-view="end"],.trainer[data-view="flash"],.trainer[data-view="tutor"]) .topbar-in{max-width:720px}
 html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:color-mix(in oklab,var(--primary) 38%,var(--muted)) transparent}
 button,select,label,summary,[role=button]{touch-action:manipulation}
 :where(button,select,[role=button]){-webkit-user-select:none;user-select:none}
@@ -6959,6 +6959,81 @@ button,select,label,summary,[role=button]{touch-action:manipulation}
 .mode-seg[data-m="dark"] .mode-thumb{transform:translateX(200%)}
 html.mode-anim,html.mode-anim *,html.mode-anim *::before,html.mode-anim *::after{transition:background-color .5s ease,color .5s ease,border-color .5s ease,box-shadow .5s ease,fill .5s ease,stroke .5s ease!important}
 @media (pointer:coarse){.kbd-hint{display:none}}
+/* ===== flashcards: real 3D flip, deck session ===== */
+.trainer.no-rise>*{animation:none!important}
+.deck{perspective:1400px}
+.fc3d{position:relative;z-index:1;display:grid;transform-style:preserve-3d;transition:transform .65s cubic-bezier(.2,.8,.2,1);cursor:pointer;border-radius:30px;outline:none}
+.fc3d.flipped{transform:rotateY(180deg)}
+.fc3d.enter{animation:fcEnter .45s cubic-bezier(.2,.7,.2,1) backwards}
+.fc3d:focus-visible{box-shadow:0 0 0 3px var(--ring)}
+.fc-side{grid-area:1/1;-webkit-backface-visibility:hidden;backface-visibility:hidden;animation:none!important}
+.fc-back{transform:rotateY(180deg)}
+.fc-tag{margin:0 0 -4px;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted-foreground)}
+.flash-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:-6px}
+@keyframes fcEnter{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
+/* ===== Word Studio ===== */
+.ws-hero{position:relative;overflow:hidden}
+.ws-hero::before{content:"";position:absolute;top:-120px;right:-80px;width:340px;height:340px;background:radial-gradient(closest-side,color-mix(in oklab,var(--primary) 20%,transparent),transparent);pointer-events:none}
+.ws-hero>*{position:relative}
+.trainer .ws-hero textarea{min-height:112px;margin-top:2px}
+.ws-ideas{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 2px}
+.ws-idea{font-size:.82rem;font-weight:600;padding:7px 12px;border-radius:999px;border:1px dashed var(--border-strong);background:transparent;color:var(--muted-foreground);text-align:left;transition:border-color .2s,color .2s,transform .16s}
+.ws-idea:hover:not(:disabled){border:1px solid var(--primary);color:var(--primary);transform:translateY(-1px)}
+.ws-level{display:flex;align-items:center;gap:12px;margin:14px 0}
+.ws-lab{font-size:.74rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-foreground)}
+.ws-level .seg{flex:1}
+.ws-go{width:100%}
+.ws-load{display:flex;align-items:center;gap:10px;margin-top:14px;color:var(--muted-foreground);font-size:.92rem}
+.ws-sp{flex:none;width:18px;height:18px;border-radius:50%;border:2px solid var(--border-strong);border-top-color:var(--primary);animation:wsSpin .8s linear infinite}
+.ws-err{display:flex;gap:10px;margin-top:14px;padding:12px 14px;border-radius:14px;background:var(--destructive-soft);color:var(--destructive);font-size:.92rem;font-weight:600}
+.ws-err .ic{flex:none;margin-top:2px}
+.ws-set{margin-top:16px}
+.ws-set .actions{margin-top:16px}
+.ws-set>.actions:last-child{margin-top:20px;padding-top:16px;border-top:1px solid var(--border)}
+.ws-title{margin:2px 0 4px;font-size:1.5rem}
+.ws-tabs{margin:16px 0}
+.ws-tabs button small{min-width:20px;padding:1px 6px;border-radius:999px;background:var(--muted);font-size:.72rem;font-weight:700}
+.ws-tabs button.on small{background:var(--accent);color:var(--accent-foreground)}
+.ws-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin:16px 0}
+.ws-card{perspective:1100px;cursor:pointer;border-radius:22px;outline:none}
+.ws-card:focus-visible{box-shadow:0 0 0 3px var(--ring)}
+.ws-in{display:grid;min-height:230px;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.ws-card.f .ws-in{transform:rotateY(180deg)}
+.ws-face{grid-area:1/1;-webkit-backface-visibility:hidden;backface-visibility:hidden;display:flex;flex-direction:column;gap:6px;padding:18px;border-radius:22px;border:1px solid var(--border);background:var(--card);box-shadow:var(--shadow-sm),var(--highlight);text-align:left;transition:border-color .2s,box-shadow .2s}
+.ws-card:hover .ws-face{border-color:color-mix(in oklab,var(--primary) 35%,var(--border));box-shadow:var(--shadow-md),var(--highlight)}
+.ws-back{transform:rotateY(180deg);background:radial-gradient(90% 70% at 50% 100%,color-mix(in oklab,var(--primary) 12%,transparent),transparent 70%),var(--card)}
+.ws-pos{font-size:.68rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--primary)}
+.ws-w{margin-top:auto;font-family:var(--font-display);font-size:1.7rem;font-weight:540;line-height:1.1;letter-spacing:-.01em;overflow-wrap:anywhere}
+.ws-ipa{color:var(--muted-foreground);font-size:.92rem}
+.ws-acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.ws-hint{display:flex;align-items:center;gap:6px;margin-top:auto;padding-top:8px;font-size:.74rem;font-weight:600;color:var(--muted-foreground)}
+.ws-hint .ic{width:13px;height:13px}
+.ws-mean{font-weight:700;font-size:1.04rem;line-height:1.35}
+.ws-exm{font-style:italic;color:var(--muted-foreground)}
+.ws-tip{display:flex;gap:8px;font-size:.86rem;line-height:1.4}
+.ws-tip .ic{flex:none;width:16px;height:16px;margin-top:2px;color:var(--primary)}
+.ws-q{margin:12px 0;padding:16px;border-radius:20px;border:1px solid var(--border);background:var(--card);box-shadow:var(--shadow-xs)}
+.ws-qt{display:flex;gap:10px;margin:0 0 12px;font-weight:700;line-height:1.4}
+.ws-qn{flex:none;display:grid;place-items:center;width:26px;height:26px;border-radius:9px;background:var(--accent);color:var(--accent-foreground);font-size:.8rem}
+.ws-ex{margin-top:12px;padding:10px 12px;border-radius:12px;background:var(--muted);font-size:.92rem}
+.ws-ex.good{background:var(--success-soft)}
+.ws-ex.bad{background:var(--destructive-soft)}
+.ws-score{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:4px 0 8px}
+.ws-score b{font-family:var(--font-display);font-size:1.5rem;font-weight:560;color:var(--primary)}
+.ws-score span{color:var(--muted-foreground);font-weight:600}
+.ws-fi input.ok{border-color:var(--success)!important;background:var(--success-soft)!important}
+.ws-fi input.no{border-color:var(--destructive)!important;background:var(--destructive-soft)!important}
+.wchip-wrap{display:inline-flex;align-items:center;border:1px solid var(--border-strong);border-radius:999px;background:var(--card);overflow:hidden}
+.wchip-wrap .wchip{height:34px;border:0;border-radius:0;background:transparent}
+.wchip-x{display:grid;place-items:center;width:30px;height:34px;color:var(--muted-foreground);transition:color .2s,background-color .2s}
+.wchip-x:hover{color:var(--destructive);background:var(--destructive-soft)}
+.wchip-x .ic{width:14px;height:14px}
+.wg-ws .actions{margin-top:12px}
+@keyframes wsSpin{to{transform:rotate(360deg)}}
+@media (min-width:640px){.tools:has(.tool:nth-child(6)){grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:560px){.ws-level{flex-direction:column;align-items:stretch;gap:8px}.ws-grid{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.fc3d,.ws-in{transition:none}.fc3d.enter{animation:none}.ws-sp{animation-duration:2s}}
+
 @media (max-width:560px){
   .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:18px}
   .stat{flex-direction:column;justify-content:center;text-align:center;gap:6px;padding:10px 4px;border-radius:18px}
@@ -6967,55 +7042,6 @@ html.mode-anim,html.mode-anim *,html.mode-anim *::before,html.mode-anim *::after
   .card-feature .card-head>.chip{display:none}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.topbar-in{transition:none}}
-
-/* ===== WORD STUDIO ===== */
-.ws-make textarea{width:100%;min-height:104px;margin-top:14px}
-.ws-ideas{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
-.ws-idea{font-size:.82rem;font-weight:600;padding:7px 12px;border-radius:999px;border:1px dashed var(--border-strong);background:transparent;color:var(--muted-foreground);transition:border-color .2s,background-color .2s,color .2s}
-.ws-idea:hover{border-color:var(--primary);background:var(--accent);color:var(--accent-foreground)}
-.ws-lv{margin:4px 0 14px}
-.ws-go{width:100%}
-.ws-load{display:flex;align-items:center;gap:10px;margin-top:14px;font-size:.92rem;color:var(--muted-foreground)}
-.ws-sp{flex:none;width:18px;height:18px;border-radius:50%;border:2px solid var(--border-strong);border-top-color:var(--primary);animation:wsr .8s linear infinite}
-@keyframes wsr{to{transform:rotate(360deg)}}
-@media (prefers-reduced-motion:reduce){.ws-sp{animation-duration:2.4s}}
-.ws-make .fb{margin-top:14px}
-.ws-tabs{margin-top:16px}
-.ws-q{display:flex;flex-direction:column;gap:12px}
-.ws-qt{font-family:var(--font-display);font-size:1.25rem;font-weight:520;line-height:1.35}
-.ws-sub{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
-.fc-tip{max-width:38ch;font-size:.9rem;color:var(--muted-foreground)}
-.fc-tip::before{content:"Tip \00b7  ";font-weight:700;color:var(--primary)}
-.flashcard .eyebrow{margin:0}
-
-.ws-recent{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:8px}
-.ws-recent li{display:flex;gap:8px;align-items:stretch}
-.ws-rc{flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;padding:12px 14px;border-radius:16px;background:var(--card);border:1px solid var(--border);transition:border-color .2s}
-.ws-rc:hover{border-color:var(--primary)}
-.ws-rc b{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.ws-rc small{color:var(--muted-foreground)}
-.ws-kbd{text-align:center}
-@media (hover:none){.ws-kbd{display:none}}
-
-#app [hidden]{display:none!important}
-.ls-bar{height:8px;border-radius:999px;background:var(--muted);border:1px solid var(--border);overflow:hidden;margin:16px 0}
-.ls-bar i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--primary),var(--primary-2));transition:width .45s cubic-bezier(.2,.7,.2,1)}
-.ls-next{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-radius:16px;background:var(--accent);color:var(--accent-foreground);margin-bottom:14px}
-.ls-next p{margin:0}
-.ls-tools{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 12px}
-.ls-tools input{flex:1;min-width:170px}
-.ls-note{width:100%;min-height:72px;margin:12px 0 4px}
-.ls-badge{display:inline-flex}
-.mw-act{margin-bottom:14px}
-.wod-main{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:6px}
-.wod-w{font-family:var(--font-display);font-size:clamp(1.8rem,6vw,2.4rem);font-weight:540;letter-spacing:-.02em;line-height:1.1}
-.wod-d{margin:8px 0 2px;font-weight:550}
-.wod .eyebrow{display:flex;align-items:center;gap:6px}
-.wod .actions{margin-top:12px}
-.wsaved{display:inline-flex;align-items:center;gap:2px}
-.wrm{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;color:var(--muted-foreground);background:transparent}
-.wrm:hover{background:var(--destructive-soft);color:var(--destructive)}
-.wrm .ic{width:14px;height:14px}
 </style><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='oklch%280.6 0.15 42%29'/%3E%3Cstop offset='1' stop-color='oklch%280.72 0.15 72%29'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url%28%23g%29'/%3E%3Ctext x='32' y='44' font-family='Georgia%2Cserif' font-style='italic' font-size='34' text-anchor='middle' fill='white'%3EEe%3C/text%3E%3C/svg%3E"><script>try{var t=localStorage.getItem("english-trainer-theme");if(t)document.documentElement.dataset.theme=t;var m=localStorage.getItem("english-trainer-mode");if(m==="light"||m==="dark")document.documentElement.dataset.mode=m}catch(e){}</script></head><body><div class="app-shell"><header class="topbar"><div class="topbar-in"><button class="brand" onclick="window.trainerHome()"><span class="brand-mark">Ee</span><span class="brand-name">English Trainer</span></button>
 <div class="theme-wrap"><button type="button" class="theme-trigger" id="theme-btn" aria-haspopup="true" aria-expanded="false" aria-controls="theme-pop" aria-label="Colour theme"><span class="swatch-dot" id="theme-dot" data-swatch="warm"></span><span id="theme-name">Warm</span><svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button><div class="theme-pop" id="theme-pop" role="radiogroup" aria-label="Colour theme" hidden><div class="theme-pop-head"><p class="theme-pop-title">Colour theme</p><span class="theme-pop-hint">Saved on this device</span></div><div class="mode-seg" id="mode-seg" role="radiogroup" aria-label="Appearance" data-m="auto"><span class="mode-thumb" aria-hidden="true"></span><button type="button" role="radio" aria-checked="true" data-mode-opt="auto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg><span>Auto</span></button><button type="button" role="radio" aria-checked="false" data-mode-opt="light"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg><span>Light</span></button><button type="button" role="radio" aria-checked="false" data-mode-opt="dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><span>Dark</span></button></div><div class="theme-grid"><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="warm" data-swatch="warm" style="--i:0"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Warm</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="ocean" data-swatch="ocean" style="--i:1"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Ocean</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="forest" data-swatch="forest" style="--i:2"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Forest</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="violet" data-swatch="violet" style="--i:3"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Violet</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="rose" data-swatch="rose" style="--i:4"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Rose</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="mint" data-swatch="mint" style="--i:5"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Mint</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="cherry" data-swatch="cherry" style="--i:6"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Cherry</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="sunflower" data-swatch="sunflower" style="--i:7"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Sunflower</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="lagoon" data-swatch="lagoon" style="--i:8"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Lagoon</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="graphite" data-swatch="graphite" style="--i:9"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Graphite</span></button></div></div></div></div></header><main id="app" class="trainer"></main></div>
 <script>/* English Trainer engine: content (DATA), state, question builders and round logic.
@@ -7178,7 +7204,7 @@ const FEED_URL="https://github.com/Finn0080/English-trainer/blob/main/feed.json"
 const PROXY_URL="https://english-tutor.tunglamisfinn.workers.dev";
 let FEED={};
 /* ===== 2. STATE ===== */
-let S=load(),R=null,view="home",FWC=null;
+let S=load(),R=null,view="home";
 /* ===== 3. STORAGE (try/catch: works even if localStorage is blocked) ===== */
 function load(){let s=null;try{s=JSON.parse(localStorage.getItem("eng1"))}catch(e){}
  if(!s||typeof s!="object"||Array.isArray(s))s={};
@@ -7190,6 +7216,8 @@ function load(){let s=null;try{s=JSON.parse(localStorage.getItem("eng1"))}catch(
  if(s.d&&s.d.IELTS)delete s.d.IELTS;
  for(const k of["dl","el"])if(s[k]=="IELTS")s[k]="C2";
  if(s.est>5)s.est=5;
+ if(!Array.isArray(s.ws))delete s.ws;else s.ws=s.ws.filter(w=>w&&typeof w.word=="string"&&typeof w.meaning=="string");
+ if(s.wsLast&&!(s.wsLast.set&&Array.isArray(s.wsLast.set.words)))delete s.wsLast;
  try{localStorage.removeItem("english-trainer-account")}catch(e){}
  return s}
 function save(){try{localStorage.setItem("eng1",JSON.stringify(S))}catch(e){}}
@@ -7653,7 +7681,7 @@ const SP2=(k,ix)=>{let a=SKD.filter(x=>x[0]==k),b=a.filter(x=>ix>=3?x[1]>=3:x[1]
 function skillItems(l,k,r){let ix=LV.indexOf(l),all=(r?[...SP2(k,ix)].sort(()=>r()-.5):sh(SP2(k,ix))).sort((a,b)=>Math.abs(a[1]-ix)-Math.abs(b[1]-ix)),near=all.filter(x=>Math.abs(x[1]-ix)<=1);
  return(near.length>=6?near:all.slice(0,6)).slice(0,10).map(x=>TY[k]?{t:"type",q:(k=="wordform"?"Word form: complete with the correct form. ":"Complete so the meaning stays the same. ")+x[2],a:x[3],x:x[3].split("/")[0]}:mc("Choose the best option: "+x[2],[x[3],x[4],x[5]],0,x[2].replace("____",x[3])))}
 function startSkill(l,k){S.dl=l;R={l,m:"sk_"+k,i:0,sc:0,st:0,ms:[],q:skillItems(l,k),done:0,timed:RT[LV.indexOf(l)]>0};view="round";draw()}
-const fw=()=>FWC?FWC.w:S.fwg?gwords(S.fwg):DATA[curLv()].W;
+
 const curLv=()=>{let ls=LV.filter(x=>DATA[x].P.length&&unlocked(x));return ls.includes(S.dl)?S.dl:ls[ls.length-1]};
 const skl=()=>{let ls=tls();return ls.includes(S.dl)?S.dl:ls[ls.length-1]};
 function scard(){let cl=skl(),adv=S.tab=="advanced",pm=PASS[LV.indexOf(cl)]||70;return`<section class="card">${head("list","Sub-skills",adv?"Advanced practice: B2–C2 structures only (inversion, passive reporting, participle and cleft clauses, formal linking). Harder items and tighter timers.":"Basic practice: A1–B1 grammar (tenses, modals, comparisons, questions, everyday patterns).",`<span class="chip">${cl}</span>`)}<div class="skills">${Object.entries(SKN).filter(([k])=>(adv?SKA:SKB).includes(k)).map(([k,v])=>{let p=S.p[cl+"sk_"+k];return`<button class="skill" data-sk="${k}"><span>${v}</span>${p!=null?`<span class="skill-p${p>=pm?" pass":""}">${p}%</span>`:`<span class="skill-go">${ic("chevR")}</span>`}</button>`}).join("")}</div></section>`}
@@ -7685,61 +7713,9 @@ const LES=[["Listening: how to catch more","Read the question before you listen 
 ["Prepositions & articles","Learn fixed pairs: good at, interested in, depends on, afraid of, accused of.|Time: at six, on Monday, in July. Place: at the station, in London.|a/an for one of many, the for known things; some/any with uncountables.|Few = not many, a little = some (uncountable).","s:prepositions"],
 ["Linking words","Contrast: but, although, however, whereas, despite + noun.|Cause and result: because, so, therefore, consequently, as a result.|Addition: moreover, in addition. Example: for example, such as.|Use a comma after sentence-opening linkers.","s:linking"],
 ["Phrasal verbs","A phrasal verb is verb + particle with a special meaning (give up = stop).|Some split (turn the light on), some do not (look after her).|Learn them in a sentence and with their meaning.|Higher levels use formal ones: phase out, fall through, bring about.","s:phrasal"],
-["CEFR levels","A1-A2 basic, B1-B2 independent, C1-C2 advanced.|Pass marks rise from 70% to 85%, and B2 and above are timed.|Advanced tips: paraphrase, use precise data language (rose sharply, remained stable), and link ideas.|Use the Level test to find your level, Daily practice for habit, Endless mode for challenge.","m:reading"],
-["Listening: numbers, dates and spelling","Numbers that sound alike: 13 and 30, 14 and 40. In -teen words the stress is on the end (thirTEEN), in -ty words on the start (THIRty).|Years are said in pairs: 1999 is nineteen ninety-nine. 2008 is two thousand and eight.|Spelling: listen for double letters (double L) and letter pairs that confuse: E and I, G and J, A and R.|Write numbers as digits while you listen and check the units (%, km, dollars) afterwards.","m:listening"],
-["Listening: understanding fast speech","Speakers link words together: pick it up sounds like pi-ki-tup.|Small words are reduced: to, for, and and of are often weak and quiet.|If you miss a word, use the topic and the words around it to guess, then keep listening.|Practise shadowing: repeat after the speaker at the same speed, a few seconds behind.","m:listening"],
-["Speaking: fluency and filler phrases","Fluency means keeping going, not being perfect. Fix small mistakes later.|Use natural fillers while you think: well, let me see, that's a good question, actually.|If you forget a word, describe it: it's a thing you use to... or it's like a...|Answer in two parts: your answer plus one reason or example.","m:speaking"],
-["Speaking: giving opinions politely","Start with: I think, In my opinion, As far as I'm concerned.|Agree with: I agree, That's true, Exactly. Partly agree with: I see your point, but...|Disagree politely: I'm not sure about that, or I'd say the opposite is true.|Support your view with because, for example and for instance.","m:speaking"],
-["Reading: skimming and scanning","Skim first: read the title, the first line of each paragraph and the last line. It takes about 30 seconds.|Scan for names, numbers and dates by moving your eyes down the page, not by reading every word.|Underline the key words in the question, then look for the same word or a synonym in the text.|Answers usually appear in the same order as the questions.","m:reading"],
-["Reading: guessing unknown words","Do not stop at every new word. Read the whole sentence first.|Decide the part of speech: is it a noun, a verb or an adjective?|Look for clues: but and however show opposites, for example introduces an example.|Check the word parts: un- means not, re- means again, -less means without.","m:reading"],
-["Writing: emails and messages","Open with a greeting that fits: Dear Mr Lee (formal) or Hi Anna (friendly).|Give your reason in the first line: I'm writing to ask about...|Keep paragraphs short, one idea each, and end with a clear request.|Yours sincerely goes with a name (Dear Mr Lee). Yours faithfully goes with Dear Sir or Madam.","m:writing"],
-["Writing: opinion essays","Plan four parts: introduction, two body paragraphs and a conclusion.|Introduction: introduce the topic and give your opinion in one sentence.|Each body paragraph has one main point, a reason and an example.|Conclusion: repeat your view in new words. Do not add new ideas.","m:writing"],
-["Writing: punctuation that matters","Put a comma after an opening phrase: However, In my opinion, When I arrived,|Do not join two sentences with only a comma. Use a full stop, a linking word or a semicolon.|An apostrophe shows ownership (Mai's book) or missing letters (it's = it is). Its without an apostrophe shows ownership.|Use capital letters for names, days, months, languages and the word I.","m:writing"],
-["Vocabulary: collocations","Collocations are words that naturally go together: make a decision, do homework, take a photo.|Say heavy rain, not strong rain, but strong coffee, not heavy coffee.|Learn chunks, not single words. Write the whole phrase in your notebook.|Check a phrase with a collocation dictionary or by searching it in quotation marks.","m:vocab"],
-["Vocabulary: word families and prefixes","One root gives many words: decide, decision, decisive, undecided.|Common prefixes: un-, in-, im-, dis- (not), re- (again), pre- (before), mis- (wrongly).|Common suffixes: -tion and -ment make nouns, -ful, -less and -ous make adjectives, -ly makes adverbs.|Learn the whole family when you learn a new word, then practise Word form.","m:vocab"],
-["Vocabulary: easily confused words","Affect is usually a verb (rain affects traffic). Effect is usually a noun (the effect of rain).|Borrow means take for a short time. Lend means give for a short time: I borrow your pen, you lend me your pen.|Make or do: make a mistake, make a plan, do homework, do the dishes.|Say something, tell someone something, speak a language, talk with someone.","m:vocab"],
-["Pronunciation: -ed and -s endings","-ed sounds like /t/ after voiceless sounds (worked), /d/ after voiced sounds (played) and /ɪd/ after t or d (wanted).|-s sounds like /s/ after voiceless sounds (cats), /z/ after voiced sounds (dogs) and /ɪz/ after s, z, sh, ch and j sounds (watches).|Touch your throat: a buzz means a voiced sound.|Do not add an extra syllable to every -ed ending. Worked has one syllable, wanted has two.","m:pron"],
-["Pronunciation: sentence stress and intonation","Stress the content words (nouns, verbs, adjectives) and say small words quickly and quietly.|Use a falling tone for statements and wh-questions: Where do you live?|Use a rising tone for yes/no questions: Do you like tea?|In a list, rise on each item and fall on the last one.","m:pron"],
-["Articles: a, an, the or nothing","Use a or an the first time, or for one of many: I saw a dog. Use the when both people know which one: The dog was brown.|Use an before a vowel sound (an hour, an umbrella) and a before a consonant sound (a university).|Use no article for general plurals and uncountable nouns: Dogs are loyal. Water is important.|Use the for unique things (the sun), superlatives (the best) and rivers and seas (the Mekong).","s:articles"],
-["Passive voice","Form: be + past participle. The window was broken. English is spoken here.|Use the passive when the doer is unknown or not important: My bike was stolen.|Add by + the doer only when it matters: The novel was written by Nam Cao.|Other tenses: is being built, has been finished, will be announced, must be done.","s:passive"],
-["Passive: reporting verbs and have something done","It is said that... or He is said to be... Also believed, thought, reported, known.|Have something done means someone does it for you: I had my hair cut.|Get is more informal: She got her phone repaired.|Do not use have something done for things you do yourself.","s:passive"],
-["Inversion for emphasis","After a negative adverb at the start, put the auxiliary before the subject: Never have I seen such a view.|Common openers: hardly, no sooner, rarely, seldom, not only, only when, little.|Hardly had she sat down when the phone rang. No sooner had he left than it began to rain.|If there is no auxiliary, add do, does or did: Rarely does he complain.","s:inversion"],
-["Relative clauses","Who is for people, which for things, whose for possession, where for places and when for time.|Defining clauses give essential information and have no commas: The girl who lives next door is my friend.|Non-defining clauses add extra information and use commas: Hue, which is in central Viet Nam, is famous for its food.|You can drop who, which or that when it is the object: The film we watched was long. Do not use that in non-defining clauses.","s:sentences"],
-["Comparisons: more patterns","as + adjective + as shows equality: He is as tall as me. not as... as shows less.|Use the + comparative, the + comparative for change together: The more you practise, the better you get.|Use much, far, a bit or slightly before a comparative: much taller, slightly cheaper.|Use twice as, three times as: This bag is twice as heavy as that one.","s:comparison"],
-["Countable and uncountable nouns","Countable nouns have a plural (a book, two books). Uncountable nouns do not (water, advice, information).|Use many and few with countable nouns, much and little with uncountable nouns.|Use a unit word: a piece of advice, a glass of water, a slice of bread.|News, furniture, luggage, homework and traffic are uncountable in English.","s:quantifiers"],
-["Used to and would","Used to + verb describes past habits and states that are no longer true: I used to live in Da Nang.|Would describes repeated past actions only, not states: We would play outside every evening.|Negative and questions: I didn't use to smoke. Did you use to play chess?|Be used to + -ing means familiar with: I am used to getting up early.","s:pastSimple"],
-["Modals of deduction","Must means you are almost sure it is true: He must be tired.|Can't means you are almost sure it is not true: That can't be Nam, he is abroad.|May, might and could mean it is possible: She might be at home.|For the past use modal + have + past participle: She must have left.","s:modals"],
-["Gerund or infinitive: changes in meaning","Stop doing means finish an activity. Stop to do means stop in order to do something: He stopped to buy water.|Remember doing means recall the past. Remember to do means do not forget a task.|Try doing means experiment. Try to do means make an effort.|Regret works the same way: I regret telling her (I am sorry I did it).","s:gerunds"],
-["Reported questions and commands","Reported questions use statement word order: She asked where I lived, not where did I live.|Yes/no questions use if or whether: He asked if I was ready.|Commands use tell + person + to-infinitive: She told me to sit down. Negative: told me not to.|Move tenses back and change time words: today becomes that day, tomorrow becomes the next day.","s:reported"],
-["Mixed conditionals","Past condition, present result: If I had studied harder, I would have a better job now.|Present condition, past result: If she were more careful, she wouldn't have broken it.|Check the time of each clause, not just the pattern.|Use could or might instead of would when you are less sure.","s:conditionals"],
-["Subject-verb agreement","A singular subject takes -s: She works. A plural subject does not: They work.|Each, every, everyone and nobody take a singular verb.|With either...or and neither...nor, the verb agrees with the nearer subject.|Words between the subject and the verb do not change it: The box of apples is heavy.","s:presentSimple"],
-["Adjectives: -ed or -ing, and word order","-ing describes the cause: The film is boring. -ed describes the feeling: I am bored.|Pairs: interesting and interested, exciting and excited, tiring and tired, surprising and surprised.|Adjective order: opinion, size, age, colour, material: a lovely little old red silk scarf.|Adjectives never take a plural -s: two tall boys.","s:wordform"],
-["Time expressions","For + a period (for three years), since + a starting point (since 2020).|Already, yet, just, ever and never go with the present perfect.|Ago and last go with the past simple: two days ago, last week.|By + time means not later than. Until means up to that time.","s:tenses"],
-["Question tags","A positive statement takes a negative tag: You like tea, don't you?|A negative statement takes a positive tag: She isn't late, is she?|Repeat the auxiliary (has she, will they). With no auxiliary, use do, does or did.|Rising tone means a real question. Falling tone means you expect agreement. Special cases: I am, aren't I? and Let's, shall we?","s:questions"]];
-const LF={q:"",f:"all"},LD=()=>S.completedLessons||[];
-/* unique save key per lesson: a few titles appear twice, so later copies get a #2 suffix (first copies keep the old key) */
-const lsKey=l=>{let n=LES.slice(0,LES.indexOf(l)).filter(x=>x[0]==l[0]).length;return n?l[0]+" #"+(n+1):l[0]};
-const lsDone=()=>LES.filter(l=>LD().includes(lsKey(l))).length;
-function lsNext(){let i=LES.findIndex(l=>!LD().includes(lsKey(l)));
- if(i<0)return`<p class="perfect">${ic("sparkles")}All ${LES.length} lessons completed. Great work!</p>`;
- let m=/^([^:]+): (.+)$/.exec(LES[i][0]),t=m?m[2][0].toUpperCase()+m[2].slice(1):LES[i][0];
- return`<p><b>Next up:</b> ${esc(t)}</p><button class="btn-primary btn-sm" data-lo="${i}">${ic("book")}Open lesson</button>`}
-function lessons(){let lv=curLv(),n=0,dn=lsDone(),G=[["Skills & strategy",LES.filter(l=>l[2].startsWith("m:"))],["Grammar",LES.filter(l=>!l[2].startsWith("m:"))]];
- return bar("Lessons")+`<section class="card">${head("book","Lessons","Short, practical guides. Open one, read the tips, then practise straight away.",`<span class="chip" id="ls-chip">${dn} / ${LES.length} done</span>`)}
-<div class="ls-bar" role="progressbar" aria-label="Lessons completed" aria-valuemin="0" aria-valuemax="${LES.length}" aria-valuenow="${dn}"><i id="ls-bar" style="width:${Math.round(100*dn/LES.length)}%"></i></div>
-<div class="ls-next" id="ls-next">${lsNext()}</div>
-<div class="ls-tools"><input type="text" id="ls-q" placeholder="Search lessons…" aria-label="Search lessons" value="${esc(LF.q)}" autocomplete="off"><div class="seg ls-f" role="group" aria-label="Show">${[["all","All"],["todo","To do"],["done","Done"]].map(([k,v])=>`<button class="${LF.f==k?"on":""}" aria-pressed="${LF.f==k}" data-lf="${k}">${v}</button>`).join("")}</div></div>
-${G.map(([h,ls])=>`<p class="group-h">${h}</p><div class="accs">${ls.map(l=>{let idx=LES.indexOf(l),done=LD().includes(lsKey(l)),key=lsKey(l);n++;let m=/^([^:]+): (.+)$/.exec(l[0]),t=m?m[2][0].toUpperCase()+m[2].slice(1):l[0],tips=l[1].split("|").join(". ");
-  return acc(n,esc(t),m?esc(m[1]):"",`<span class="ls-badge">${done?`<span class="chip">${ic("check")}Done</span>`:""}</span>`,`${ticks(l[1])}<textarea class="ls-note" data-ln="${esc(key)}" placeholder="My notes for this lesson…" aria-label="My notes">${esc((S.ln||{})[key]||"")}</textarea><div class="acc-actions"><button class="btn-primary" data-p="${l[2]}">${ic("play")}Practise at ${lv}</button><button class="btn-soft" data-say="${esc(tips)}">${ic("volume")}Listen</button><button class="${done?"btn-soft":"btn"}" data-cl="${esc(key)}">${done?ic("check")+"Completed":"Mark complete"}</button></div>`).replace('<details class="acc"',`<details class="acc" data-li="${idx}" data-ld="${done?1:0}" data-lt="${esc((l[0]+" "+l[1]).toLowerCase())}"`)}).join("")}</div>`).join("")}
-<p class="empty" id="ls-empty" hidden>No lessons match your search.</p></section>`}
-function lsApply(){let q=LF.q.trim().toLowerCase(),f=LF.f;
- document.querySelectorAll("#app details.acc[data-lt]").forEach(d=>{d.hidden=!((!q||d.dataset.lt.includes(q))&&(f=="all"||(f=="done")==(d.dataset.ld=="1")))});
- document.querySelectorAll("#app .accs").forEach(a=>{let any=[...a.children].some(c=>!c.hidden),h=a.previousElementSibling;a.hidden=!any;if(h&&h.classList.contains("group-h"))h.hidden=!any});
- let e=$("#ls-empty");if(e)e.hidden=[...document.querySelectorAll("#app details.acc")].some(d=>!d.hidden)}
-function lsRefresh(){let dn=lsDone(),b=$("#ls-bar"),c=$("#ls-chip"),nx=$("#ls-next");
- if(b){b.style.width=Math.round(100*dn/LES.length)+"%";b.parentElement.setAttribute("aria-valuenow",dn)}if(c)c.textContent=dn+" / "+LES.length+" done";if(nx)nx.innerHTML=lsNext()}
-function lsWire(){let q=$("#ls-q");if(q)q.oninput=()=>{LF.q=q.value;lsApply()};
- document.querySelectorAll("#app textarea[data-ln]").forEach(el=>{el.oninput=()=>{S.ln=S.ln||{};S.ln[el.dataset.ln]=el.value;save()}});lsApply()}
+["CEFR levels","A1-A2 basic, B1-B2 independent, C1-C2 advanced.|Pass marks rise from 70% to 85%, and B2 and above are timed.|Advanced tips: paraphrase, use precise data language (rose sharply, remained stable), and link ideas.|Use the Level test to find your level, Daily practice for habit, Endless mode for challenge.","m:reading"]];
+function lessons(){let lv=curLv(),n=0,G=[["Skills & strategy",LES.filter(l=>l[2].startsWith("m:"))],["Grammar",LES.filter(l=>!l[2].startsWith("m:"))]];
+ return bar("Lessons")+`<section class="card">${head("book","Lessons","Short, practical guides. Open one, read the tips, then practise straight away.",`<span class="chip">${LES.length} lessons</span>`)}${G.map(([h,ls])=>`<p class="group-h">${h}</p><div class="accs">${ls.map(l=>{n++;let m=/^([^:]+): (.+)$/.exec(l[0]),t=m?m[2][0].toUpperCase()+m[2].slice(1):l[0];return acc(n,esc(t),m?esc(m[1]):"","",`${ticks(l[1])}<div class="acc-actions"><button class="btn-primary" data-p="${l[2]}">${ic("play")}Practise at ${lv}</button></div>`)}).join("")}</div>`).join("")}</section>`}
 /* ===== GLOBAL SUCCESS (Grade 6) — original lessons and exercises that follow the unit topics (not the textbook's own text) =====
    Row format:  Unit title | practice focus | lesson | word:definition;word:definition... | gap sentence~correct~wrong~wrong;...
    Add more units or other grades by adding rows (and a GS7 list + a grade selector, if you like). */
@@ -7754,7 +7730,7 @@ Sports and Games|Past simple|Use the past simple for finished actions: We played
 Cities of the World|Past simple and describing places|Describe places with adjectives and past simple verbs: We visited Paris last summer. Use famous for to say what a place is known for.|capital:the main city of a country;skyscraper:a very tall building;landmark:a famous building or place;tourist:a person who travels for fun;bridge:a structure over a river or road;population:the number of people living in a place|Paris is the ____ of France.~capital~landmark~population;We ____ the Eiffel Tower last summer.~visited~visit~visiting;The city is famous ____ its old bridge.~for~about~with;Tokyo has a large ____ of over thirteen million.~population~tourist~landmark
 Our Houses in the Future|Will for predictions|Use will + verb for predictions about the future: Houses will be smart. Use will not (won't) for the negative.|solar:using energy from the sun;wireless:without wires;futuristic:very modern, like the future;spaceship:a vehicle that travels in space;smart:controlled by computers;prediction:a statement about what will happen|In 2050, people ____ live on the Moon.~will~did~are;I think we ____ have flying cars.~will~are~have;Houses ____ be powered by solar energy.~will~does~has;Robots ____ do the housework in the future.~will~do~did
 Our Greener World|First conditional and the three Rs|If + present simple, will + verb: If we recycle paper, we will save trees. The three Rs are reduce, reuse and recycle.|recycle:to process used things to make new ones;reuse:to use again;reduce:to make smaller or less;pollution:dirty or harmful things in air, water or land;energy:power used to make things work;plastic:a light material made by people|If we ____ paper, we will save trees.~recycle~recycled~will recycle;We should ____ plastic bags.~reduce~reduces~reduced;Air ____ is a big problem in large cities.~pollution~energy~reuse;If you turn off the lights, you ____ energy.~will save~save~saved
-Robots|Can and could for ability|Use can for ability now: Robots can clean floors. Use could for ability in the past: Robots could not speak long ago.|robot:a machine that can do tasks automatically;repair:to fix something broken;invent:to create something new;machine:a device with moving parts;human:a person;programme:to give a computer instructions|Robots ____ do dangerous jobs.~can~are~do;A hundred years ago, robots ____ speak.~couldn't~can't~don't;A robot is a machine, not a ____.~human~invent~repair;He ____ a robot last year.~invented~invents~invent`.split("\n").map(r=>{let[t,f,l,w,g]=r.split("|");return{t,f,l,w:w.split(";").map(x=>x.split(":")),g:g.split(";").map(x=>x.split("~"))}});
+Robots|Can and could for ability|Use can for ability now: Robots can clean floors. Use could for ability in the past: Robots could not speak long ago.|robot:a machine that can do tasks automatically;repair:to fix something broken;invent:to create something new;machine:a device with moving parts;human:a person;program:to give a computer instructions|Robots ____ do dangerous jobs.~can~are~do;A hundred years ago, robots ____ speak.~couldn't~can't~don't;A robot is a machine, not a ____.~human~invent~repair;He ____ a robot last year.~invented~invents~invent`.split("\n").map(r=>{let[t,f,l,w,g]=r.split("|");return{t,f,l,w:w.split(";").map(x=>x.split(":")),g:g.split(";").map(x=>x.split("~"))}});
 GS6.forEach((u,i)=>MN["gs"+(i+1)]="Unit "+(i+1)+": "+u.t);
 /* ===== GLOBAL SUCCESS Grades 7-12: unit titles follow the textbook; practice material is original. Compact row: title|practice-focus tag|word:short definition;... (4 words)
    The tag picks the grammar/sub-skill questions (from SKD) and the lesson (from LES). Tags: tenses conditionals prepositions articles phrasal linking wordform transform */
@@ -8072,8 +8048,8 @@ const ring=p=>`<div class="ring" role="img" aria-label="Score ${p}%"><svg viewBo
 /* ===== 7. SCREENS ===== */
 let _vk="";
 function draw(){let h="";
- if(view=="home")h=home();else if(view=="round")h=round();else if(view=="end")h=end();else if(view=="flash")h=flash();else if(view=="studio")h=studio();else if(view=="tutor")h=tutor();else if(view=="lessons")h=lessons();else h=words();
- let A=$("#app");if(!A)return;A.innerHTML=h;A.dataset.view=view;
+ if(view=="home")h=home();else if(view=="round")h=round();else if(view=="end")h=end();else if(view=="flash")h=flash();else if(view=="tutor")h=tutor();else if(view=="lessons")h=lessons();else if(view=="studio")h=studio();else h=words();
+ let A=$("#app");if(!A)return;A.classList.toggle("no-rise",(view=="flash"||view=="studio")&&_vk==view);A.innerHTML=h;A.dataset.view=view;
  let k=view+(view=="round"&&R?":"+R.i:"");if(k!=_vk){if(_vk)window.scrollTo({top:0,left:0,behavior:"instant"});_vk=k}
  wire();
  if(view=="tutor"){let c=$("#chat");if(c)c.scrollTop=c.scrollHeight}}
@@ -8086,8 +8062,8 @@ function matrix(){let L=tl(),timed=L.some(l=>RT[LV.indexOf(l)]);
   return`<tr class="${ok?"":"locked"}"><th scope="row"><span class="mx-lv"><b>${l}</b>${RT[i]?`<span title="Timed questions">${ic("clock")}</span>`:""}</span><small>${LVN[l]||""}</small></th>${MD.map(m=>{let p=S.p[l+m],pass=p!=null&&p>=PASS[i];
    return`<td><button class="cell${pass?" pass":""}" style="--p:${p||0}" data-go="${l}|${m}" ${ok?"":"disabled"} aria-label="${l} ${MN[m]}${!ok?", locked":p!=null?", best "+p+"%":", not started"}" title="${!ok?"Locked: pass the previous level first":p!=null?"Best "+p+"% · pass mark "+PASS[i]+"%":"Start "+l+" "+MN[m]}">${!ok?ic("lock"):p!=null?`<span>${p}<small>%</small></span>${pass?`<span class="cell-badge">${ic("check")}</span>`:""}`:`<span class="cell-go">${ic("play")}</span>`}</button></td>`}).join("")}</tr>`}).join("")}</tbody></table>
  <div class="card-foot"><span class="legend"><span><i class="lg lg-pass"></i>Passed</span><span><i class="lg lg-tried"></i>Tried</span>${timed?`<span>${ic("clock")}Timed</span>`:""}</span></div></section>`}
-function tools(school){let T=school?[["v:lessons","Lessons","Short guides with practice","book"],["gfl","Flashcards","This grade’s key words","layers"],["v:words","My words","See what you’ve mastered","star"]]:
- [["test","Level test","16 adaptive questions","target"],PROXY_URL?["v:tutor","Ask the tutor","Grammar, words and corrections","message"]:null,["v:lessons","Lessons","Short guides with practice","book"],["v:flash","Flashcards","Review this level’s words","layers"],["v:studio","Word Studio","AI practice from any topic","sparkles"],["v:words","My words","See what you’ve mastered","star"]].filter(Boolean);
+function tools(school){let T=school?[["v:lessons","Lessons","Short guides with practice","book"],["gfl","Flashcards","This grade’s key words","layers"],["v:studio","Word Studio","AI cards, quiz and fill-ins","sparkles"],["v:words","My words","See what you’ve mastered","star"]]:
+ [["test","Level test","16 adaptive questions","target"],PROXY_URL?["v:tutor","Ask the tutor","Grammar, words and corrections","message"]:null,["v:lessons","Lessons","Short guides with practice","book"],["v:flash","Flashcards","Review this level’s words","layers"],["v:studio","Word Studio","AI cards, quiz and fill-ins","sparkles"],["v:words","My words","See what you’ve mastered","star"]].filter(Boolean);
  return`<section class="tools" aria-label="More practice">${T.map(([k,t,d,i])=>`<button class="tool" ${k=="test"?'data-test="1"':k=="gfl"?'data-gfl="1"':`data-v="${k.slice(2)}"`}><span class="tool-ic">${ic(i)}</span><span class="tool-t">${t}</span><span class="tool-d">${d}</span></button>`).join("")}</section>`}
 const foot=()=>`<footer class="foot"><p>${ic("info")}Speech features need a browser with speech synthesis/recognition (Chrome, Edge, Safari).</p><button class="btn-link danger" id="rs">${ic("rotate")}Reset progress</button></footer>`;
 const QP=/^(Fill the gap|Choose the best option|Choose the correct form|Choose the natural collocation|Correct the error|Dictation|Complete with ONE word from the passage|True, False or Not given\?):?\s+([\s\S]+)$/;
@@ -8118,173 +8094,138 @@ function end(){if(R.tst)return tend();if(R.endless)return eend();let n=R.q.lengt
  return`<section class="card result">${ring(p)}<p class="eyebrow">${esc(R.l)} · ${esc(MN[R.m]||"")}</p><h1 class="result-h">${t}</h1><p class="lede">${R.sc} of ${n} correct.${mod?" Pass mark at this level is "+PASS[i]+"%.":""}</p>
 <div class="result-stats">${rtile("check",R.sc+"/"+n,"Correct")}${rtile("flame",R.bs||0,"Best streak")}${mod?rtile(pass?"trophy":"target",pass?"Passed":"Not yet",pass?"Level progress saved":PASS[i]+"% needed",pass):""}</div>${review(R.ms)}
 <div class="actions center"><button class="btn-primary btn-lg" data-go="${R.l}|${R.m}">${ic("rotate")}Try again</button>${nx?`<button class="btn btn-lg" data-go="${LV[i+1]}|${R.m}">Next level${ic("arrowR")}</button>`:""}<button class="btn-ghost btn-lg" data-v="home">${ic("home")}Home</button></div></section>`}
-function flash(){let ws=fw();R=R&&R.f?R:{f:1,i:0,fl:0};let k=R.i%ws.length,w=ws[k],lb=FWC?FWC.t:S.fwg?"Grade "+S.fwg:curLv(),bx=vb(w[0]);
- return bar("Flashcards · "+lb,pill("layers",(k+1)+" / "+ws.length,"Card"))+`<div class="progress" aria-hidden="true"><i style="width:${Math.round(100*(k+1)/ws.length)}%"></i></div><section class="flash"><div class="deck"><div class="flashcard ${R.fl?"is-back":"is-front"}" id="fc" tabindex="0" role="button" aria-label="${R.fl?"Show the word":"Show the meaning"}"><span class="fc-box" title="Mastery ${bx} of 3">${[1,2,3].map(n=>`<i class="${bx>=n?"on":""}"></i>`).join("")}</span>${R.fl?`<p class="eyebrow">Meaning</p><p class="fc-def">${esc(w[1])}</p>${w[2]?`<p class="fc-ex">${esc(w[2])}</p>`:""}`:`<p class="eyebrow">Word</p><h2 class="fc-word">${esc(w[0])}</h2>${w[3]?`<p class="fc-ipa">${esc(w[3])}</p>`:""}`}<span class="fc-hint">${ic("refresh")}Tap to flip</span></div></div>
-<div class="flash-actions"><button class="btn btn-lg" data-k="0">${ic("rotate")}Still learning</button><button class="btn-icon btn-lg" data-say="${esc(w[0])}" aria-label="Hear the word">${ic("volume")}</button><button class="btn-primary btn-lg" data-k="1">${ic("check")}Know it</button></div></section>`}
-const MW=[["Mastered","star","success",v=>v.b>=3],["Learning","sprout","primary",v=>v.b>0&&v.b<3],["Struggling","target","danger",v=>v.b==0&&v.m>0]];
-function mwGroups(){let ks=Object.keys(S.v);return MW.map(([t,i,c,f])=>[t,i,c,ks.filter(w=>S.v[w]&&f(S.v[w]))])}
-const mwSaved=()=>(S.ws||[]).filter(x=>{let v=S.v[x.word];return !v||(v.b==0&&!v.m)});
-function wdict(){let m=new Map();for(const d of Object.values(DATA))for(const w of d.W)if(!m.has(w[0]))m.set(w[0],w);
- for(const g in GSU)for(const u of GSU[g])for(const [w,d] of u.w)if(!m.has(w))m.set(w,[w,d,"",""]);
- for(const x of S.ws||[])if(!m.has(x.word))m.set(x.word,[x.word,x.meaning,x.example,""]);return m}
-function startDeck(t,ws){let D=wdict(),l=sh(ws.map(w=>D.get(w)).filter(Boolean));
- if(!l.length){ask("Nothing to practise","There are no words in this list yet.");return}
- FWC={t,w:l};R=null;view="flash";draw()}
-function dlCsv(name,rows){let q=v=>'"'+String(v==null?"":v).replace(/"/g,'""')+'"',blob=new Blob(["\ufeff"+rows.map(r=>r.map(q).join(",")).join("\r\n")],{type:"text/csv;charset=utf-8"}),a=document.createElement("a");
- a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)}
-function words(){let G=mwGroups(),D=wdict(),saved=mwSaved(),tot=G.reduce((a,g)=>a+g[3].length,0),todo=G[1][3].length+G[2][3].length,all=new Set(D.keys()).size,
- mean=w=>{let e=D.get(w);return e&&e[1]?e[1]:""},
- wq=w=>esc((w+" "+mean(w)).toLowerCase()),
- list=ws=>S.wm?`<ul class="wlist">${ws.map(w=>`<li data-wq="${wq(w)}"><button class="wl-say" data-say="${esc(w)}" aria-label="Hear ${esc(w)}">${ic("volume")}</button><span><b>${esc(w)}</b>${esc(mean(w))}</span></li>`).join("")}</ul>`:`<ul class="wchips">${ws.map(w=>`<li data-wq="${wq(w)}"><button class="wchip" data-say="${esc(w)}" title="${esc(mean(w))}">${ic("volume")}${esc(w)}</button></li>`).join("")}</ul>`,
- ww=D.size?[...D.values()].filter(e=>e[1]&&e[2]):[],dt=new Date(),wd=ww.length?ww[(dt.getFullYear()*372+dt.getMonth()*31+dt.getDate())%ww.length]:null,
- wdSaved=wd&&(wsSaved(wd[0])||(S.v[wd[0]]&&(S.v[wd[0]].b||S.v[wd[0]].m)));
- return bar("My words")+(wd?`<section class="card wod"><p class="eyebrow">${ic("sparkles")}Word of the day</p><div class="wod-main"><div><h2 class="wod-w">${esc(wd[0])}</h2>${wd[3]?`<p class="fc-ipa">${esc(wd[3])}</p>`:""}</div><button class="btn-icon" data-say="${esc(wd[0])}" aria-label="Hear the word">${ic("volume")}</button></div><p class="wod-d">${esc(wd[1])}</p><p class="fc-ex">${esc(wd[2])}</p><div class="actions"><button class="btn-soft btn-sm" data-mw="wod" ${wdSaved?"disabled":""}>${wdSaved?ic("check")+"In your words":ic("star")+"Save to review"}</button></div></section>`:"")
- +`<section class="card">${head("star","My words","Words move up as you answer them in Words practice, Flashcards, Word Studio and the school vocabulary. Three right in a row and a word is mastered.")}
-<div class="ls-bar" role="progressbar" aria-label="Words mastered" aria-valuemin="0" aria-valuemax="${tot}" aria-valuenow="${G[0][3].length}"><i style="width:${tot?Math.round(100*G[0][3].length/tot):0}%"></i></div>
-<div class="wg-summary">${G.map(([t,,c,ws])=>`<div class="wsum ${c}"><b>${ws.length}</b><span>${t}</span></div>`).join("")}</div>
-<div class="actions mw-act"><button class="btn-primary" data-mw="review" ${todo?"":"disabled"}>${ic("layers")}Review ${todo} to learn</button><button class="btn" data-mw="wm" aria-pressed="${!!S.wm}">${S.wm?"Show as chips":"Show meanings"}</button><button class="btn-ghost" data-mw="csv" ${tot+saved.length?"":"disabled"}>Download CSV</button></div>
-<div class="ls-tools"><input type="text" id="mw-q" placeholder="Search your words…" aria-label="Search your words" autocomplete="off"></div>
-${G.map(([t,i,c,ws],gi)=>`<div class="wg wg-${c}"><p class="sub-h">${ic(i)}${t}</p>${ws.length?`${list(ws)}<div class="actions"><button class="btn-soft btn-sm" data-mw="deck" data-mi="${gi}">${ic("layers")}Practise ${ws.length} as flashcards</button></div>`:`<p class="empty">Nothing here yet.</p>`}</div>`).join("")}
-${saved.length?`<div class="wg wg-primary"><p class="sub-h">${ic("sparkles")}Saved, not practised yet</p><ul class="wchips">${saved.map(x=>`<li class="wsaved" data-wq="${wq(x.word)}"><button class="wchip" data-say="${esc(x.word)}" title="${esc(x.meaning||"")}">${ic("volume")}${esc(x.word)}</button><button class="wrm" data-mw="rm" data-mword="${esc(x.word)}" aria-label="Remove ${esc(x.word)}">${ic("x")}</button></li>`).join("")}</ul><div class="actions"><button class="btn-soft btn-sm" data-mw="sdeck">${ic("layers")}Practise ${saved.length} as flashcards</button></div></div>`:""}
-<p class="empty" id="mw-empty" hidden>No words match your search.</p></section>`}
-function mwWire(){let q=$("#mw-q");if(q)q.oninput=()=>{let v=q.value.trim().toLowerCase();
- document.querySelectorAll("#app [data-wq]").forEach(li=>{li.hidden=!!v&&!li.dataset.wq.includes(v)});
- let e=$("#mw-empty");if(e)e.hidden=!v||[...document.querySelectorAll("#app [data-wq]")].some(li=>!li.hidden)}}
-/* clicks for the Lessons and My words screens; true when handled */
-function myClick(t,D){
- if(D.cl!=null){let L=LD(),on=!L.includes(D.cl);S.completedLessons=on?[...L,D.cl]:L.filter(x=>x!=D.cl);save();
-  let det=t.closest("details");if(det){det.dataset.ld=on?1:0;let b=det.querySelector(".ls-badge");if(b)b.innerHTML=on?`<span class="chip">${ic("check")}Done</span>`:""}
-  t.className=on?"btn-soft":"btn";t.innerHTML=on?ic("check")+"Completed":"Mark complete";lsRefresh();return true}
- if(D.lf){LF.f=D.lf;draw();return true}
- if(D.lo!=null){let d=$('#app details.acc[data-li="'+D.lo+'"]');if(d){d.hidden=false;let g=d.parentElement;if(g)g.hidden=false;d.open=true;d.scrollIntoView({behavior:"smooth",block:"center"})}return true}
- if(D.mw){switch(D.mw){
-   case"deck":{let g=mwGroups()[+D.mi];if(g)startDeck(g[0]+" words",g[3]);break}
-   case"review":{let g=mwGroups();startDeck("Words to learn",[...g[1][3],...g[2][3]]);break}
-   case"sdeck":startDeck("Saved words",mwSaved().map(x=>x.word));break;
-   case"wm":S.wm=S.wm?0:1;save();draw();break;
-   case"rm":S.ws=(S.ws||[]).filter(x=>x.word!=D.mword);let v=S.v[D.mword];if(v&&!v.b&&!v.m)delete S.v[D.mword];save();draw();break;
-   case"wod":{let e=wdict(),dt=new Date(),ww=[...e.values()].filter(x=>x[1]&&x[2]),w=ww[(dt.getFullYear()*372+dt.getMonth()*31+dt.getDate())%ww.length];if(w){S.ws=S.ws||[];if(!wsSaved(w[0]))S.ws.push({word:w[0],meaning:w[1],example:w[2]});S.v[w[0]]=S.v[w[0]]||{b:0,m:0};save();draw()}break}
-   case"csv":{let D2=wdict(),rows=[["word","status","correct in a row","mistakes","meaning"]];
-    mwGroups().forEach(([t,,,ws])=>ws.forEach(w=>rows.push([w,t.toLowerCase(),S.v[w].b,S.v[w].m,(D2.get(w)||[])[1]||""])));
-    mwSaved().forEach(x=>rows.push([x.word,"saved",0,0,x.meaning||""]));dlCsv("my-words.csv",rows);break}
-   default:return false}return true}
- return false}
-/* ===== WORD STUDIO: describe a topic or difficult words; AI builds flashcards, a quiz, fill-ins and spelling ===== */
+function words(){let all=[...new Set([...Object.values(DATA).flatMap(d=>d.W.map(w=>w[0])),...(S.ws||[]).map(w=>w.word)])],g=f=>all.filter(w=>S.v[w]&&f(S.v[w])),
+ G=[["Mastered","star","success",g(v=>v.b>=3)],["Learning","sprout","primary",g(v=>v.b>0&&v.b<3)],["Struggling","target","danger",g(v=>v.b==0&&v.m>0)]];
+ return bar("My words")+`<section class="card">${head("star","My words","Words move up as you answer them in Words practice and Flashcards. Three right in a row and a word is mastered. Tap a word to hear it.")}<div class="wg-summary">${G.map(([t,,c,ws])=>`<div class="wsum ${c}"><b>${ws.length}</b><span>${t}</span></div>`).join("")}</div>
+${G.map(([t,i,c,ws])=>`<div class="wg wg-${c}"><p class="sub-h">${ic(i)}${t}</p>${ws.length?`<ul class="wchips">${ws.map(w=>`<li><button class="wchip" data-say="${esc(w)}">${ic("volume")}${esc(w)}</button></li>`).join("")}</ul>`:`<p class="empty">Nothing here yet.</p>`}</div>`).join("")}${wsList()}</section>`}
+/* ===== FLASHCARDS: a real study session (shuffled, missed cards come back, undo, keyboard) ===== */
+if(!ICP.plus)ICP.plus='<path d="M5 12h14"/><path d="M12 5v14"/>';
+let FSRC="";   /* "" = level or grade words, "ws" = saved Word Studio words, "set" = the current Word Studio set */
+const fnorm=w=>String(w||"").trim().toLowerCase();
+function fdeck(){let seen=new Set(),out=[],add=(w,d,x,p,tag)=>{let k=fnorm(w);if(!k||seen.has(k)||!d)return;seen.add(k);out.push({w:String(w),d:String(d),x:x?String(x):"",p:p?String(p):"",tag:tag||""})};
+ if(FSRC=="ws")(S.ws||[]).forEach(a=>add(a.word,a.meaning,a.example,a.ipa,"Word Studio"));
+ else if(FSRC=="set"&&WS.set)WS.set.words.forEach(a=>add(a.word,a.meaning,a.example,a.ipa,WS.set.title));
+ else if(S.fwg)gwords(S.fwg).forEach(a=>add(a[0],a[1],"",a[3],a[2]));
+ else DATA[curLv()].W.forEach(a=>add(a[0],a[1],a[2],a[3],""));
+ return out}
+function fstart(only){let pool=fdeck();if(only)pool=pool.filter(c=>only.includes(fnorm(c.w)));
+ let cards=sh(pool).sort((a,b)=>vb(a.w)-vb(b.w)).slice(0,20);   /* weakest words first, at most 20 per session */
+ R={f:1,cards,ord:sh(cards.map((_,i)=>i)),i:0,fl:0,known:new Set(),again:{},hist:[],n:cards.length,src:FSRC,enter:0,end:0}}
+function fmark(ok){let idx=R.ord[R.i],c=R.cards[idx];if(!c)return;
+ let rec={idx,ok,prev:S.v[c.w]?{...S.v[c.w]}:null,hadKnown:R.known.has(idx),ins:-1,again:R.again[idx]||0};
+ vmark(c.w,ok);
+ if(ok)R.known.add(idx);
+ else{R.again[idx]=(R.again[idx]||0)+1;if(R.again[idx]<=2){let at=Math.min(R.i+4,R.ord.length);R.ord.splice(at,0,idx);rec.ins=at}}   /* a missed card comes back a few cards later */
+ R.hist.push(rec);R.i++;R.fl=0;R.enter=1;if(R.i>=R.ord.length)R.end=1;save()}
+function fundo(){let h=R.hist.pop();if(!h)return;R.i--;R.fl=0;R.end=0;R.enter=1;
+ if(h.ins>=0)R.ord.splice(h.ins,1);
+ if(h.ok&&!h.hadKnown)R.known.delete(h.idx);R.again[h.idx]=h.again;
+ let w=R.cards[h.idx].w;if(h.prev)S.v[w]=h.prev;else delete S.v[w];save()}
+function fflip(){if(!R||!R.f||R.end)return;R.fl^=1;let c=$("#fc");if(!c)return;c.classList.toggle("flipped",!!R.fl);c.setAttribute("aria-pressed",!!R.fl);
+ let fr=c.querySelector(".fc-front"),bk=c.querySelector(".fc-back");if(fr)fr.setAttribute("aria-hidden",!!R.fl);if(bk)bk.setAttribute("aria-hidden",!R.fl)}
+function fgo(ok){fmark(ok);draw();let f=$("#fc");if(f)f.focus({preventScroll:true})}
+function flash(){if(!R||!R.f)fstart();
+ if(!R.n)return bar("Flashcards")+`<section class="card"><p class="empty">${R.src=="ws"?"You haven’t saved any Word Studio words yet.":"There are no words to practise here yet."}</p><div class="actions"><button class="btn-primary" data-v="${R.src=="ws"?"studio":"home"}">${R.src=="ws"?"Open Word Studio":"Back home"}</button></div></section>`;
+ if(R.end)return fend();
+ let c=R.cards[R.ord[R.i]],bx=vb(c.w),pct=Math.round(100*R.known.size/R.n),enter=R.enter;R.enter=0;
+ let lb=R.src=="ws"?"Word Studio":R.src=="set"?"This set":S.fwg?"Grade "+S.fwg:curLv(),
+ dots=`<span class="fc-box" title="Mastery ${bx} of 3">${[1,2,3].map(n=>`<i class="${bx>=n?"on":""}"></i>`).join("")}</span>`;
+ return bar("Flashcards · "+lb,pill("layers",R.known.size+" / "+R.n,"Words known"))+`<div class="progress" role="progressbar" aria-label="Words known" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${pct}"><i style="width:${pct}%"></i></div><section class="flash"><div class="deck"><div class="fc3d${R.fl?" flipped":""}${enter?" enter":""}" id="fc" tabindex="0" role="button" aria-pressed="${!!R.fl}" aria-label="Flip card: ${esc(c.w)}">
+<div class="flashcard fc-side fc-front is-front" aria-hidden="${!!R.fl}">${dots}<p class="eyebrow">Word</p><h2 class="fc-word">${esc(c.w)}</h2>${c.p?`<p class="fc-ipa">${esc(c.p)}</p>`:""}<span class="fc-hint">${ic("refresh")}Tap to flip</span></div>
+<div class="flashcard fc-side fc-back is-back" aria-hidden="${!R.fl}">${dots}${c.tag?`<p class="fc-tag">${esc(c.tag)}</p>`:""}<p class="eyebrow">Meaning</p><p class="fc-def">${esc(c.d)}</p>${c.x?`<p class="fc-ex">${esc(c.x)}</p>`:""}<span class="fc-hint">${ic("refresh")}Tap to flip back</span></div></div></div>
+<div class="flash-actions"><button class="btn btn-lg" data-k="0">${ic("rotate")}Still learning</button><button class="btn-icon btn-lg" data-say="${esc(c.w)}" aria-label="Hear the word">${ic("volume")}</button><button class="btn-primary btn-lg" data-k="1">${ic("check")}Know it</button></div>
+<div class="flash-foot"><button class="btn-ghost btn-sm" data-fu="1" ${R.hist.length?"":"disabled"}>${ic("undo")}Undo</button><span class="kbd-hint"><kbd>Space</kbd> flip · <kbd>←</kbd> still learning · <kbd>→</kbd> know it</span></div></section>`}
+function fend(){let n=R.n,k=R.known.size,p=Math.round(100*k/n),hard=R.cards.filter((_,i)=>R.again[i]>0);
+ return bar("Flashcards · done")+`<section class="card result">${ring(p)}<p class="eyebrow">Session complete</p><h1 class="result-h">${hard.length==0?"First time, every time":p>=60?"Nice work":"Good start"}</h1><p class="lede">You knew ${k} of ${n} word${n==1?"":"s"}${hard.length?`, and ${hard.length} needed a second look`:""}.</p>
+<div class="result-stats">${rtile("check",k,"Known")}${rtile("rotate",hard.length,"Tricky")}${rtile("layers",n,"Cards")}</div>
+${hard.length?`<div class="review"><p class="sub-h">${ic("rotate")}Worth another look</p><ul class="wchips">${hard.map(c=>`<li><button class="wchip" data-say="${esc(c.w)}" title="${esc(c.d)}">${ic("volume")}${esc(c.w)}</button></li>`).join("")}</ul></div>`:`<p class="perfect">${ic("sparkles")}No slips. A flawless session!</p>`}
+<div class="actions center"><button class="btn-primary btn-lg" data-fa="again">${ic("rotate")}Study again</button>${hard.length?`<button class="btn btn-lg" data-fa="hard">Review tricky words</button>`:""}<button class="btn-ghost btn-lg" data-v="home">${ic("home")}Home</button></div></section>`}
+document.addEventListener("keydown",e=>{if(view!="flash"||!R||!R.f||R.end||!R.n||e.metaKey||e.ctrlKey||e.altKey)return;let tg=e.target;
+ if(tg&&/^(INPUT|TEXTAREA|SELECT)$/.test(tg.tagName))return;
+ if((e.key==" "||e.key=="Enter")&&tg&&tg.tagName=="BUTTON")return;
+ if(e.key==" "||e.key=="Enter"){e.preventDefault();fflip()}
+ else if(e.key=="ArrowRight"){e.preventDefault();fgo(true)}
+ else if(e.key=="ArrowLeft"){e.preventDefault();fgo(false)}});
+
+/* ===== WORD STUDIO: describe a topic or difficult words; AI builds flip cards, a quiz and fill-in practice ===== */
 const WS_URL="https://project--1c9d08cc-37dc-4369-9d32-9c31acb4e928.lovable.app/api/public/practice";
-const WS={req:"",lv:"Intermediate",busy:0,err:"",set:null,sid:null,tab:"words",fi:0,fl:0,order:null,fm:{},qa:{},fa:{},fc:{},fh:{},sp:{},sr:{},sh:{},copied:0,said:""};
+const WS={req:"",lv:"Intermediate",busy:0,err:"",set:null,tab:"words",flip:{},qa:{},fa:{},fc:{},fh:{}};
+if(S.wsLast){WS.set=S.wsLast.set;WS.req=S.wsLast.req||"";WS.lv=S.wsLast.lv||WS.lv}
 const WS_IDEAS=["Unit 3: My friends — personality words","environment, pollution, recycle, endangered","Words for describing feelings at school","Travel and asking for directions"];
-const wsDraw=()=>{if(view=="studio")draw()};
-const wsList=s=>WS.order&&WS.order.length?WS.order:s.words.map((_,i)=>i);
-function wsReset(){WS.tab="words";WS.fi=0;WS.fl=0;WS.order=null;WS.fm={};WS.qa={};WS.fa={};WS.fc={};WS.fh={};WS.sp={};WS.sr={};WS.sh={};WS.said=""}
-const wsSaved=w=>(S.ws||[]).some(x=>x.word.toLowerCase()==String(w).toLowerCase());
-function wsKeep(w){S.ws=S.ws||[];if(!wsSaved(w.word))S.ws.push({word:w.word,meaning:w.meaning||"",example:w.example||""});S.v[w.word]=S.v[w.word]||{b:0,m:0}}
-function wsRemember(s){S.wsh=S.wsh||[];let id=Date.now().toString(36);S.wsh.unshift({id,title:s.title,req:WS.req,lv:WS.lv,n:s.words.length,set:s});S.wsh=S.wsh.slice(0,8);WS.sid=id;save()}
-const wsFb=(ok,title,body)=>`<div class="fb ${ok?"is-ok":"is-no"}"><span class="fb-ic">${ic(ok?"check":"x")}</span><div class="fb-body"><p class="fb-title">${title}</p>${body?`<p>${esc(body)}</p>`:""}</div></div>`;
-function wsRecent(){let l=S.wsh||[];if(!l.length)return"";
- return`<section class="card">${head("clock","Recent sets","Pick up where you left off.")}<ul class="ws-recent">${l.map((h,i)=>`<li><button class="ws-rc" data-ws="open" data-i="${i}"><b>${esc(h.title)}</b><small>${h.n} words · ${esc(h.lv)}</small></button><button class="btn-icon btn-sm" data-ws="del" data-i="${i}" aria-label="Delete ${esc(h.title)}">${ic("x")}</button></li>`).join("")}</ul></section>`}
-/* flashcard deck: same card, mastery dots and buttons as the main Flashcards view */
-function wsDeck(s){let ord=wsList(s),n=ord.length;if(!n)return`<p class="empty">No words in this set. Try creating a new one.</p>`;
- if(WS.fi>=n){let kn=ord.filter(i=>WS.fm[i]).length,missed=ord.filter(i=>!WS.fm[i]);
-  return`<section class="card result"><p class="eyebrow">Deck complete</p><h2 class="result-h">${kn==n?"You know them all":"Nice work"}</h2><div class="result-stats">${rtile("check",kn+"/"+n,"Know it",kn==n)}${rtile("rotate",missed.length,"Still learning")}</div><div class="actions center">${missed.length?`<button class="btn-primary btn-lg" data-ws="missed">${ic("rotate")}Review ${missed.length} missed</button>`:""}<button class="btn${missed.length?"":"-primary"} btn-lg" data-ws="restart">${ic("rotate")}Practise all again</button><button class="btn btn-lg" data-ws="tab" data-t="quiz">Take the quiz${ic("arrowR")}</button></div></section>`}
- let k=WS.fi,w=s.words[ord[k]],bx=vb(w.word),all=s.words.every(x=>wsSaved(x.word));
- return`<div class="progress" aria-hidden="true"><i style="width:${Math.round(100*(k+1)/n)}%"></i></div><section class="flash"><div class="deck"><div class="flashcard ${WS.fl?"is-back":"is-front"}" id="fc" tabindex="0" role="button" aria-label="${WS.fl?"Show the word":"Show the meaning"}"><span class="fc-box" title="Mastery ${bx} of 3">${[1,2,3].map(m=>`<i class="${bx>=m?"on":""}"></i>`).join("")}</span>${WS.fl?`<p class="eyebrow">Meaning</p><p class="fc-def">${esc(w.meaning)}</p>${w.example?`<p class="fc-ex">${esc(w.example)}</p>`:""}${w.tip?`<p class="fc-tip">${esc(w.tip)}</p>`:""}`:`<p class="eyebrow">${esc(w.partOfSpeech||"Word")}</p><h2 class="fc-word">${esc(w.word)}</h2>${w.ipa?`<p class="fc-ipa">${esc(w.ipa)}</p>`:""}`}<span class="fc-hint">${ic("refresh")}Tap to flip</span></div></div>
-<div class="flash-actions"><button class="btn btn-lg" data-ws="k" data-k="0">${ic("rotate")}Still learning</button><button class="btn-icon btn-lg" data-say="${esc(w.word)}" aria-label="Hear the word">${ic("volume")}</button><button class="btn-primary btn-lg" data-ws="k" data-k="1">${ic("check")}Know it</button></div>
-<div class="ws-sub">${k>0?`<button class="btn-ghost btn-sm" data-ws="prev">${ic("back")}Previous</button>`:""}<button class="btn-ghost btn-sm" data-ws="shuffle">${ic("shuffle")}Shuffle</button><button class="btn-ghost btn-sm" data-ws="auto" aria-pressed="${!!S.wsa}">${ic("volume")}Auto-play ${S.wsa?"on":"off"}</button><button class="btn-ghost btn-sm" data-ws="keepall" ${all?"disabled":""}>${all?"All saved to My words":"Save all to My words"}</button></div>
-<p class="kbd-hint ws-kbd"><kbd>Space</kbd> flip · <kbd>1</kbd> still learning · <kbd>2</kbd> know it · <kbd>S</kbd> hear · <kbd>←</kbd> back</p></section>`}
-function wsQuiz(s){if(!s.quiz.length)return`<p class="empty">No quiz questions in this set.</p>`;
- let sc=s.quiz.filter((q,i)=>WS.qa[i]==q.answerIndex).length,fin=s.quiz.every((q,i)=>WS.qa[i]!=null);
- return`<div class="ws-sub"><span class="chip">${ic("check")}${sc} / ${s.quiz.length} correct</span></div>`+s.quiz.map((q,i)=>{let a=WS.qa[i],done=a!=null;
-  return`<section class="card ws-q"><p class="eyebrow">Question ${i+1}</p><h3 class="ws-qt">${esc(q.question)}</h3><div class="opts" role="group" aria-label="Answer options">${q.options.map((o,j)=>`<button class="${!done?"":j==q.answerIndex?"ok":j==a?"no":""}" data-ws="ans" data-i="${i}" data-j="${j}" ${done?"disabled":""}><span class="opt-k">${"ABCDEF"[j]}</span><span class="opt-t">${esc(o)}</span><span class="opt-mark">${ic("check","i-ok")}${ic("x","i-no")}</span></button>`).join("")}</div>${done?wsFb(a==q.answerIndex,a==q.answerIndex?"Correct":"Not quite",q.explanation):""}</section>`}).join("")
-  +(fin?`<section class="card result"><p class="eyebrow">Quiz complete</p><h2 class="result-h">${sc} of ${s.quiz.length} correct</h2><div class="actions center"><button class="btn-primary btn-lg" data-ws="qretry">${ic("rotate")}Try again</button><button class="btn btn-lg" data-ws="tab" data-t="spell">Spelling practice${ic("arrowR")}</button></div></section>`:"")}
-function wsFill(s){if(!s.fillIns.length)return`<p class="empty">No fill-in questions in this set.</p>`;
- return s.fillIns.map((f,i)=>{let c=WS.fc[i];
-  return`<section class="card ws-q"><p class="eyebrow">Fill in ${i+1}</p><h3 class="ws-qt">${gapify(f.sentence)}</h3><div class="answer-row"><input type="text" id="ws-f${i}" value="${esc(WS.fa[i]||"")}" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Type the missing word" aria-label="Answer ${i+1}"><button class="btn-primary" data-ws="chk" data-i="${i}">Check</button><button class="btn-ghost" data-ws="show" data-i="${i}">Hint</button></div>${c===true?wsFb(true,"Correct"):c===false?wsFb(false,"Not quite","Answer: "+f.answer):WS.fh[i]&&f.hint?`<p class="inline-note">${ic("info")}<span>${esc(f.hint)}</span></p>`:""}</section>`}).join("")}
-/* spelling: hear the word, type it. Counts toward word mastery. */
-function wsSpell(s){if(!s.words.length)return`<p class="empty">No words in this set.</p>`;
- let ok=Object.values(WS.sr).filter(Boolean).length;
- return`<div class="ws-sub"><span class="chip">${ic("check")}${ok} / ${s.words.length} spelled</span></div>`+s.words.map((w,i)=>{let c=WS.sr[i];
-  return`<section class="card ws-q"><p class="eyebrow">Word ${i+1}${w.partOfSpeech?" · "+esc(w.partOfSpeech):""}</p><div class="actions"><button class="btn-soft" data-ws="hear" data-i="${i}">${ic("volume")}Hear it</button><button class="btn-soft" data-ws="hear" data-i="${i}" data-slow="1">${ic("snail")}Slow</button><button class="btn-ghost" data-ws="shint" data-i="${i}">Meaning hint</button></div>${WS.sh[i]&&c==null?`<p class="inline-note">${ic("info")}<span>${esc(w.meaning)}</span></p>`:""}<div class="answer-row"><input type="text" id="ws-s${i}" value="${esc(WS.sp[i]||"")}" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Type what you hear" aria-label="Spelling ${i+1}"><button class="btn-primary" data-ws="chks" data-i="${i}">Check</button></div>${c===true?wsFb(true,"Correct",w.word+" — "+w.meaning):c===false?wsFb(false,"Not quite","The spelling is “"+w.word+"” — "+w.meaning):""}</section>`}).join("")}
-function studio(){let s=WS.set,n=s?wsList(s).length:0;
- let h=bar("Word Studio",s&&WS.tab=="words"&&n&&WS.fi<n?pill("layers",(WS.fi+1)+" / "+n,"Card"):"")+`<section class="card ws-make">${head("sparkles","Word Studio","Describe a topic, or paste words you find difficult. You get flashcards, a quiz, fill-ins and spelling practice made just for you.")}
-<textarea id="ws-req" maxlength="1500" rows="4" placeholder="e.g. affect, effect, borrow, lend — or “Unit 5: Food and drink”" aria-label="Topic or words">${esc(WS.req)}</textarea>
-<div class="ws-ideas">${WS_IDEAS.map((x,i)=>`<button class="ws-idea" data-ws="idea" data-i="${i}">${esc(x)}</button>`).join("")}</div>
-<div class="seg ws-lv" role="group" aria-label="Level">${["Beginner","Intermediate","Advanced"].map(l=>`<button class="${WS.lv==l?"on":""}" aria-pressed="${WS.lv==l}" data-ws="lv" data-l="${l}">${l}</button>`).join("")}</div>
-<button class="btn-primary btn-lg ws-go" data-ws="gen" ${WS.busy?"disabled":""}>${ic("sparkles")}${WS.busy?"Creating your set…":"Create my practice set"}</button>
-${WS.busy?`<div class="ws-load" role="status"><span class="ws-sp"></span>Your teacher is writing cards and questions. This takes a few seconds.</div>`:""}
-${WS.err?`<div class="fb is-warn" role="alert"><span class="fb-ic">${ic("info")}</span><div class="fb-body"><p>${esc(WS.err)}</p></div></div>`:""}</section>`;
- if(!s)return h+wsRecent();
- h+=`<section class="card">${head("layers",esc(s.title),esc(s.summary))}<div class="seg ws-tabs" role="group" aria-label="Practice type">${[["words","Cards"],["quiz","Quiz"],["fill","Fill in"],["spell","Spell"]].map(([k,v])=>`<button class="${WS.tab==k?"on":""}" aria-pressed="${WS.tab==k}" data-ws="tab" data-t="${k}">${v}</button>`).join("")}</div></section>`;
- h+=WS.tab=="words"?wsDeck(s):WS.tab=="quiz"?wsQuiz(s):WS.tab=="fill"?wsFill(s):wsSpell(s);
- return h+`<div class="actions center"><button class="btn-soft btn-sm" data-ws="copy">${ic("layers")}${WS.copied?"Copied!":"Copy word list"}</button><button class="btn-soft btn-sm" data-ws="csv">Download CSV</button><button class="btn-ghost btn-sm" data-ws="new">${ic("rotate")}Start a new set</button></div>`}
-async function wsGen(){let r=$("#ws-req");WS.req=r?r.value.trim():WS.req;
+const wsSaved=w=>(S.ws||[]).some(x=>fnorm(x.word)==fnorm(w));
+const wsN=t=>String(t||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9' -]/g," ").replace(/\s+/g," ").trim();
+const wsOk=(v,a)=>!!wsN(v)&&String(a).split("/").some(x=>wsN(x)==wsN(v));
+function wsClean(x){const T=v=>typeof v=="string"?v.trim():"",A=v=>Array.isArray(v)?v:[];if(!x||typeof x!="object")return null;let seen=new Set();
+ let words=A(x.words).map(w=>({word:T(w&&w.word),partOfSpeech:T(w&&w.partOfSpeech),ipa:T(w&&w.ipa),meaning:T(w&&w.meaning),example:T(w&&w.example),tip:T(w&&w.tip)})).filter(w=>{let k=fnorm(w.word);if(!k||!w.meaning||seen.has(k))return false;seen.add(k);return true}),
+ quiz=A(x.quiz).map(q=>({question:T(q&&q.question),options:A(q&&q.options).map(String),answerIndex:+(q&&q.answerIndex),explanation:T(q&&q.explanation)})).filter(q=>q.question&&q.options.length>1&&q.answerIndex>=0&&q.answerIndex<q.options.length),
+ fillIns=A(x.fillIns).map(f=>({sentence:T(f&&f.sentence),answer:T(f&&f.answer),hint:T(f&&f.hint)})).filter(f=>f.sentence&&f.answer);
+ return words.length?{title:T(x.title)||"Your practice set",summary:T(x.summary),words,quiz,fillIns}:null}
+function wsKeep(w){S.ws=S.ws||[];if(!wsSaved(w.word))S.ws.push({word:w.word,meaning:w.meaning,example:w.example,ipa:w.ipa,partOfSpeech:w.partOfSpeech,tip:w.tip});S.v[w.word]=S.v[w.word]||{b:0,m:0}}
+function wsList(){let l=S.ws||[];return`<div class="wg wg-ws"><p class="sub-h">${ic("sparkles")}From Word Studio</p>${l.length?`<ul class="wchips">${l.map((w,i)=>`<li class="wchip-wrap"><button class="wchip" data-say="${esc(w.word)}" title="${esc(w.meaning)}">${ic("volume")}${esc(w.word)}</button><button class="wchip-x" data-ws="rm" data-i="${i}" aria-label="Remove ${esc(w.word)}">${ic("x")}</button></li>`).join("")}</ul><div class="actions"><button class="btn-soft btn-sm" data-ws="fcws">${ic("layers")}Practise as flashcards</button></div>`:`<p class="empty">Nothing saved yet. <button class="btn-link" data-v="studio">Open Word Studio</button></p>`}</div>`}
+function studio(){let s=WS.set,busy=WS.busy;
+ let h=bar("Word Studio")+`<section class="card ws-hero">${head("sparkles","Word Studio","Describe a topic, or paste words you find difficult. You get flip cards, a quiz and fill-in practice made just for you.")}
+<label class="sr" for="ws-req">Topic or words</label><textarea id="ws-req" maxlength="1500" placeholder="e.g. affect, effect, borrow, lend — or “Unit 5: Food and drink”" ${busy?"readonly":""}>${esc(WS.req)}</textarea>
+<div class="ws-ideas" aria-label="Ideas">${WS_IDEAS.map((x,i)=>`<button class="ws-idea" data-ws="idea" data-i="${i}" ${busy?"disabled":""}>${esc(x)}</button>`).join("")}</div>
+<div class="ws-level"><span class="ws-lab">Level</span><div class="seg" role="radiogroup" aria-label="Level">${["Beginner","Intermediate","Advanced"].map(l=>`<button class="${WS.lv==l?"on":""}" role="radio" aria-checked="${WS.lv==l}" data-ws="lv" data-l="${l}" ${busy?"disabled":""}>${l}</button>`).join("")}</div></div>
+<button class="btn-primary btn-lg ws-go" data-ws="gen" ${busy?"disabled":""}>${busy?"Creating your set…":ic("sparkles")+"Create my practice set"}</button>
+${busy?`<div class="ws-load" role="status"><span class="ws-sp"></span><span>Your teacher is writing cards and questions. This takes a few seconds.</span></div>`:""}
+${WS.err?`<div class="ws-err" role="alert">${ic("info")}<span>${esc(WS.err)}</span></div>`:""}</section>`;
+ if(!s)return h;
+ let tabs=[["words","Words",s.words.length],...(s.quiz.length?[["quiz","Quiz",s.quiz.length]]:[]),...(s.fillIns.length?[["fill","Fill in",s.fillIns.length]]:[])];
+ if(!tabs.some(t=>t[0]==WS.tab))WS.tab="words";
+ h+=`<section class="card ws-set" id="ws-set"><p class="eyebrow">Your practice set</p><h2 class="ws-title">${esc(s.title)}</h2>${s.summary?`<p class="card-sub">${esc(s.summary)}</p>`:""}
+<div class="seg ws-tabs" role="tablist" aria-label="Practice type">${tabs.map(([k,v,n])=>`<button class="${WS.tab==k?"on":""}" role="tab" aria-selected="${WS.tab==k}" data-ws="tab" data-t="${k}">${v}<small>${n}</small></button>`).join("")}</div>`;
+ if(WS.tab=="words"){
+  h+=`<div class="ws-grid">${s.words.map((w,i)=>{let f=!!WS.flip[i],sv=wsSaved(w.word);return`<div class="ws-card${f?" f":""}" data-ws="flip" data-i="${i}" tabindex="0" role="group" aria-roledescription="flip card" aria-label="${esc(w.word)}"><div class="ws-in">
+<div class="ws-face ws-front" ${f?"inert aria-hidden=\"true\"":""}>${w.partOfSpeech?`<span class="ws-pos">${esc(w.partOfSpeech)}</span>`:""}<div class="ws-w">${esc(w.word)}</div>${w.ipa?`<div class="ws-ipa">${esc(w.ipa)}</div>`:""}<div class="ws-acts"><button class="btn-soft btn-sm" data-ws="say" data-i="${i}">${ic("volume")}Listen</button><button class="btn-soft btn-sm" data-ws="keep" data-i="${i}" ${sv?"disabled":""}>${sv?ic("check")+"Saved":ic("plus")+"My words"}</button></div><span class="ws-hint">${ic("refresh")}Tap to flip</span></div>
+<div class="ws-face ws-back" ${f?"":"inert aria-hidden=\"true\""}><p class="ws-mean">${esc(w.meaning)}</p>${w.example?`<p class="ws-exm">“${esc(w.example)}”</p>`:""}${w.tip?`<p class="ws-tip">${ic("sparkles")}<span>${esc(w.tip)}</span></p>`:""}<span class="ws-hint">${ic("refresh")}Tap to flip back</span></div></div></div>`}).join("")}</div>
+<div class="actions"><button class="btn-primary" data-ws="fc">${ic("layers")}Practise as flashcards</button><button class="btn" data-ws="keepall">${ic("plus")}Save all to My words</button></div>`}
+ else if(WS.tab=="quiz"){let n=s.quiz.length,done=Object.keys(WS.qa).length,sc=Object.keys(WS.qa).filter(i=>WS.qa[i]==s.quiz[i].answerIndex).length;
+  h+=`<div class="ws-score" aria-live="polite"><b>${sc} / ${n}</b><span>correct</span>${done==n?`<span class="chip ${sc/n>=.8?"chip-success":""}">${sc/n>=.8?"Great work":"Review the cards and try again"}</span>`:""}</div>`+s.quiz.map((q,i)=>{let a=WS.qa[i];return`<div class="ws-q"><p class="ws-qt"><span class="ws-qn">${i+1}</span><span>${esc(q.question)}</span></p><div class="opts">${q.options.map((o,j)=>`<button class="${a==null?"":j==q.answerIndex?"ok":j==a?"no":""}" data-ws="ans" data-i="${i}" data-j="${j}" ${a!=null?"disabled":""}><span class="opt-k">${"ABCDEF"[j]||j+1}</span><span class="opt-t">${esc(o)}</span><span class="opt-mark">${ic("check","i-ok")}${ic("x","i-no")}</span></button>`).join("")}</div>${a!=null?`<div class="ws-ex ${a==q.answerIndex?"good":"bad"}"><b>${a==q.answerIndex?"Correct.":"Not quite."}</b> ${esc(q.explanation)}</div>`:""}</div>`}).join("")+(done?`<div class="actions"><button class="btn" data-ws="retryq">${ic("rotate")}Try the quiz again</button></div>`:"")}
+ else{let n=s.fillIns.length,sc=Object.keys(WS.fc).filter(i=>WS.fc[i]).length;
+  h+=`<div class="ws-score" aria-live="polite"><b>${sc} / ${n}</b><span>correct</span></div>`+s.fillIns.map((f,i)=>{let c=WS.fc[i];return`<div class="ws-q ws-fi"><p class="ws-qt"><span class="ws-qn">${i+1}</span><span>${esc(f.sentence)}</span></p><div class="answer-row"><input type="text" id="ws-f${i}" value="${esc(WS.fa[i]||"")}" class="${c==null?"":c?"ok":"no"}" placeholder="Type the missing word" aria-label="Answer ${i+1}" autocomplete="off" autocapitalize="off" spellcheck="false"><button class="btn-primary" data-ws="chk" data-i="${i}">Check</button></div>${f.hint?`<div class="ws-acts"><button class="btn-ghost btn-sm" data-ws="show" data-i="${i}">${ic("info")}Hint</button></div>`:""}${c===false?`<div class="ws-ex bad">Answer: <b>${esc(f.answer)}</b></div>`:c===true?`<div class="ws-ex good"><b>Correct.</b></div>`:WS.fh[i]?`<div class="ws-ex">${ic("sparkles")} ${esc(f.hint)}</div>`:""}</div>`}).join("")}
+ return h+`<div class="actions"><button class="btn-ghost" data-ws="new">${ic("rotate")}Start a new set</button></div></section>`}
+function wsFlip(card){let i=+card.dataset.i,f=!WS.flip[i];WS.flip[i]=f;card.classList.toggle("f",f);let fr=card.querySelector(".ws-front"),bk=card.querySelector(".ws-back");
+ if(fr){fr.toggleAttribute("inert",f);fr.setAttribute("aria-hidden",f)}if(bk){bk.toggleAttribute("inert",!f);bk.setAttribute("aria-hidden",!f)}}
+function wsCheck(i){let s=WS.set,f=s&&s.fillIns[i];if(!f)return;let v=($("#ws-f"+i)||{}).value;if(v==null)v=WS.fa[i]||"";WS.fa[i]=v;if(!wsN(v))return;WS.fc[i]=wsOk(v,f.answer);draw();
+ if(WS.fc[i]){let nx=s.fillIns.findIndex((_,k)=>k>i&&WS.fc[k]==null),el=nx>-1&&$("#ws-f"+nx);if(el)el.focus()}}
+async function wsGen(){let r=$("#ws-req");WS.req=(r?r.value:WS.req).trim();
  if(WS.req.length<2){WS.err="Please describe a topic or type a few words first.";draw();return}
- WS.busy=1;WS.err="";draw();
- let ctl=new AbortController(),tm=setTimeout(()=>ctl.abort(),60000);
- try{let res=await fetch(WS_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({request:WS.req,level:WS.lv}),signal:ctl.signal}),j=await res.json();
-  if(j.ok&&j.set){let s=j.set;for(const k of["words","quiz","fillIns"])s[k]=Array.isArray(s[k])?s[k]:[];s.title=s.title||"Your practice set";s.summary=s.summary||"";
-   s.quiz=s.quiz.filter(q=>q&&Array.isArray(q.options)&&q.options.length>1);
-   WS.set=s;wsReset();wsRemember(s)}
-  else WS.err=j.error||"Couldn’t create a practice set. Please try again."}
- catch(e){WS.err="Couldn’t reach Word Studio. Check your internet connection and try again."}
- clearTimeout(tm);WS.busy=0;wsDraw()}
-function wsText(s){return s.words.map(w=>`${w.word}${w.partOfSpeech?" ("+w.partOfSpeech+")":""} — ${w.meaning}${w.example?"\n   e.g. "+w.example:""}`).join("\n")}
-function wsCopy(s){let t=s.title+"\n\n"+wsText(s),done=()=>{WS.copied=1;wsDraw();setTimeout(()=>{WS.copied=0;wsDraw()},1600)};
- let fallback=()=>{let a=document.createElement("textarea");a.value=t;a.style.cssText="position:fixed;opacity:0";document.body.appendChild(a);a.select();try{document.execCommand("copy");done()}catch(e){}a.remove()};
- if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(done,fallback);else fallback()}
-function wsCsv(s){let q=v=>'"'+String(v||"").replace(/"/g,'""')+'"',rows=[["word","part of speech","pronunciation","meaning","example","tip"],...s.words.map(w=>[w.word,w.partOfSpeech,w.ipa,w.meaning,w.example,w.tip])];
- let blob=new Blob(["\ufeff"+rows.map(r=>r.map(q).join(",")).join("\r\n")],{type:"text/csv;charset=utf-8"}),a=document.createElement("a");
- a.href=URL.createObjectURL(blob);a.download=(s.title.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"word-studio")+".csv";document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)}
-/* returns true when the click belonged to Word Studio */
-function wsClick(t,D){let r=$("#ws-req");if(r)WS.req=r.value;let s=WS.set,i=+D.i;
- if(t.id=="fc"){if(!s)return true;WS.fl^=1;draw();return true}
- if(D.ws==null)return false;
- switch(D.ws){
-  case"idea":WS.req=WS_IDEAS[i];draw();break;
-  case"lv":WS.lv=D.l;draw();break;
-  case"gen":wsGen();break;
-  case"tab":WS.tab=D.t;draw();break;
-  case"k":{if(!s)break;let ord=wsList(s),wi=ord[WS.fi],w=s.words[wi];if(!w)break;wsKeep(w);vmark(w.word,D.k=="1");WS.fm[wi]=D.k=="1";save();WS.fi++;WS.fl=0;draw();break}
-  case"prev":if(WS.fi>0){WS.fi--;WS.fl=0;draw()}break;
-  case"restart":WS.order=null;WS.fi=0;WS.fl=0;WS.fm={};draw();break;
-  case"missed":{let ord=wsList(s);WS.order=ord.filter(x=>!WS.fm[x]);WS.fi=0;WS.fl=0;WS.fm={};draw();break}
-  case"shuffle":WS.order=sh(wsList(s));WS.fi=0;WS.fl=0;WS.fm={};draw();break;
-  case"auto":S.wsa=S.wsa?0:1;save();draw();break;
-  case"keepall":if(s){s.words.forEach(wsKeep);save();draw()}break;
-  case"ans":WS.qa[i]=+D.j;draw();break;
-  case"qretry":WS.qa={};draw();window.scrollTo({top:0,left:0,behavior:"smooth"});break;
-  case"chk":wsCheck(i);break;
-  case"show":{let el=$("#ws-f"+i);if(el)WS.fa[i]=el.value;WS.fh[i]=1;draw();break}
-  case"hear":{if(!s)break;let old=rate;if(D.slow)rate=.55;say(s.words[i].word);rate=old;break}
-  case"shint":{let el=$("#ws-s"+i);if(el)WS.sp[i]=el.value;WS.sh[i]=1;draw();break}
-  case"chks":wsCheckSpell(i);break;
-  case"copy":if(s)wsCopy(s);break;
-  case"csv":if(s)wsCsv(s);break;
-  case"open":{let h=(S.wsh||[])[i];if(h){WS.set=h.set;WS.sid=h.id;WS.req=h.req;WS.lv=h.lv;WS.err="";wsReset();window.scrollTo({top:0,left:0,behavior:"instant"});draw()}break}
-  case"del":{(S.wsh||[]).splice(i,1);save();draw();break}
-  case"new":WS.set=null;WS.req="";WS.err="";wsReset();window.scrollTo({top:0,left:0,behavior:"instant"});draw();break;
-  default:return false}
+ if(navigator.onLine===false){WS.err="You’re offline. Word Studio needs an internet connection.";draw();return}
+ WS.busy=1;WS.err="";draw();let ac=new AbortController(),to=setTimeout(()=>ac.abort(),60000);
+ try{let res=await fetch(WS_URL,{method:"POST",signal:ac.signal,headers:{"Content-Type":"application/json"},body:JSON.stringify({request:WS.req,level:WS.lv})}),j=null;try{j=await res.json()}catch(e){}
+  let set=j&&j.ok?wsClean(j.set):null;
+  if(set){WS.set=set;WS.tab="words";WS.flip={};WS.qa={};WS.fa={};WS.fc={};WS.fh={};S.wsLast={set,req:WS.req,lv:WS.lv};save()}
+  else WS.err=(j&&typeof j.error=="string"&&j.error)||(j&&j.ok?"The set came back incomplete. Please try again.":"Word Studio is busy right now. Please try again in a moment.")}
+ catch(e){WS.err=e&&e.name=="AbortError"?"That took too long. Please try again.":"Couldn’t reach Word Studio. Check your internet connection and try again."}
+ clearTimeout(to);WS.busy=0;if(view=="studio"){draw();if(WS.set&&!WS.err){let el=$("#ws-set");if(el)el.scrollIntoView({behavior:"smooth",block:"start"})}}}
+function wsClick(e){let t=e.target.closest("[data-ws]");if(!t||t.disabled)return false;let D=t.dataset,i=+D.i,s=WS.set,r=$("#ws-req");if(r)WS.req=r.value;
+ if(D.ws=="idea"){WS.req=WS_IDEAS[i];draw();let q=$("#ws-req");if(q)q.focus()}
+ else if(D.ws=="lv"){WS.lv=D.l;draw()}
+ else if(D.ws=="gen")wsGen();
+ else if(D.ws=="tab"){WS.tab=D.t;draw()}
+ else if(D.ws=="flip")wsFlip(t);
+ else if(D.ws=="say"&&s){let w=s.words[i];say(w.word+(w.example?". "+w.example:""))}
+ else if(D.ws=="keep"&&s){wsKeep(s.words[i]);save();draw()}
+ else if(D.ws=="keepall"&&s){s.words.forEach(wsKeep);save();draw()}
+ else if(D.ws=="fc"&&s){FSRC="set";R=null;view="flash";draw()}
+ else if(D.ws=="fcws"){FSRC="ws";R=null;view="flash";draw()}
+ else if(D.ws=="rm"){(S.ws||[]).splice(i,1);save();draw()}
+ else if(D.ws=="ans"&&s){WS.qa[i]=+D.j;draw()}
+ else if(D.ws=="retryq"){WS.qa={};draw()}
+ else if(D.ws=="chk")wsCheck(i);
+ else if(D.ws=="show"){let el=$("#ws-f"+i);if(el)WS.fa[i]=el.value;WS.fh[i]=1;draw()}
+ else if(D.ws=="new"){WS.set=null;WS.req="";WS.qa={};WS.fa={};WS.fc={};WS.fh={};WS.flip={};delete S.wsLast;save();window.scrollTo({top:0,left:0,behavior:"instant"});draw()}
+ else return false;
  return true}
-function wsCheck(i){let el=$("#ws-f"+i),f=WS.set&&WS.set.fillIns[i];if(!f)return;let v=el?el.value:"";WS.fa[i]=v;
- WS.fc[i]=v.trim().toLowerCase()==String(f.answer).trim().toLowerCase();draw()}
-function wsCheckSpell(i){let el=$("#ws-s"+i),w=WS.set&&WS.set.words[i];if(!w)return;let v=el?el.value:"";WS.sp[i]=v;
- let ok=v.trim().toLowerCase()==w.word.trim().toLowerCase();
- if(WS.sr[i]==null){wsKeep(w);vmark(w.word,ok);save()}
- WS.sr[i]=ok;draw()}
-function wsWire(){let r=$("#ws-req");if(r)r.oninput=()=>{WS.req=r.value};
- document.querySelectorAll("#app input[id^=ws-f]").forEach(el=>{let i=+el.id.slice(4);el.oninput=()=>{WS.fa[i]=el.value};el.onkeydown=e=>{if(e.key=="Enter"){e.preventDefault();wsCheck(i)}}});
- document.querySelectorAll("#app input[id^=ws-s]").forEach(el=>{let i=+el.id.slice(4);el.oninput=()=>{WS.sp[i]=el.value};el.onkeydown=e=>{if(e.key=="Enter"){e.preventDefault();wsCheckSpell(i)}}});
- if(WS.set&&WS.tab=="words"&&!WS.fl&&S.wsa){let w=WS.set.words[wsList(WS.set)[WS.fi]],key=WS.sid+":"+WS.fi+":"+WS.order;if(w&&WS.said!=key){WS.said=key;setTimeout(()=>say(w.word),250)}}}
-/* keyboard shortcuts for the Word Studio deck */
-document.addEventListener("keydown",e=>{if(view!="studio"||WS.tab!="words"||!WS.set||e.metaKey||e.ctrlKey||e.altKey)return;let tg=e.target;if(tg&&/^(INPUT|TEXTAREA|SELECT)$/.test(tg.tagName))return;
- let w=WS.set.words[wsList(WS.set)[WS.fi]];if(!w)return;let k=e.key.toLowerCase(),sel=null;
- if(k=="1")sel='[data-k="0"]';else if(k=="2")sel='[data-k="1"]';else if(k=="arrowleft")sel='[data-ws="prev"]';
- else if(k=="s"){e.preventDefault();say(w.word);return}
- else if(k==" "&&(!tg||tg==document.body||tg==document.documentElement||tg==document)){e.preventDefault();sel="#fc"}
- if(sel){let b=$("#app "+sel);if(b&&!b.disabled){e.preventDefault();b.click()}}});
+function wsWire(){let A=$("#app"),r=$("#ws-req");if(r)r.oninput=()=>{WS.req=r.value};
+ A.querySelectorAll('input[id^="ws-f"]').forEach(inp=>{let i=+inp.id.slice(4);inp.oninput=()=>{WS.fa[i]=inp.value};inp.onkeydown=ev=>{if(ev.key=="Enter"){ev.preventDefault();wsCheck(i)}}});
+ A.querySelectorAll(".ws-card").forEach(c=>c.onkeydown=ev=>{if(ev.target===c&&(ev.key=="Enter"||ev.key==" ")){ev.preventDefault();wsFlip(c)}})}
+
 /* ===== 8. EVENTS & MODULE INTERACTIONS ===== */
 function wire(){let A=$("#app"),it=R&&R.q&&R.q[R.i],pick=[],pi=[];
  const showSel=()=>{let s=$("#sel");if(s)s.innerHTML=pick.map(w=>`<span class="tok">${esc(w)}</span>`).join("")};
- A.onclick=e=>{let t=e.target.closest("button,#fc");if(!t||t.disabled)return;let D=t.dataset;if(view=="studio"&&wsClick(t,D))return;if((view=="lessons"||view=="words")&&myClick(t,D))return;
+ A.onclick=e=>{if((view=="studio"||view=="words")&&wsClick(e))return;let t=e.target.closest("button,#fc");if(!t||t.disabled)return;let D=t.dataset;
   if(D.go){let[l,m]=D.go.split("|");start(l,m)}
   else if(D.test)startTest();
   else if(D.tab){S.tab=D.tab;save();draw()}
@@ -8292,19 +8233,22 @@ function wire(){let A=$("#app"),it=R&&R.q&&R.q[R.i],pick=[],pi=[];
   else if(D.gs)startGS(S.gr||6,+D.gs);
   else if(D.gt){S.gt=D.gt;save();draw()}
   else if(D.gx)gsx(S.gr||6,D.gx);
-  else if(D.gfl){FWC=null;S.fwg=S.gr||6;R=null;view="flash";draw()}
+  else if(D.gfl){S.fwg=S.gr||6;FSRC="";R=null;view="flash";draw()}
   else if(D.gsk)startSkill(LV[GL[S.gr||6]],D.gsk);
   else if(D.sk)startSkill(skl(),D.sk);
   else if(D.p){let[a,b]=D.p.split(":");a=="m"?start(curLv(),b):startSkill(curLv(),b)}
   else if(D.daily)startDaily($("#dl").value);
   else if(D.endless)startEndless(D.el||$("#el").value,D.em||$("#em").value);
   else if(D.apply){S.est=R.res.o;save();R=null;view="home";draw()}
-  else if(D.v){if(R)clearTimeout(R.tm);if(D.v=="flash"){S.fwg=0;FWC=null}view=D.v;if(D.v!="flash")R=D.v=="home"?null:R;draw()}
+  else if(D.v){if(R)clearTimeout(R.tm);if(D.v=="flash"){S.fwg=0;FSRC=""}view=D.v;if(D.v!="flash")R=D.v=="home"?null:R;draw()}
   else if(D.sug){let i=$("#ti");if(i){i.value=D.sug;tsend()}}
   else if(D.say!=null){let s=rate;if(D.slow)rate=.55;say(D.say);rate=s}
-  else if(t.id=="rs")ask("Reset all progress?","This clears your scores, streaks, high scores and word progress on this device. It can’t be undone.","Reset progress",()=>{S={p:{},v:{},bs:0};save();draw()},1);
-  else if(t.id=="fc"){R.fl^=1;draw()}
-  else if(D.k!=null){let ws=fw();vmark(ws[R.i%ws.length][0],D.k=="1");save();R.i++;R.fl=0;draw()}
+  else if(t.id=="rs")ask("Reset all progress?","This clears your scores, streaks, high scores and word progress on this device. It can’t be undone.","Reset progress",()=>{S={p:{},v:{},bs:0};WS.set=null;WS.req="";WS.qa={};WS.fa={};WS.fc={};WS.fh={};WS.flip={};save();draw()},1);
+  else if(t.id=="fc")fflip();
+  else if(D.k!=null)fgo(D.k=="1");
+  else if(D.fu!=null){fundo();draw();let f=$("#fc");if(f)f.focus({preventScroll:true})}
+  else if(D.fa=="again"){fstart();draw()}
+  else if(D.fa=="hard"){fstart(R.cards.filter((_,i)=>R.again[i]>0).map(c=>fnorm(c.w)));draw()}
   else if(t.id=="nx"){R.i++;R.done=0;(R.endless?R.lives>0:R.i<R.q.length)?draw():finish()}
   else if(D.o!=null){let k=+D.o==it.a;if(!R.done){t.classList.add(k?"ok":"no");if(!k)A.querySelectorAll("[data-o]")[it.a].classList.add("ok")}answer(k,it,"")}
   else if(D.w!=null){pick.push(it.w[D.w]);pi.push(D.w);t.disabled=true;showSel()}
@@ -8314,13 +8258,12 @@ function wire(){let A=$("#app"),it=R&&R.q&&R.q[R.i],pick=[],pi=[];
   else if(t.id=="rec")listen(it);
   else if(t.id=="snd")tsend();
   else if(D.self!=null)answer(D.self=="1",{...it,x:"Compare with the audio and keep practising."});};
+ if(view=="studio")wsWire();
  let r=$("#rt");if(r)r.oninput=()=>{rate=+r.value;let o=$("#rto");if(o)o.textContent=rate.toFixed(1)+"×"};
  let ti=$("#ti");if(ti){ti.focus();ti.onkeydown=e=>{if(e.key=="Enter")tsend()}}
  let wr=$("#wr");if(wr){wr.focus();wr.oninput=()=>$("#cl").innerHTML=cl(wr.value,it)}
  let tx=$("#tx");if(tx){tx.focus();tx.onkeydown=e=>{if(e.key=="Enter"&&!R.done)$("#ck").click()}}
- let fc=$("#fc");if(fc)fc.onkeydown=e=>{if(e.key=="Enter"||e.key==" "){e.preventDefault();fc.click()}};
- if(view=="studio")wsWire();if(view=="lessons")lsWire();if(view=="words")mwWire();
- if(it&&it.say&&it.t!="speak")setTimeout(()=>say(it.say),300);
+  if(it&&it.say&&it.t!="speak")setTimeout(()=>say(it.say),300);
  if(R&&(R.endless||R.timed)&&view=="round"&&it&&!R.done&&it.t!="speak"&&it.t!="write")etimer(it)}
 /* Keyboard: A–F or 1–6 picks an answer during a round */
 document.addEventListener("keydown",e=>{if(view!="round"||e.metaKey||e.ctrlKey||e.altKey)return;let tg=e.target;if(tg&&/^(INPUT|TEXTAREA|SELECT)$/.test(tg.tagName))return;
@@ -8361,6 +8304,28 @@ draw();loadFeed().then(()=>{if(view=="home")draw()});
 /* Auto-update: re-check the feed whenever the tab becomes visible again (e.g. next morning) */
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState=="visible")loadFeed().then(()=>{if(view=="home")draw()})});
 </script><script>// Lesson completion helpers.
+document.addEventListener("toggle", (event) => {
+  const detail = event.target;
+  if (!(detail instanceof HTMLDetailsElement) || !detail.open || view !== "lessons") return;
+  const title = detail.querySelector("summary")?.textContent || "";
+  const lesson = LES.find(l => { const display = l[0].split(": ").at(-1); return title.toLowerCase().includes(l[0].toLowerCase()) || (display && title.toLowerCase().includes(display.toLowerCase())); });
+  if (!lesson || detail.querySelector("[data-complete-lesson]")) return;
+  const button = document.createElement("button");
+  button.className = "btn-soft";
+  button.dataset.completeLesson = lesson[0];
+  button.textContent = (S.completedLessons || []).includes(lesson[0]) ? "✓ Lesson completed" : "Mark lesson complete";
+  detail.querySelector(".acc-actions")?.appendChild(button);
+}, true);
+document.addEventListener("click", (event) => {
+  if (!(event.target instanceof Element)) return;
+  const button = event.target.closest("[data-complete-lesson]");
+  if (!(button instanceof HTMLButtonElement)) return;
+  const title = button.dataset.completeLesson;
+  if (!title) return;
+  S.completedLessons = Array.from(new Set([...(S.completedLessons || []), title]));
+  save();
+  button.textContent = "✓ Lesson completed";
+});
 window.trainerLessonContext = () => ({ lessons: Array.from(LES.reduce((map, l) => { const previous = map.get(l[0]); map.set(l[0], { title: l[0], text: (previous ? previous.text + '\n' : '') + l[1].split('|').join('\n') }); return map; }, new Map()).values()), level: curLv() });</script><script>
 (function () {
   var KEY = 'english-trainer-theme', root = document.documentElement;
