@@ -7042,7 +7042,46 @@ html.mode-anim,html.mode-anim *,html.mode-anim *::before,html.mode-anim *::after
   .card-feature .card-head>.chip{display:none}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.topbar-in{transition:none}}
-</style><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='oklch%280.6 0.15 42%29'/%3E%3Cstop offset='1' stop-color='oklch%280.72 0.15 72%29'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url%28%23g%29'/%3E%3Ctext x='32' y='44' font-family='Georgia%2Cserif' font-style='italic' font-size='34' text-anchor='middle' fill='white'%3EEe%3C/text%3E%3C/svg%3E"><script>try{var t=localStorage.getItem("english-trainer-theme");if(t)document.documentElement.dataset.theme=t;var m=localStorage.getItem("english-trainer-mode");if(m==="light"||m==="dark")document.documentElement.dataset.mode=m}catch(e){}</script></head><body><div class="app-shell"><header class="topbar"><div class="topbar-in"><button class="brand" onclick="window.trainerHome()"><span class="brand-mark">Ee</span><span class="brand-name">English Trainer</span></button>
+</style><style>
+/* ===== polish v8 ===== */
+html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+::selection{background:color-mix(in oklab,var(--primary) 26%,transparent);color:var(--foreground)}
+h1,h2,h3,.result-h,.sub-h{text-wrap:balance;letter-spacing:-.012em}
+p,.lede,.card-sub{text-wrap:pretty}
+.card{transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s cubic-bezier(.2,.7,.2,1),border-color .25s;box-shadow:var(--highlight),var(--shadow-sm)}
+@media (hover:hover){.card.skill:hover,.skill:hover{transform:translateY(-2px);box-shadow:var(--highlight),var(--shadow-md)}}
+.btn,.btn-primary,.btn-ghost,.btn-soft,.chip,.wchip,.opt-k{transition:transform .16s cubic-bezier(.2,.7,.2,1),box-shadow .25s,background-color .2s,border-color .2s,color .2s,filter .2s}
+.btn:active,.btn-primary:active,.btn-ghost:active,.btn-soft:active{transform:translateY(1px) scale(.98)}
+.btn-primary{box-shadow:var(--highlight),var(--shadow-primary)}
+@media (hover:hover){.btn-primary:hover{filter:brightness(1.05) saturate(1.05);transform:translateY(-1px)}}
+:where(button,a,input,select,textarea,[tabindex]):focus-visible{outline:2px solid var(--ring);outline-offset:2px;border-radius:inherit}
+.topbar{-webkit-backdrop-filter:blur(14px) saturate(1.4);backdrop-filter:blur(14px) saturate(1.4)}
+.eyebrow{letter-spacing:.09em}
+.stat{transition:transform .3s cubic-bezier(.2,.7,.2,1)}
+@media (hover:hover){.stat:hover{transform:translateY(-1px)}}
+input,textarea{transition:border-color .2s,box-shadow .2s}
+input:focus,textarea:focus{box-shadow:0 0 0 4px color-mix(in oklab,var(--ring) 18%,transparent)}
+
+/* ===== new theme transition: soft "ink bloom" =====
+   new theme blooms out of the picked swatch with a feathered edge,
+   while the old theme gently recedes, blurs and dims behind it. */
+html{--vx:50vw;--vy:0px;--vr:150vmax}
+::view-transition-group(root){animation-duration:.9s}
+::view-transition-old(root){z-index:1;animation:etOld .9s cubic-bezier(.55,0,.2,1) both;transform-origin:var(--vx) var(--vy)}
+::view-transition-new(root){z-index:2;
+  -webkit-mask-image:radial-gradient(circle at var(--vx) var(--vy),#000 0,#000 calc(var(--m,0) * var(--vr)),transparent calc(var(--m,0) * var(--vr) + 14vmax));
+          mask-image:radial-gradient(circle at var(--vx) var(--vy),#000 0,#000 calc(var(--m,0) * var(--vr)),transparent calc(var(--m,0) * var(--vr) + 14vmax));
+  animation:etNew .9s cubic-bezier(.5,0,.15,1) both}
+@property --m{syntax:"<number>";inherits:false;initial-value:0}
+@keyframes etNew{from{--m:-.1;filter:saturate(1.4) brightness(1.06)}to{--m:1;filter:none}}
+@keyframes etOld{to{transform:scale(.965);filter:blur(3px) brightness(.88);opacity:.6}}
+/* bloom ring that ripples outward */
+.et-ripple{position:fixed;z-index:9999;pointer-events:none;left:0;top:0;width:24px;height:24px;margin:-12px 0 0 -12px;border-radius:50%;
+  border:2px solid var(--primary);box-shadow:0 0 24px 4px color-mix(in oklab,var(--primary) 45%,transparent);animation:etRipple .9s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes etRipple{0%{transform:scale(.3);opacity:.95}100%{transform:scale(18);opacity:0;border-width:.5px}}
+@media (prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none!important;-webkit-mask-image:none;mask-image:none}.et-ripple{display:none}}
+</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='oklch%280.6 0.15 42%29'/%3E%3Cstop offset='1' stop-color='oklch%280.72 0.15 72%29'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url%28%23g%29'/%3E%3Ctext x='32' y='44' font-family='Georgia%2Cserif' font-style='italic' font-size='34' text-anchor='middle' fill='white'%3EEe%3C/text%3E%3C/svg%3E"><script>try{var t=localStorage.getItem("english-trainer-theme");if(t)document.documentElement.dataset.theme=t;var m=localStorage.getItem("english-trainer-mode");if(m==="light"||m==="dark")document.documentElement.dataset.mode=m}catch(e){}</script></head><body><div class="app-shell"><header class="topbar"><div class="topbar-in"><button class="brand" onclick="window.trainerHome()"><span class="brand-mark">Ee</span><span class="brand-name">English Trainer</span></button>
 <div class="theme-wrap"><button type="button" class="theme-trigger" id="theme-btn" aria-haspopup="true" aria-expanded="false" aria-controls="theme-pop" aria-label="Colour theme"><span class="swatch-dot" id="theme-dot" data-swatch="warm"></span><span id="theme-name">Warm</span><svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button><div class="theme-pop" id="theme-pop" role="radiogroup" aria-label="Colour theme" hidden><div class="theme-pop-head"><p class="theme-pop-title">Colour theme</p><span class="theme-pop-hint">Saved on this device</span></div><div class="mode-seg" id="mode-seg" role="radiogroup" aria-label="Appearance" data-m="auto"><span class="mode-thumb" aria-hidden="true"></span><button type="button" role="radio" aria-checked="true" data-mode-opt="auto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg><span>Auto</span></button><button type="button" role="radio" aria-checked="false" data-mode-opt="light"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg><span>Light</span></button><button type="button" role="radio" aria-checked="false" data-mode-opt="dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><span>Dark</span></button></div><div class="theme-grid"><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="warm" data-swatch="warm" style="--i:0"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Warm</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="ocean" data-swatch="ocean" style="--i:1"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Ocean</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="forest" data-swatch="forest" style="--i:2"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Forest</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="violet" data-swatch="violet" style="--i:3"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Violet</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="rose" data-swatch="rose" style="--i:4"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Rose</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="mint" data-swatch="mint" style="--i:5"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Mint</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="cherry" data-swatch="cherry" style="--i:6"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Cherry</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="sunflower" data-swatch="sunflower" style="--i:7"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Sunflower</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="lagoon" data-swatch="lagoon" style="--i:8"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Lagoon</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="graphite" data-swatch="graphite" style="--i:9"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Graphite</span></button></div></div></div></div></header><main id="app" class="trainer"></main></div>
 <script>/* English Trainer engine: content (DATA), state, question builders and round logic.
    Loaded together with ui.js as one classic script (see src/components/trainer/load-engine.ts). */
@@ -8363,14 +8402,14 @@ window.trainerLessonContext = () => ({ lessons: Array.from(LES.reduce((map, l) =
     var r = from.getBoundingClientRect();
     var x = r.left + r.width / 2, y = r.top + r.height / 2;
     if (document.startViewTransition) {
+      var rad = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+      root.style.setProperty('--vx', x + 'px'); root.style.setProperty('--vy', y + 'px'); root.style.setProperty('--vr', (rad * 1.05) + 'px');
       var vt;
       try { vt = document.startViewTransition(apply); } catch (e) { apply(); return; }
       vt.ready.then(function () {
-        var rad = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
-        root.animate(
-          { clipPath: ['circle(0px at ' + x + 'px ' + y + 'px)', 'circle(' + rad + 'px at ' + x + 'px ' + y + 'px)'] },
-          { duration: 800, easing: 'cubic-bezier(.45,0,.15,1)', pseudoElement: '::view-transition-new(root)' }
-        );
+        var rp = document.createElement('span'); rp.className = 'et-ripple';
+        rp.style.left = x + 'px'; rp.style.top = y + 'px';
+        document.body.appendChild(rp); setTimeout(function () { rp.remove(); }, 950);
       }).catch(function () {});
     } else {
       root.classList.add(cls);
