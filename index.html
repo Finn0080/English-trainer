@@ -6832,8 +6832,8 @@ html[data-theme="graphite"], [data-swatch="graphite"] {
 .swatch[aria-checked="true"] .swatch-tick{opacity:1;transform:none}
 .theme-pop:not([hidden]):not(.is-closing) .swatch{animation:swIn .3s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i) * 24ms + 50ms)}
 .swatch:focus-visible,.theme-trigger:focus-visible{outline:2px solid var(--ring);outline-offset:2px}
-@keyframes popIn{from{opacity:0;transform:translateY(-6px) scale(.94)}to{opacity:1;transform:none}}
-@keyframes popOut{to{opacity:0;transform:translateY(-4px) scale(.96)}}
+@keyframes popIn{from{opacity:0;transform:translateY(-8px) scale(.975);filter:blur(3px)}to{opacity:1;transform:none;filter:blur(0)}}
+@keyframes popOut{to{opacity:0;transform:translateY(-5px) scale(.98);filter:blur(2px)}}
 @keyframes swIn{from{opacity:0;transform:translateY(6px) scale(.92)}to{opacity:1;transform:none}}
 
 /* ---- theme change: circular reveal from the swatch you picked (browsers with View Transitions) ---- */
@@ -7046,21 +7046,18 @@ html.mode-anim,html.mode-anim *,html.mode-anim *::before,html.mode-anim *::after
 /* ===== polish v8 ===== */
 html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
 ::selection{background:color-mix(in oklab,var(--primary) 26%,transparent);color:var(--foreground)}
-h1,h2,h3,.result-h,.sub-h{text-wrap:balance;letter-spacing:-.012em}
+h1,h2,h3,.result-h{text-wrap:balance;letter-spacing:-.012em}
 p,.lede,.card-sub{text-wrap:pretty}
-.card{transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s cubic-bezier(.2,.7,.2,1),border-color .25s;box-shadow:var(--highlight),var(--shadow-sm)}
+.card{transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s cubic-bezier(.2,.7,.2,1),border-color .25s}
 @media (hover:hover){.card.skill:hover,.skill:hover{transform:translateY(-2px);box-shadow:var(--highlight),var(--shadow-md)}}
 .btn,.btn-primary,.btn-ghost,.btn-soft,.chip,.wchip,.opt-k{transition:transform .16s cubic-bezier(.2,.7,.2,1),box-shadow .25s,background-color .2s,border-color .2s,color .2s,filter .2s}
 .btn:active,.btn-primary:active,.btn-ghost:active,.btn-soft:active{transform:translateY(1px) scale(.98)}
-.btn-primary{box-shadow:var(--highlight),var(--shadow-primary)}
 @media (hover:hover){.btn-primary:hover{filter:brightness(1.05) saturate(1.05);transform:translateY(-1px)}}
-:where(button,a,input,select,textarea,[tabindex]):focus-visible{outline:2px solid var(--ring);outline-offset:2px;border-radius:inherit}
 .topbar{-webkit-backdrop-filter:blur(14px) saturate(1.4);backdrop-filter:blur(14px) saturate(1.4)}
 .eyebrow{letter-spacing:.09em}
 .stat{transition:transform .3s cubic-bezier(.2,.7,.2,1)}
 @media (hover:hover){.stat:hover{transform:translateY(-1px)}}
 input,textarea{transition:border-color .2s,box-shadow .2s}
-input:focus,textarea:focus{box-shadow:0 0 0 4px color-mix(in oklab,var(--ring) 18%,transparent)}
 
 /* ===== new theme transition: soft "ink bloom" =====
    new theme blooms out of the picked swatch with a feathered edge,
@@ -7080,6 +7077,42 @@ html{--vx:50vw;--vy:0px;--vr:150vmax}
   border:2px solid var(--primary);box-shadow:0 0 24px 4px color-mix(in oklab,var(--primary) 45%,transparent);animation:etRipple .9s cubic-bezier(.2,.7,.2,1) forwards}
 @keyframes etRipple{0%{transform:scale(.3);opacity:.95}100%{transform:scale(18);opacity:0;border-width:.5px}}
 @media (prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none!important;-webkit-mask-image:none;mask-image:none}.et-ripple{display:none}}
+
+/* ===== colour-theme transitions ===== */
+.theme-pop{border-radius:18px;animation-duration:.3s;will-change:transform,opacity}
+.theme-pop.is-closing{animation-duration:.18s}
+.theme-pop-head{padding-bottom:12px;border-bottom:1px solid var(--border)}
+.swatch{min-height:44px}
+:where(button,[role="button"],[role="radio"]):focus-visible{outline:2px solid var(--ring);outline-offset:3px}
+html.ocean-theme-change,html.ocean-theme-change *,html.ocean-theme-change *::before,html.ocean-theme-change *::after{
+  transition:background-color 1s cubic-bezier(.2,.7,.2,1),color 1s cubic-bezier(.2,.7,.2,1),border-color 1s cubic-bezier(.2,.7,.2,1),box-shadow 1s cubic-bezier(.2,.7,.2,1),fill 1s cubic-bezier(.2,.7,.2,1),stroke 1s cubic-bezier(.2,.7,.2,1)!important
+}
+.et-ocean-life{position:fixed;inset:0;z-index:2147483000;overflow:hidden;pointer-events:none;contain:layout style;color:var(--primary)}
+.et-ocean-bubble,.et-ocean-fish{position:absolute;width:var(--ocean-size);height:auto;overflow:visible;opacity:0;animation:et-ocean-rise var(--ocean-duration) cubic-bezier(.35,.05,.55,1) var(--ocean-delay) both}
+.et-ocean-bubble{bottom:-12vh;color:var(--primary-2)}
+.et-ocean-bubble circle{fill:color-mix(in oklab,var(--primary) 9%,transparent);stroke:currentColor;stroke-width:1.4}
+.et-ocean-shine{fill:none;stroke:color-mix(in oklab,var(--accent-foreground) 78%,transparent);stroke-width:1.5;stroke-linecap:round}
+.et-ocean-fish{left:-18vw;color:var(--primary);filter:drop-shadow(0 2px 8px color-mix(in oklab,var(--primary) 24%,transparent));animation-name:et-ocean-swim}
+.et-ocean-fish-reverse{left:auto;right:-18vw;animation-name:et-ocean-swim-reverse;color:var(--primary-2)}
+.et-fish-tail{fill:currentColor;opacity:.78}
+.et-fish-body{fill:currentColor}
+.et-fish-fin{fill:none;stroke:color-mix(in oklab,var(--accent-foreground) 80%,transparent);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.et-fish-eye{fill:var(--foreground);stroke:var(--card);stroke-width:1}
+@keyframes et-ocean-rise{0%{opacity:0;transform:translate3d(0,0,0) scale(.72)}12%{opacity:.88}82%{opacity:.66}100%{opacity:0;transform:translate3d(28px,-125vh,0) scale(1.18)}}
+@keyframes et-ocean-swim{0%{opacity:0;transform:translate3d(-20vw,12px,0) rotate(-4deg) scale(.85)}12%{opacity:.94}42%{transform:translate3d(42vw,-8px,0) rotate(3deg) scale(1)}72%{transform:translate3d(82vw,10px,0) rotate(-2deg) scale(.94)}100%{opacity:0;transform:translate3d(123vw,-8px,0) rotate(3deg) scale(.85)}}
+@keyframes et-ocean-swim-reverse{0%{opacity:0;transform:translate3d(20vw,8px,0) rotate(4deg) scale(.82,-.82)}12%{opacity:.88}44%{transform:translate3d(-40vw,-9px,0) rotate(-3deg) scale(.92,-.92)}78%{transform:translate3d(-88vw,7px,0) rotate(2deg) scale(.86,-.86)}100%{opacity:0;transform:translate3d(-123vw,-8px,0) rotate(-3deg) scale(.76,-.76)}}
+.et-theme-life{position:fixed;inset:0;z-index:2147483001;overflow:hidden;pointer-events:none;contain:layout style}
+.et-theme-particle{position:absolute;display:block;width:var(--fx-size);height:var(--fx-size);color:var(--primary);opacity:0;filter:drop-shadow(0 2px 7px color-mix(in oklab,var(--primary) 28%,transparent));animation:et-theme-burst 1.35s cubic-bezier(.16,.7,.24,1) var(--fx-delay) both}
+.et-theme-particle:nth-child(even){color:var(--primary-2)}
+.et-theme-particle svg{display:block;width:100%;height:100%;overflow:visible;fill:currentColor}
+.et-theme-life[data-theme="forest"] .et-theme-particle svg,.et-theme-life[data-theme="mint"] .et-theme-particle svg{fill:color-mix(in oklab,currentColor 78%,transparent)}
+.et-theme-life[data-theme="rose"] .et-theme-particle svg,.et-theme-life[data-theme="cherry"] .et-theme-particle svg{fill:color-mix(in oklab,currentColor 72%,transparent)}
+@keyframes et-theme-burst{0%{opacity:0;transform:translate3d(-50%,-50%,0) scale(.35) rotate(0)}18%{opacity:.86}72%{opacity:.68}100%{opacity:0;transform:translate3d(calc(-50% + var(--fx-x)),calc(-50% + var(--fx-y)),0) scale(.72) rotate(var(--fx-turn))}}
+@media(prefers-reduced-motion:reduce){
+  .theme-pop{will-change:auto}
+  html.ocean-theme-change,html.ocean-theme-change *,html.ocean-theme-change *::before,html.ocean-theme-change *::after{transition:none!important}
+  .et-ocean-life,.et-theme-life{display:none}
+}
 </style>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='oklch%280.6 0.15 42%29'/%3E%3Cstop offset='1' stop-color='oklch%280.72 0.15 72%29'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url%28%23g%29'/%3E%3Ctext x='32' y='44' font-family='Georgia%2Cserif' font-style='italic' font-size='34' text-anchor='middle' fill='white'%3EEe%3C/text%3E%3C/svg%3E"><script>try{var t=localStorage.getItem("english-trainer-theme");if(t)document.documentElement.dataset.theme=t;var m=localStorage.getItem("english-trainer-mode");if(m==="light"||m==="dark")document.documentElement.dataset.mode=m}catch(e){}</script></head><body><div class="app-shell"><header class="topbar"><div class="topbar-in"><button class="brand" onclick="window.trainerHome()"><span class="brand-mark">Ee</span><span class="brand-name">English Trainer</span></button>
 <div class="theme-wrap"><button type="button" class="theme-trigger" id="theme-btn" aria-haspopup="true" aria-expanded="false" aria-controls="theme-pop" aria-label="Colour theme"><span class="swatch-dot" id="theme-dot" data-swatch="warm"></span><span id="theme-name">Warm</span><svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button><div class="theme-pop" id="theme-pop" role="radiogroup" aria-label="Colour theme" hidden><div class="theme-pop-head"><p class="theme-pop-title">Colour theme</p><span class="theme-pop-hint">Saved on this device</span></div><div class="mode-seg" id="mode-seg" role="radiogroup" aria-label="Appearance" data-m="auto"><span class="mode-thumb" aria-hidden="true"></span><button type="button" role="radio" aria-checked="true" data-mode-opt="auto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg><span>Auto</span></button><button type="button" role="radio" aria-checked="false" data-mode-opt="light"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg><span>Light</span></button><button type="button" role="radio" aria-checked="false" data-mode-opt="dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><span>Dark</span></button></div><div class="theme-grid"><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="warm" data-swatch="warm" style="--i:0"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Warm</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="ocean" data-swatch="ocean" style="--i:1"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Ocean</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="forest" data-swatch="forest" style="--i:2"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Forest</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="violet" data-swatch="violet" style="--i:3"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Violet</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="rose" data-swatch="rose" style="--i:4"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Rose</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="mint" data-swatch="mint" style="--i:5"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Mint</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="cherry" data-swatch="cherry" style="--i:6"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Cherry</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="sunflower" data-swatch="sunflower" style="--i:7"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Sunflower</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="lagoon" data-swatch="lagoon" style="--i:8"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Lagoon</span></button><button type="button" class="swatch" role="radio" aria-checked="false" data-theme-opt="graphite" data-swatch="graphite" style="--i:9"><span class="swatch-dot"><svg class="swatch-tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="swatch-name">Graphite</span></button></div></div></div></div></header><main id="app" class="trainer"></main></div>
@@ -7238,7 +7271,7 @@ const LV=Object.keys(DATA),MD=["listening","speaking","reading","writing","vocab
             "daily":{"2026-10-25":{"B1":[["mc",question,[options],answerIndex,explanation],["order",sentence],
                      ["type",prompt,answer,explanation,optionalAudioText],["tf",statement,0|1|2,explanation,passage],["speak",sentence]]}}}
    "extra" adds to the same pools as DATA (same formats). "daily" gives ready-made questions for that date and level. */
-const FEED_URL="https://github.com/Finn0080/English-trainer/blob/main/feed.json";
+const FEED_URL="";
 /* AI tutor (optional): address of your proxy (see worker.js). The API key lives only on the server. Leave "" to hide the tutor. */
 const PROXY_URL="https://english-tutor.tunglamisfinn.workers.dev";
 let FEED={};
@@ -7305,7 +7338,7 @@ function vmark(w,ok){let v=S.v[w]||(S.v[w]={b:0,m:0});v.b=ok?Math.min(3,v.b+1):0
 /* ===== 5. ROUND ENGINE ===== */
 function start(l,m){if(m=="daily")return startDaily(l);if(m.startsWith("sk_"))return startSkill(l,m.slice(3));if(m.startsWith("gs")){let x=m.slice(2);return/^\d+$/.test(x)?startGS(+l.slice(6),+x):gsx(+l.slice(6),x)}let d=DATA[l];if(!d.P.length){return ask("Coming soon",l+" content is not added yet.","OK")}
  R={l,m,i:0,sc:0,st:0,ms:[],q:B[m](d).slice(0,10),done:0,timed:RT[LV.indexOf(l)]>0};view="round";draw()}
-function finish(){if(R.endless){let k=R.l+"|"+R.m,b=(S.hs=S.hs||{})[k]||{s:0};R.prev=b.s;R.nw=R.pts>b.s;if(R.nw)S.hs[k]={s:R.pts,st:R.bs||0,n:R.n};S.bs=Math.max(S.bs,R.bs||0);save();view="end";return draw()}if(R.tst){R.res={sk:R.hit,o:Math.round(R.hit.reduce((a,b)=>a+b)/4)};view="end";return draw()}if(R.dly){dayDone();view="end";return draw()}let p=Math.round(100*R.sc/R.q.length),k=R.l+R.m;S.p[k]=Math.max(S.p[k]||0,p);S.bs=Math.max(S.bs,R.bs||0);save();view="end";draw()}
+function finish(){if(R.endless){let k=R.l+"|"+R.m,b=(S.hs=S.hs||{})[k]||{s:0};R.prev=b.s;R.nw=R.pts>b.s;if(R.nw)S.hs[k]={s:R.pts,st:R.bs||0,n:R.n};S.bs=Math.max(S.bs,R.bs||0);recordPracticeDay();save();view="end";return draw()}if(R.tst){R.res={sk:R.hit,o:Math.round(R.hit.reduce((a,b)=>a+b)/4)};view="end";return draw()}if(R.dly){dayDone();view="end";return draw()}let p=Math.round(100*R.sc/R.q.length),k=R.l+R.m;S.p[k]=Math.max(S.p[k]||0,p);S.bs=Math.max(S.bs,R.bs||0);recordPracticeDay();save();view="end";draw()}
 /* ===== EXPLANATIONS: rule + evidence from the text + why the other options are wrong ===== */
 const LK={although:"shows contrast and is followed by a full clause",however:"shows contrast between two sentences and takes a comma",despite:"shows contrast and is followed by a noun or -ing form",because:"gives a reason",so:"introduces a result",but:"shows contrast between two clauses",therefore:"introduces a result (more formal)",consequently:"introduces a result (formal)",whereas:"contrasts two facts in one sentence",nevertheless:"means 'despite that' and shows contrast",moreover:"adds another point","as a result":"introduces a result",while:"shows contrast (or two things happening at once)","in contrast":"introduces an opposite fact",albeit:"means 'although' and is followed by an adjective or short phrase",or:"offers a choice",and:"adds information"};
 const TM2=/\b(yesterday|last (night|week|weekend|month|year|summer|sunday|saturday)|ago|in (19|20)\d\d)\b/i,T=(c,s)=>c?s:0;
@@ -7422,7 +7455,8 @@ function startDaily(l){S.dl=l;let ix=LV.indexOf(l),d=DATA[l],r=rng(today()+l),q=
  mix(d.F||[]).slice(0,c[7]).forEach(f=>q.push(mc("Noun from “"+f[0]+"”?",[f[1],f[2],f[0]],0,"Word family: "+f.join(" → "))));
  let fd=((FEED[today()]||{})[l]||[]).map(fq).filter(Boolean),k=Math.min(fd.length,6);q=[...fd.slice(0,k),...q.slice(0,10-k)];
  R={dly:1,l,m:"daily",i:0,sc:0,st:0,ms:[],q,done:0,timed:RT[ix]>0};view="round";draw()}
-function dayDone(){let t=today(),p=Math.round(100*R.sc/R.q.length),ds=S.ds||{n:0,t:""};S.d=S.d||{};S.d[R.l]={t,p};if(ds.t!=t)ds={n:ds.t==ago(1)?ds.n+1:1,t};S.ds=ds;save()}
+function recordPracticeDay(){let t=today(),ds=S.ds||{n:0,t:""};if(ds.t!==t)ds={n:ds.t===ago(1)?ds.n+1:1,t};S.ds=ds}
+function dayDone(){let t=today(),p=Math.round(100*R.sc/R.q.length);S.d=S.d||{};S.d[R.l]={t,p};recordPracticeDay();save()}
 function dcard(){let ls=tls(),def=ls.includes(S.dl)?S.dl:ls[ls.length-1],d=(S.d||{})[def],n=dstreak(),done=d&&d.t==today(),fd=((FEED[today()]||{})[def]||[]).length;
  return`<section class="card card-feature">${head("calendar","Today’s practice","10 fresh exercises every day, matched to your level: easier choices at A1, more typed answers and longer sentences at B2 and above."+(fd?" Includes today’s feed.":""),`<span class="chip">${ic("flame")}${n}-day streak</span>`)}<div class="controls">${sel("dl","Level",ls.map(l=>[l,l+" · "+(LVN[l]||l)]),def)}<button class="btn-primary btn-lg" data-daily="1">${done?ic("rotate")+"Practise again":ic("play")+"Start today’s set"}</button>${done?`<span class="chip chip-success">${ic("check")}Done today · ${d.p}%</span>`:""}</div></section>`}
 /* Feed loading: fetch with a 6 s timeout, cache the last good copy, and fall back to the cache when offline */
@@ -8131,7 +8165,7 @@ function round(){let it=R.q[R.i]||(R.q[R.i]=R.endless?enext():tnext(R.i)),pct=Ma
 function end(){if(R.tst)return tend();if(R.endless)return eend();let n=R.q.length,p=Math.round(100*R.sc/n),i=LV.indexOf(R.l),nx=i>=0&&i<LV.length-1&&p>=PASS[i],mod=MD.includes(R.m)&&i>=0,pass=mod&&p>=PASS[i],
  t=p>=90?"Outstanding work":p>=(i>=0?PASS[i]:70)?"Nice work":p>=40?"Good effort":"Keep practising";
  return`<section class="card result">${ring(p)}<p class="eyebrow">${esc(R.l)} · ${esc(MN[R.m]||"")}</p><h1 class="result-h">${t}</h1><p class="lede">${R.sc} of ${n} correct.${mod?" Pass mark at this level is "+PASS[i]+"%.":""}</p>
-<div class="result-stats">${rtile("check",R.sc+"/"+n,"Correct")}${rtile("flame",R.bs||0,"Best streak")}${mod?rtile(pass?"trophy":"target",pass?"Passed":"Not yet",pass?"Level progress saved":PASS[i]+"% needed",pass):""}</div>${review(R.ms)}
+<div class="result-stats">${rtile("check",R.sc+"/"+n,"Correct")}${rtile("flame",R.bs||0,"Best streak")}${rtile("calendar",dstreak(),"Day streak")}${mod?rtile(pass?"trophy":"target",pass?"Passed":"Not yet",pass?"Level progress saved":PASS[i]+"% needed",pass):""}</div>${review(R.ms)}
 <div class="actions center"><button class="btn-primary btn-lg" data-go="${R.l}|${R.m}">${ic("rotate")}Try again</button>${nx?`<button class="btn btn-lg" data-go="${LV[i+1]}|${R.m}">Next level${ic("arrowR")}</button>`:""}<button class="btn-ghost btn-lg" data-v="home">${ic("home")}Home</button></div></section>`}
 function words(){let all=[...new Set([...Object.values(DATA).flatMap(d=>d.W.map(w=>w[0])),...(S.ws||[]).map(w=>w.word)])],g=f=>all.filter(w=>S.v[w]&&f(S.v[w])),
  G=[["Mastered","star","success",g(v=>v.b>=3)],["Learning","sprout","primary",g(v=>v.b>0&&v.b<3)],["Struggling","target","danger",g(v=>v.b==0&&v.m>0)]];
@@ -8155,7 +8189,7 @@ function fmark(ok){let idx=R.ord[R.i],c=R.cards[idx];if(!c)return;
  vmark(c.w,ok);
  if(ok)R.known.add(idx);
  else{R.again[idx]=(R.again[idx]||0)+1;if(R.again[idx]<=2){let at=Math.min(R.i+4,R.ord.length);R.ord.splice(at,0,idx);rec.ins=at}}   /* a missed card comes back a few cards later */
- R.hist.push(rec);R.i++;R.fl=0;R.enter=1;if(R.i>=R.ord.length)R.end=1;save()}
+ R.hist.push(rec);R.i++;R.fl=0;R.enter=1;if(R.i>=R.ord.length){R.end=1;recordPracticeDay()}save()}
 function fundo(){let h=R.hist.pop();if(!h)return;R.i--;R.fl=0;R.end=0;R.enter=1;
  if(h.ins>=0)R.ord.splice(h.ins,1);
  if(h.ok&&!h.hadKnown)R.known.delete(h.idx);R.again[h.idx]=h.again;
@@ -8397,10 +8431,135 @@ window.trainerLessonContext = () => ({ lessons: Array.from(LES.reduce((map, l) =
     if (focusBtn) btn.focus({ preventScroll: true });
   }
   function pulse() { dot.classList.remove('pop'); void dot.offsetWidth; dot.classList.add('pop'); }
-  function reveal(from, apply, cls) {
+  function clearOceanLife() {
+    document.querySelectorAll('.et-ocean-life').forEach(function (layer) { layer.remove(); });
+  }
+  function clearThemeLife() {
+    document.querySelectorAll('.et-theme-life').forEach(function (layer) { layer.remove(); });
+  }
+  function addOceanLife() {
+    clearOceanLife();
+    var layer = document.createElement('div');
+    layer.className = 'et-ocean-life';
+    layer.setAttribute('aria-hidden', 'true');
+    var ns = 'http://www.w3.org/2000/svg';
+    var bubbleData = [
+      [7, 0, 2.3], [16, .2, 2.7], [26, .05, 2.1], [37, .4, 2.8],
+      [49, .16, 2.4], [61, .32, 2.7], [73, .08, 2.2], [84, .38, 2.6], [94, .18, 2.3]
+    ];
+    bubbleData.forEach(function (b, i) {
+      var svg = document.createElementNS(ns, 'svg');
+      svg.setAttribute('viewBox', '0 0 28 34');
+      svg.setAttribute('class', 'et-ocean-bubble');
+      svg.setAttribute('focusable', 'false');
+      svg.style.left = b[0] + '%';
+      svg.style.setProperty('--ocean-delay', b[1] + 's');
+      svg.style.setProperty('--ocean-duration', b[2] + 's');
+      svg.style.setProperty('--ocean-size', (i % 3 === 0 ? 24 : i % 3 === 1 ? 16 : 20) + 'px');
+      var circle = document.createElementNS(ns, 'circle');
+      circle.setAttribute('cx', '13'); circle.setAttribute('cy', '19');
+      circle.setAttribute('r', String(i % 3 === 0 ? 10 : i % 3 === 1 ? 6 : 8));
+      var shine = document.createElementNS(ns, 'path');
+      shine.setAttribute('d', 'M9 14c1.2-1.8 3.3-2.7 5.4-2.5');
+      shine.setAttribute('class', 'et-ocean-shine');
+      svg.appendChild(circle); svg.appendChild(shine); layer.appendChild(svg);
+    });
+    function addFish(y, delay, size, flip) {
+      var fish = document.createElementNS(ns, 'svg');
+      fish.setAttribute('viewBox', '0 0 68 40');
+      fish.setAttribute('class', 'et-ocean-fish');
+      fish.setAttribute('focusable', 'false');
+      fish.style.top = y + '%';
+      fish.style.setProperty('--ocean-delay', delay + 's');
+      fish.style.setProperty('--ocean-duration', '2.85s');
+      fish.style.setProperty('--ocean-size', size + 'px');
+      if (flip) fish.classList.add('et-ocean-fish-reverse');
+      var tail = document.createElementNS(ns, 'path');
+      tail.setAttribute('class', 'et-fish-tail');
+      tail.setAttribute('d', 'M19 20 4 9v22l15-11Z');
+      var body = document.createElementNS(ns, 'path');
+      body.setAttribute('class', 'et-fish-body');
+      body.setAttribute('d', 'M14 20C23 7 40 5 53 16c3 2 5 4 6 6-7 12-24 16-39 8-3-2-5-5-6-10Z');
+      var fin = document.createElementNS(ns, 'path');
+      fin.setAttribute('class', 'et-fish-fin');
+      fin.setAttribute('d', 'M32 12c2-6 9-8 14-7-1 5-5 9-11 10m-4 16c2 5 7 7 12 7-1-5-4-8-9-10');
+      var eye = document.createElementNS(ns, 'circle');
+      eye.setAttribute('class', 'et-fish-eye'); eye.setAttribute('cx', '50');
+      eye.setAttribute('cy', '19'); eye.setAttribute('r', '1.8');
+      fish.appendChild(tail); fish.appendChild(body); fish.appendChild(fin); fish.appendChild(eye);
+      layer.appendChild(fish);
+    }
+    addFish(36, .04, 72, false);
+    addFish(61, .48, 54, true);
+    document.body.appendChild(layer);
+    window.setTimeout(function () { layer.remove(); }, 3550);
+  }
+  function addThemeLife(theme, x, y) {
+    clearThemeLife();
+    var paths = {
+      warm: ['M16 2 19.5 12.5 30 16 19.5 19.5 16 30 12.5 19.5 2 16 12.5 12.5Z', 'M16 4a12 12 0 1 0 0 24 12 12 0 0 0 0-24Zm0 5v14m-7-7h14'],
+      forest: ['M27 4C14 3 4 10 5 21c.4 5 5 8 10 6C23 23 26 14 27 4ZM8 25c4-7 9-12 16-17'],
+      violet: ['M16 2 20 12 30 16 20 20 16 30 12 20 2 16 12 12Z', 'm16 5 2.5 8.5L27 16l-8.5 2.5L16 27l-2.5-8.5L5 16l8.5-2.5Z'],
+      rose: ['M16 3C14 9 8 12 6 16c-3 6 1 12 7 11 7-1 12-7 11-13C23 9 18 7 16 3Z', 'M16 3C14 9 8 12 6 16c-3 6 1 12 7 11 7-1 12-7 11-13C23 9 18 7 16 3Z'],
+      mint: ['M27 4C14 3 4 10 5 21c.4 5 5 8 10 6C23 23 26 14 27 4ZM8 25c4-7 9-12 16-17'],
+      cherry: ['M16 27C13 24 4 18 4 12a6 6 0 0 1 11-3l1 2 1-2a6 6 0 0 1 11 3c0 6-9 12-12 15Z', 'M16 27C13 24 4 18 4 12a6 6 0 0 1 11-3l1 2 1-2a6 6 0 0 1 11 3c0 6-9 12-12 15Z'],
+      sunflower: ['M16 2 19 10 27 5 23 14 31 16 23 19 27 27 19 23 16 31 13 23 5 27 9 19 1 16 9 13 5 5 13 9Z', 'M16 2c2 0 3 5 4 7 2-2 6-5 8-3s-1 6-3 8c3 1 7 2 7 4s-4 3-7 4c2 2 5 6 3 8s-6-1-8-3c-1 3-2 7-4 7s-3-4-4-7c-2 2-6 5-8 3s1-6 3-8c-3-1-7-2-7-4s4-3 7-4c-2-2-5-6-3-8s6 1 8 3c1-2 2-7 4-7Z'],
+      lagoon: ['M16 2C13 8 6 15 6 21a10 10 0 0 0 20 0C26 15 19 8 16 2Z', 'M3 18c4-4 7 4 13 0s9 4 13 0M3 25c4-4 7 4 13 0s9 4 13 0'],
+      graphite: ['M16 2 19.5 12.5 30 16 19.5 19.5 16 30 12.5 19.5 2 16 12.5 12.5Z', 'M16 5 18 14l9 2-9 2-2 9-2-9-9-2 9-2Z']
+    };
+    var shapes = paths[theme];
+    if (!shapes) return;
+    var layer = document.createElement('div');
+    layer.className = 'et-theme-life';
+    layer.dataset.theme = theme;
+    layer.setAttribute('aria-hidden', 'true');
+    var ns = 'http://www.w3.org/2000/svg';
+    var directions = [[-44,-64],[-8,-82],[36,-60],[64,-24],[58,28],[22,62],[-18,70],[-62,38],[-78,-10],[-34,8],[8,26],[40,4]];
+    directions.forEach(function (direction, i) {
+      var particle = document.createElement('span');
+      particle.className = 'et-theme-particle';
+      particle.style.left = x + 'px'; particle.style.top = y + 'px';
+      particle.style.setProperty('--fx-x', direction[0] + 'px');
+      particle.style.setProperty('--fx-y', direction[1] + 'px');
+      particle.style.setProperty('--fx-turn', (i % 2 ? 75 : -75) + 'deg');
+      particle.style.setProperty('--fx-size', (i % 3 === 0 ? 21 : i % 3 === 1 ? 15 : 18) + 'px');
+      particle.style.setProperty('--fx-delay', (i * .024) + 's');
+      var svg = document.createElementNS(ns, 'svg');
+      svg.setAttribute('viewBox', '0 0 32 32'); svg.setAttribute('focusable', 'false');
+      var shape = document.createElementNS(ns, 'path');
+      shape.setAttribute('d', shapes[i % shapes.length]); svg.appendChild(shape); particle.appendChild(svg); layer.appendChild(particle);
+    });
+    document.body.appendChild(layer);
+    window.setTimeout(function () { layer.remove(); }, 1550);
+  }
+  function addThemeRipple(x, y) {
+    var ripple = document.createElement('span');
+    ripple.className = 'et-ripple'; ripple.style.left = x + 'px'; ripple.style.top = y + 'px';
+    document.body.appendChild(ripple);
+    window.setTimeout(function () { ripple.remove(); }, 950);
+  }
+
+  function reveal(from, apply, cls, targetTheme) {
     if (mq.matches) { apply(); return; }
     var r = from.getBoundingClientRect();
     var x = r.left + r.width / 2, y = r.top + r.height / 2;
+    if (targetTheme === 'ocean') {
+      if (mq.matches) { apply(); return; }
+      root.classList.add('ocean-theme-change');
+      apply();
+      addOceanLife();
+      window.setTimeout(function () { root.classList.remove('ocean-theme-change'); }, 1250);
+      return;
+    }
+    if (targetTheme) {
+      clearTimeout(themeAnimTimer);
+      root.classList.add(cls);
+      apply();
+      addThemeRipple(x, y);
+      addThemeLife(targetTheme, x, y);
+      themeAnimTimer = window.setTimeout(function () { root.classList.remove(cls); }, 1100);
+      return;
+    }
     if (document.startViewTransition) {
       var rad = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
       root.style.setProperty('--vx', x + 'px'); root.style.setProperty('--vy', y + 'px'); root.style.setProperty('--vr', (rad * 1.05) + 'px');
@@ -8419,10 +8578,13 @@ window.trainerLessonContext = () => ({ lessons: Array.from(LES.reduce((map, l) =
   }
   function choose(t, from) {
     if (t === current()) { hidePop(true); return; }
+    if (t !== 'ocean') clearOceanLife();
+    clearThemeLife();
     try { localStorage.setItem(KEY, t); } catch (e) {}
-    reveal(from.querySelector('.swatch-dot'), function () { paint(t); hidePop(true, true); pulse(); }, 'theme-anim');
+    reveal(from.querySelector('.swatch-dot'), function () { paint(t); hidePop(true, true); pulse(); }, 'theme-anim', t);
   }
   var MKEY = 'english-trainer-mode', seg = document.getElementById('mode-seg');
+  var themeAnimTimer = null;
   var modeBtns = Array.prototype.slice.call(seg.querySelectorAll('[data-mode-opt]'));
   function modeNow() { var m = root.dataset.mode; return m === 'light' || m === 'dark' ? m : 'auto'; }
   function paintMode(m) {
